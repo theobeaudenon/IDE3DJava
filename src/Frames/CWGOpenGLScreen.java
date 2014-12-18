@@ -27,7 +27,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
 
     private GLCanvas mCanvas;
     private long fpsLast = System.currentTimeMillis();
-
+    private FPSAnimator animator;
     public CWGOpenGLScreen(){
         super("Project",
                 true, //resizable
@@ -43,6 +43,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         this.setVisible(true);
 
 //    CWGDebug.info(TAG, "Window created!");
+        animator = null;
     }
     private void CWGSetupGL(){
         GLCapabilities mCaps = new GLCapabilities(null);
@@ -53,8 +54,8 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         mCanvas.addGLEventListener(this);
 
         this.add(mCanvas, BorderLayout.CENTER);
+        animator = new FPSAnimator(mCanvas,60,true);
 
-        final FPSAnimator animator = new FPSAnimator(mCanvas,60,true);
         animator.start();
 
     }
@@ -105,6 +106,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
     //public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged){}
     public void display(GLAutoDrawable drawable){ CWGDrawScene(drawable); }
     public void dispose(GLAutoDrawable drawable){
+        animator.stop();
         mCanvas.getAnimator().stop();
     }
 
