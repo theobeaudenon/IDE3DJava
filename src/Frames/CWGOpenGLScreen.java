@@ -13,6 +13,7 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
 
 import com.jogamp.opengl.util.Animator;
+import com.jogamp.opengl.util.FPSAnimator;
 
 public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
 
@@ -53,7 +54,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
 
         this.add(mCanvas, BorderLayout.CENTER);
 
-        final Animator animator = new Animator(mCanvas);
+        final FPSAnimator animator = new FPSAnimator(mCanvas,60,true);
         animator.start();
 
     }
@@ -81,7 +82,9 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
     }
 
     public void CWGCalculateFPS(){
-        this.setTitle(TAG + " [" + 1000 / (System.currentTimeMillis() - fpsLast) + "]");
+      try {
+          this.setTitle(TAG + " [" + 1000 / (System.currentTimeMillis() - fpsLast) + "]");
+      }catch (Exception e){};
         fpsLast = System.currentTimeMillis();
     }
 
@@ -101,6 +104,8 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
     }
     //public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged){}
     public void display(GLAutoDrawable drawable){ CWGDrawScene(drawable); }
-    public void dispose(GLAutoDrawable drawable){}
+    public void dispose(GLAutoDrawable drawable){
+        mCanvas.getAnimator().stop();
+    }
 
 }
