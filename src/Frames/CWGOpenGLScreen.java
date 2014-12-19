@@ -38,11 +38,12 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         this.setLayout(new BorderLayout());
         this.setLocation(300,0);
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+        animator = null;
         CWGSetupGL();
         this.setVisible(true);
 
 //    CWGDebug.info(TAG, "Window created!");
-        animator = null;
+
     }
     private void CWGSetupGL(){
         GLCapabilities mCaps = new GLCapabilities(null);
@@ -64,7 +65,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         CWGCalculateFPS();
 
         GL2 gl = drawable.getGL().getGL2();
-        // gl.glViewport(0, 0, 300, 300); //Possibly use to move around object
+        gl.glViewport(0, 0, 300, 300); //Possibly use to move around object
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
 
         gl.glPushMatrix();
@@ -72,11 +73,12 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
 
         gl.glBegin(GL2.GL_TRIANGLES);
         gl.glColor3d(0, 2, 0);
-// Begin drawing triangles
+        // Begin drawing triangles
         gl.glVertex3f( 0.0f, 1.0f, 0.0f);                   // Top vertex
         gl.glVertex3f(-1.0f,-1.0f, 0.0f);                   // Bottom left vertex
         gl.glVertex3f( 1.0f,-1.0f, 0.0f);                   // Bottom right vertex
         gl.glEnd();                                         // Finish drawing triangles
+
         gl.glPopMatrix();
 
     }
