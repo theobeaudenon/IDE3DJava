@@ -9,6 +9,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -73,6 +74,7 @@ public class TreeFrame extends JInternalFrame {
         for(String p : projet.getScene())
         {
             DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
+
             scene.add(vegetableNode);
         }
 
@@ -101,6 +103,9 @@ public class TreeFrame extends JInternalFrame {
 
         setLayout(new BorderLayout());
         JTree tree = new JTree(root);
+        tree.addMouseListener(ma);
+
+
         if (tree.getCellRenderer() instanceof DefaultTreeCellRenderer)
         {
             final DefaultTreeCellRenderer renderer =
@@ -154,6 +159,32 @@ public class TreeFrame extends JInternalFrame {
 
 
     }
+    MouseAdapter ma = new MouseAdapter() {
+        private void myPopupEvent(MouseEvent e) {
+            int x = e.getX();
+            int y = e.getY();
+            JTree tree = (JTree)e.getSource();
+            TreePath path = tree.getPathForLocation(x, y);
+            if (path == null)
+                return;
+
+            tree.setSelectionPath(path);
+
+           // My_Obj obj = (My_Obj)path.getLastPathComponent();
+
+            String label = "clicldroit";
+            JPopupMenu popup = new JPopupMenu();
+            popup.add(new JMenuItem(label));
+            popup.show(tree, x, y);
+        }
+        public void mousePressed(MouseEvent e) {
+            if (e.isPopupTrigger()) myPopupEvent(e);
+        }
+        public void mouseReleased(MouseEvent e) {
+            if (e.isPopupTrigger()) myPopupEvent(e);
+        }
+    };
+
 
     public void setDragable(boolean test){
 
