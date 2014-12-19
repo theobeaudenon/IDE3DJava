@@ -170,9 +170,9 @@ public class TreeFrame extends JInternalFrame {
 
             tree.setSelectionPath(path);
 
-           // My_Obj obj = (My_Obj)path.getLastPathComponent();
+            DefaultMutableTreeNode obj = (DefaultMutableTreeNode)path.getLastPathComponent();
 
-            String label = "clicldroit";
+            String label =  obj.getUserObject().toString();
             JPopupMenu popup = new JPopupMenu();
             popup.add(new JMenuItem(label));
             popup.show(tree, x, y);
