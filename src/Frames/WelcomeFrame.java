@@ -86,9 +86,6 @@ public class WelcomeFrame extends JFrame implements ActionListener{
                 public void run() {
                     JFrame.setDefaultLookAndFeelDecorated(true);
 
-
-
-
                     Projet p = new Projet();
                     p.setNom("Nouveau Projet");
                     ArrayList<String> s =  new ArrayList<String>();

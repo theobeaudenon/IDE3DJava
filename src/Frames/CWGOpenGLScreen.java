@@ -1,8 +1,7 @@
 package Frames;
 
-import java.awt.BorderLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.*;
+import java.awt.event.*;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -10,7 +9,10 @@ import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
+import buttons.PinButton;
+import buttons.RevertPlaceButton;
 import com.jogamp.opengl.util.Animator;
 import com.jogamp.opengl.util.FPSAnimator;
 
@@ -21,25 +23,94 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
     }
 
     private static final long serialVersionUID = 635066680731362587L;
-
+    private PinButton pinButton = new PinButton("");
+    private JPanel top = new JPanel();
     private static final   String TAG = "CWGOpenGLScreen";
-
     private GLCanvas mCanvas;
     private long fpsLast = System.currentTimeMillis();
     private FPSAnimator animator;
+    private RevertPlaceButton revertPlaceButton = new RevertPlaceButton("");
+    int posX ;
+    int posY ;
+    private int compteurClic = 1;
+
+
+
+    // Listener pin not pin
+
+    MouseListener ml = new MouseAdapter() {
+        public void mousePressed(MouseEvent e) {
+            posX = e.getX();
+            posY = e.getY();
+        }
+    };
+
+    MouseMotionListener m2 = new MouseMotionListener() {
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            int depX = e.getX() - posX;
+            int depY = e.getY() - posY;
+            setLocation(getX() + depX, getY() + depY);
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+        }
+    };
+
+    //
+
     public CWGOpenGLScreen(){
         super("Project",
                 true, //resizable
                 true, //closable
                 true, //maximizable
                 true);//iconifiable
-        this.setTitle(TAG);
-        this.setSize(1200,930);
+
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+
         this.setLayout(new BorderLayout());
+
+        setDragable(false);
+        top.setBackground(new Color(45, 48, 50));
+        top.setBorder(new LineBorder(Color.BLACK));
+        top.setBorder(new LineBorder(Color.BLACK));
+        pinButton.setPreferredSize(new Dimension(16, 16));
+        top.add(pinButton);
+        revertPlaceButton.setPreferredSize(new Dimension(16,16));
+        top.add(revertPlaceButton);
+        this.add(top, BorderLayout.NORTH);
+        this.setTitle(TAG);
+        this.setSize(1200, 930);
         this.setLocation(300,0);
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+        setBorder(null);
         CWGSetupGL();
         this.setVisible(true);
+
+
+        pinButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                compteurClic++;
+                if (compteurClic%2 == 0){
+                    setDragable(true);
+
+                }
+                else {
+                    setDragable(false);
+                }
+            }
+        });
+
+        revertPlaceButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setLocation(300,0);
+                setDragable(false);
+            }
+        });
 
 //    CWGDebug.info(TAG, "Window created!");
         animator = null;
@@ -73,9 +144,9 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         gl.glBegin(GL2.GL_TRIANGLES);
         gl.glColor3d(0, 2, 0);
 // Begin drawing triangles
-        gl.glVertex3f( 0.0f, 1.0f, 0.0f);                   // Top vertex
+        gl.glVertex3f(0.0f, 1.0f, 0.0f);                   // Top vertex
         gl.glVertex3f(-1.0f,-1.0f, 0.0f);                   // Bottom left vertex
-        gl.glVertex3f( 1.0f,-1.0f, 0.0f);                   // Bottom right vertex
+        gl.glVertex3f(1.0f, -1.0f, 0.0f);                   // Bottom right vertex
         gl.glEnd();                                         // Finish drawing triangles
         gl.glPopMatrix();
 
@@ -107,6 +178,21 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
     public void dispose(GLAutoDrawable drawable){
         animator.stop();
         mCanvas.getAnimator().stop();
+    }
+
+    public void setDragable(boolean test){
+
+
+
+        if (test){
+            top.addMouseListener(ml);
+            top.addMouseMotionListener(m2);
+        }
+        else {
+            top.removeMouseListener(ml);
+            top.removeMouseMotionListener(m2);
+
+        }
     }
 
 }

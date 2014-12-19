@@ -1,12 +1,11 @@
 package Frames;
 
 import buttons.PinButton;
-import buttons.ToolProjectButton;
+import buttons.RevertPlaceButton;
 import classe.Projet;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
@@ -18,11 +17,11 @@ import java.awt.event.*;
  */
 public class TreeFrame extends JInternalFrame {
 
-    BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-    Component northPane = ui.getNorthPane();
-    MouseMotionListener[] motionListeners = (MouseMotionListener[]) northPane.getListeners(MouseMotionListener.class);
+   //BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
+   // Component northPane = ui.getNorthPane();
+   // MouseMotionListener[] motionListeners = (MouseMotionListener[]) northPane.getListeners(MouseMotionListener.class);
     private JPanel top = new JPanel();
-    private ToolProjectButton toolProjectButton = new ToolProjectButton("");
+    private RevertPlaceButton toolProjectButton = new RevertPlaceButton("");
     private PinButton pinButton = new PinButton("");
     int posX ;
     int posY ;
