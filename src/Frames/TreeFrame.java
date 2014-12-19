@@ -2,9 +2,12 @@ package Frames;
 
 import buttons.PinButton;
 import buttons.RevertPlaceButton;
+import buttons.ToolProjectButton;
 import classe.Projet;
+import utils.RightClicMenu;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -15,17 +18,18 @@ import java.awt.event.*;
 /**
  * Created by Boufle on 16/12/14.
  */
-public class TreeFrame extends JInternalFrame {
+public class TreeFrame extends JInternalFrame implements MouseListener {
 
    //BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
    // Component northPane = ui.getNorthPane();
    // MouseMotionListener[] motionListeners = (MouseMotionListener[]) northPane.getListeners(MouseMotionListener.class);
     private JPanel top = new JPanel();
-    private RevertPlaceButton toolProjectButton = new RevertPlaceButton("");
+    private ToolProjectButton toolProjectButton = new ToolProjectButton("");
     private PinButton pinButton = new PinButton("");
     int posX ;
     int posY ;
     private int compteurClic = 1;
+    private RightClicMenu rightClicMenu = new RightClicMenu();
 
 
     // Listener pin not pin
@@ -64,6 +68,7 @@ public class TreeFrame extends JInternalFrame {
         //create the root node
         ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
 
+        this.setContentPane(rightClicMenu);
         setDragable(false);
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(projet.getNom());
 
@@ -100,6 +105,7 @@ public class TreeFrame extends JInternalFrame {
 
         //create the tree by passing in the root node
 
+        this.addMouseListener(this);
         setLayout(new BorderLayout());
         JTree tree = new JTree(root);
         tree.addMouseListener(ma);
@@ -114,10 +120,8 @@ public class TreeFrame extends JInternalFrame {
             renderer.setTextNonSelectionColor(Color.WHITE);
             renderer.setTextSelectionColor(Color.WHITE);
         }
-        else
-        {
-            System.err.println("Sorry, no special colors today.");
-        }
+
+
         tree.setBackground(new Color(60,63,65));
         tree.setForeground(Color.WHITE);
         add(tree, BorderLayout.CENTER);
@@ -130,10 +134,12 @@ public class TreeFrame extends JInternalFrame {
                 compteurClic++;
                 if (compteurClic%2 == 0){
                     setDragable(true);
+                    setBorder(BorderFactory.createRaisedBevelBorder());
 
                 }
                 else {
                     setDragable(false);
+                    setBorder(BorderFactory.createLineBorder(Color.black));
                 }
             }
         });
@@ -142,11 +148,11 @@ public class TreeFrame extends JInternalFrame {
         top.add(toolProjectButton);
 
         top.setBackground(new Color(45, 48, 50));
-        top.setBorder(new LineBorder(Color.BLACK));
+        top.setBorder(BorderFactory.createLineBorder(Color.black));
 
         add(top, BorderLayout.NORTH);
 
-        setBorder(null);
+        setBorder(BorderFactory.createLineBorder(Color.black));
         setOpaque(false);
         getContentPane().setBackground(new Color(60, 63, 65));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -201,4 +207,30 @@ public class TreeFrame extends JInternalFrame {
     }
 
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        System.out.println("salut");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

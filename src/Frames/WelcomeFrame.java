@@ -81,6 +81,7 @@ public class WelcomeFrame extends JFrame implements ActionListener{
 
          }
         }  else {
+            WelcomeFrame.this.dispose();
 
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 public void run() {

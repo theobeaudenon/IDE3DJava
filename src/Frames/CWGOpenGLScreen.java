@@ -9,6 +9,7 @@ import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import buttons.PinButton;
@@ -78,6 +79,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         top.setBorder(new LineBorder(Color.BLACK));
         top.setBorder(new LineBorder(Color.BLACK));
         pinButton.setPreferredSize(new Dimension(16, 16));
+        top.setBorder(BorderFactory.createLineBorder(Color.black));
         top.add(pinButton);
         revertPlaceButton.setPreferredSize(new Dimension(16,16));
         top.add(revertPlaceButton);
@@ -86,7 +88,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         this.setSize(1200, 930);
         this.setLocation(300,0);
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-        setBorder(null);
+        setBorder(BorderFactory.createLineBorder(Color.black));
         CWGSetupGL();
         this.setVisible(true);
 
@@ -95,12 +97,15 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 compteurClic++;
+
                 if (compteurClic%2 == 0){
                     setDragable(true);
+                    setBorder(BorderFactory.createRaisedBevelBorder());
 
                 }
                 else {
                     setDragable(false);
+                    setBorder(BorderFactory.createLineBorder(Color.black));
                 }
             }
         });
@@ -110,6 +115,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
             public void actionPerformed(ActionEvent e) {
                 setLocation(300,0);
                 setDragable(false);
+                setBorder(BorderFactory.createLineBorder(Color.black));
             }
         });
 
