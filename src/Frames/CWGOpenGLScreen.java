@@ -33,6 +33,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
     int posX ;
     int posY ;
     private int compteurClic = 1;
+    private int test;
 
 
 
