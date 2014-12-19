@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
@@ -65,21 +64,21 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         CWGCalculateFPS();
 
         GL2 gl = drawable.getGL().getGL2();
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT);
-        gl.glLoadIdentity();
+        // gl.glViewport(0, 0, 300, 300); //Possibly use to move around object
+        gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
 
+        gl.glPushMatrix();
+        //gl.glTranslatef(-1.5f,1.5f,0.0f);                  // Move left 1.5 units, up 1.5 units, and back 8 units
 
-        gl.glBegin(GL.GL_TRIANGLES);
-        gl.glColor3f(1.0f, 0.0f, 0.0f);
-        gl.glVertex3f(1.0f / 5 , 0.0f, 0.0f);
+        gl.glBegin(GL2.GL_TRIANGLES);
+        gl.glColor3d(0, 2, 0);
+// Begin drawing triangles
+        gl.glVertex3f( 0.0f, 1.0f, 0.0f);                   // Top vertex
+        gl.glVertex3f(-1.0f,-1.0f, 0.0f);                   // Bottom left vertex
+        gl.glVertex3f( 1.0f,-1.0f, 0.0f);                   // Bottom right vertex
+        gl.glEnd();                                         // Finish drawing triangles
+        gl.glPopMatrix();
 
-        gl.glColor3f(0.0f, 1.0f, 0.0f);
-        gl.glVertex3f(1.0f / 5, 1.0f / 5, 0.0f);
-
-        gl.glColor3f(0.0f, 0.0f, 1.0f);
-        gl.glVertex3f(0.0f, 1.0f / 5, 1.0f / 5);
-        gl.glEnd();
-        gl.glFlush();
     }
 
     public void CWGCalculateFPS(){
@@ -100,8 +99,8 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
 //        CWGDebug.info(TAG, "Init called!");
     }
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height){
-        GL2 gl = drawable.getGL().getGL2();
-        gl.glViewport(x, y, width, height);
+       // GL2 gl = drawable.getGL().getGL2();
+        //gl.glViewport(x, y, width, height);
     }
     //public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged){}
     public void display(GLAutoDrawable drawable){ CWGDrawScene(drawable); }
