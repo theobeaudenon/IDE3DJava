@@ -3,6 +3,7 @@ package Frames;
 import classe.Projet;
 import utils.ZipFileReader;
 
+import javax.lang.model.type.ArrayType;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -90,8 +91,12 @@ public class WelcomeFrame extends JFrame implements ActionListener{
 
                     Projet p = new Projet();
                     p.setNom("Nouveau Projet");
-                    p.setObj(new ArrayList<String>());
-                    p.setScene(new ArrayList<String>());
+                    ArrayList<String> s =  new ArrayList<String>();
+                    s.add("Scene1");
+                    ArrayList<String> o =  new ArrayList<String>();
+                    o.add("obj1");
+                    p.setObj(o);
+                    p.setScene(s);
                     //Create and set up the window.
                     InternalFrameDemo frame = new InternalFrameDemo(p);
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
