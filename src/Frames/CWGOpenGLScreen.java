@@ -8,16 +8,18 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
+import javax.media.opengl.glu.GLU;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import Shapes.Cube;
 import buttons.PinButton;
 import buttons.RevertPlaceButton;
 import com.jogamp.opengl.util.Animator;
 import com.jogamp.opengl.util.FPSAnimator;
 
-public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
+public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener {
 
     public static void main(String[] args) {
         new CWGOpenGLScreen().setVisible(true);
@@ -27,7 +29,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
     private PinButton pinButton = new PinButton("");
     private JPanel top = new JPanel();
     private static final   String TAG = "CWGOpenGLScreen";
-    private GLCanvas mCanvas;
+    private GLCanvas mCanvas = new GLCanvas();
     private long fpsLast = System.currentTimeMillis();
     private FPSAnimator animator;
     private RevertPlaceButton revertPlaceButton = new RevertPlaceButton("");
@@ -35,6 +37,14 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
     int posY ;
     private int compteurClic = 1;
     private int test;
+    // Utilitaire donnant accès aux commandes bas niveau d'OpenGL
+    private GLU glu;
+    // Angle courant de rotation sur l'axe X
+    public float alphaX=0f;
+    // Angle courant de rotation sur l'axe Y
+    public float alphaY=0f;
+    // Angle courant de rotation sur l'axe Z
+    public float alphaZ=0f;
 
 
 
@@ -81,12 +91,13 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         pinButton.setPreferredSize(new Dimension(16, 16));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
         top.add(pinButton);
-        revertPlaceButton.setPreferredSize(new Dimension(16,16));
+        revertPlaceButton.setPreferredSize(new Dimension(16, 16));
         top.add(revertPlaceButton);
         this.add(top, BorderLayout.NORTH);
         this.setTitle(TAG);
         this.setSize(1200, 930);
-        this.setLocation(300,0);
+        this.setLocation(300, 0);
+        this.addKeyListener(this);
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setBorder(BorderFactory.createLineBorder(Color.black));
         CWGSetupGL();
@@ -129,6 +140,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
 
         mCanvas = new GLCanvas(mCaps);
         mCanvas.addGLEventListener(this);
+        mCanvas.addKeyListener(this);
 
         this.add(mCanvas, BorderLayout.CENTER);
         animator = new FPSAnimator(mCanvas,60,true);
@@ -139,46 +151,88 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
 
     public void CWGDrawScene(GLAutoDrawable drawable)
     {
-        CWGCalculateFPS();
-
+        // Récupération du contexte en GL2
         GL2 gl = drawable.getGL().getGL2();
-        // gl.glViewport(0, 0, 300, 300); //Possibly use to move around object
-        gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+        // Réinitialisation de la scène (effacement des tampons)
+        gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
+        // Reinitialisation de la matrice courante
+        gl.glLoadIdentity();
 
-        gl.glPushMatrix();
-        //gl.glTranslatef(-1.5f,1.5f,0.0f);                  // Move left 1.5 units, up 1.5 units, and back 8 units
+                /* (Alt aux translations) Placement de la caméra au point (4,0,12)
+                Direction vers l'origine de la scène (0,0,0)
+                Inclinaison nulle car la vue suit l'axe vertical (y) */
+        glu.gluLookAt(4f, 0f, 12f,
+                0f, 0f, 0f,
+                0f, 1f, 0f
+        );
 
-        gl.glBegin(GL2.GL_TRIANGLES);
-        gl.glColor3d(0, 2, 0);
-// Begin drawing triangles
-        gl.glVertex3f(0.0f, 1.0f, 0.0f);                   // Top vertex
-        gl.glVertex3f(-1.0f,-1.0f, 0.0f);                   // Bottom left vertex
-        gl.glVertex3f(1.0f, -1.0f, 0.0f);                   // Bottom right vertex
-        gl.glEnd();                                         // Finish drawing triangles
-        gl.glPopMatrix();
+        // Rotation de la matrice courante de l'angle alpha autour de l'axe x (1,0,0)
+        gl.glRotatef(alphaX,
+                1f, 0f, 0f
+        );
+
+        // Rotation de la matrice courante de l'angle alpha autour de l'axe x (0,1,0)
+        gl.glRotatef(alphaY,
+                0f, 1f, 0f
+        );
+
+        // Rotation de la matrice courante de l'angle alpha autour de l'axe x (0,0,1)
+        gl.glRotatef(alphaZ,
+                0f, 0f, 1f
+        );
+
+        // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
+        new Cube(2.0f, 0, 0, 0).draw(gl);
 
     }
 
     public void CWGCalculateFPS(){
-      try {
-          this.setTitle(TAG + " [" + 1000 / (System.currentTimeMillis() - fpsLast) + "]");
-      }catch (Exception e){};
+        try {
+            this.setTitle(TAG + " [" + 1000 / (System.currentTimeMillis() - fpsLast) + "]");
+        }catch (Exception e){};
         fpsLast = System.currentTimeMillis();
     }
 
     public void init(GLAutoDrawable drawable){
-        /*GL2 gl = drawable.getGL().getGL2();
-
-        gl.glClearColor(0, 0, 0, 0);
-        gl.glMatrixMode(GL2.GL_PROJECTION);
-        gl.glLoadIdentity();
-        gl.glOrtho(0, 1, 0, 1, -1, 1);
-        */
-//        CWGDebug.info(TAG, "Init called!");
+        // Récupération du contexte en GL2
+        GL2 gl = drawable.getGL().getGL2();
+        // Initialisation de l'utilitaire
+        glu = new GLU();
+        // Remplissage du contexte avec du NOIR
+        gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        // Configuration la profondeur au maximum
+        gl.glClearDepth(1.0f);
+        // Autorisation de faire un rendu avec une perspective
+        gl.glEnable(GL2.GL_DEPTH_TEST);
+        // Restriction de l'affichage aux éléments(Z<=Max)
+        gl.glDepthFunc(GL2.GL_LEQUAL);
+        // Correction pour la meilleure perspective
+        gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
+        // Joli mélange de couleur, et lissage des textures
+        gl.glShadeModel(GL2.GL_SMOOTH);
     }
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height){
-       // GL2 gl = drawable.getGL().getGL2();
-        //gl.glViewport(x, y, width, height);
+
+        GL2 gl = drawable.getGL().getGL2();
+
+        // Alternative à la division par zéro
+        if (height == 0) height = 1;
+
+        // Configuration de la zone d'affichage OpenGL
+        gl.glViewport(0, 0, width, height);
+
+        // Spécification d'une matrice de projection en perspective
+        // Passage en mode définition de la PROJECTION
+        gl.glMatrixMode(GL2.GL_PROJECTION);
+        // Reinitialisation de la matrice courante
+        gl.glLoadIdentity();
+        // Angle d'observation en degrés, echelle entre largeur et hauteur, intervalle de projection
+        glu.gluPerspective(45.0, (float)width/height, 0.1, 100.0);
+
+        // Selection de la transformation point de vue
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
+        // Reinitialisation de la matrice courante
+        gl.glLoadIdentity();
     }
     //public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged){}
     public void display(GLAutoDrawable drawable){ CWGDrawScene(drawable); }
@@ -202,4 +256,32 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener {
         }
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                alphaX -= 0.8;
+                break;
+            case KeyEvent.VK_DOWN:
+                alphaX += 0.8;
+                break;
+            case KeyEvent.VK_RIGHT:
+                alphaY += 0.8;
+                break;
+            case KeyEvent.VK_LEFT:
+                alphaY -= 0.8;
+                break;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
