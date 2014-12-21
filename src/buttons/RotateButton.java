@@ -29,7 +29,7 @@ public class RotateButton extends JButton implements MouseListener {
 
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D)g;
-        g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(),Color.GREEN, this);
+        g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(),Color.GREEN, this);//AJOUT FILTRE GREEN
 
     }
 

@@ -54,10 +54,11 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
         }
     };
+    private InternalFrameDemo parent;
 
     //
 
-    public TreeFrame(Projet projet){
+    public TreeFrame(Projet projet, InternalFrameDemo parent){
 
 
         super("Project",
@@ -65,6 +66,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
                 true, //closable
                 true, //maximizable
                 true);//iconifiable
+        this.parent = parent;
         //create the root node
         ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
 
@@ -180,6 +182,17 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
             String label =  obj.getUserObject().toString();
             JPopupMenu popup = new JPopupMenu();
             popup.add(new JMenuItem(label));
+            JMenuItem item = new JMenuItem("Ouvrir/Editer");
+            item.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //ouverture de l'inspecteur avec les données de la vue
+                    parent.creatFrameOPGL();
+
+                }
+            });
+
+            popup.add(item);
             popup.show(tree, x, y);
         }
         public void mousePressed(MouseEvent e) {

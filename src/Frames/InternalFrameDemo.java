@@ -213,7 +213,7 @@ public class InternalFrameDemo extends JFrame
     }
 
     protected void createTreeFrame() {
-        TreeFrame frame = new TreeFrame(this.projet);
+        TreeFrame frame = new TreeFrame(this.projet, this);
         frame.setVisible(true); //necessary as of 1.3
         desktop.add(frame);
         try {
