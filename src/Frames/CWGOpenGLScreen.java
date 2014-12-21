@@ -10,18 +10,14 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import Shapes.ColorRVB;
 import Shapes.Cube;
 import buttons.PinButton;
 import buttons.RevertPlaceButton;
-import buttons.ToolProjectButton;
-import com.jogamp.graph.geom.Triangle;
-import com.jogamp.opengl.util.Animator;
+import buttons.RotateButton;
 import com.jogamp.opengl.util.FPSAnimator;
-import javafx.scene.shape.Sphere;
 
 public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener {
 
@@ -39,7 +35,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private long fpsLast = System.currentTimeMillis();
     private FPSAnimator animator;
     private RevertPlaceButton revertPlaceButton = new RevertPlaceButton("");
-    private ToolProjectButton toolProjectButton = new ToolProjectButton("");
+    private RotateButton rotateButton = new RotateButton("");
     int posX ;
     int posY ;
     private int compteurClic = 1;
@@ -99,9 +95,9 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         top.setBorder(BorderFactory.createLineBorder(Color.black));
         top.add(pinButton);
         revertPlaceButton.setPreferredSize(new Dimension(16, 16));
-        toolProjectButton.setPreferredSize(new Dimension(16, 16));
+        rotateButton.setPreferredSize(new Dimension(16, 16));
         top.add(revertPlaceButton);
-        top.add(toolProjectButton);
+        top.add(rotateButton);
         this.add(top, BorderLayout.NORTH);
         this.setTitle(TAG);
         this.setSize(1200, 930);
@@ -138,14 +134,14 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
                 setBorder(BorderFactory.createLineBorder(Color.black));
             }
         });
-        toolProjectButton.addActionListener(new AbstractAction() {
+        rotateButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               if(automoving){
-                   automoving =false;
-               }else {
-                    automoving=true;
-               }
+                if (automoving) {
+                    automoving = false;
+                } else {
+                    automoving = true;
+                }
             }
         });
 
