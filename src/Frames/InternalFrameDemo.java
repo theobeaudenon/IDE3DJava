@@ -29,9 +29,12 @@ public class InternalFrameDemo extends JFrame
         //of the screen.
         int inset = 50;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int gameHeight = (int) (Math.round(screenSize.width * 0.95));
+        int gameWidth = (int) (Math.round( screenSize.height * 0.85));
+
         setBounds(inset, inset,
-                screenSize.width  - inset*2,
-                screenSize.height - inset*2);
+                gameHeight ,
+                gameWidth );
 
         //Set up the GUI.
         desktop = new JDesktopPane(); //a specialized layered pane
