@@ -17,12 +17,15 @@ import Shapes.ColorRVB;
 import Shapes.Cube;
 import buttons.PinButton;
 import buttons.RevertPlaceButton;
+import buttons.ToolProjectButton;
 import com.jogamp.graph.geom.Triangle;
 import com.jogamp.opengl.util.Animator;
 import com.jogamp.opengl.util.FPSAnimator;
 import javafx.scene.shape.Sphere;
 
 public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener {
+
+    private boolean automoving= true;
 
     public static void main(String[] args) {
         new CWGOpenGLScreen().setVisible(true);
@@ -36,6 +39,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private long fpsLast = System.currentTimeMillis();
     private FPSAnimator animator;
     private RevertPlaceButton revertPlaceButton = new RevertPlaceButton("");
+    private ToolProjectButton toolProjectButton = new ToolProjectButton("");
     int posX ;
     int posY ;
     private int compteurClic = 1;
@@ -95,7 +99,9 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         top.setBorder(BorderFactory.createLineBorder(Color.black));
         top.add(pinButton);
         revertPlaceButton.setPreferredSize(new Dimension(16, 16));
+        toolProjectButton.setPreferredSize(new Dimension(16, 16));
         top.add(revertPlaceButton);
+        top.add(toolProjectButton);
         this.add(top, BorderLayout.NORTH);
         this.setTitle(TAG);
         this.setSize(1200, 930);
@@ -130,6 +136,16 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
                 setLocation(300,0);
                 setDragable(false);
                 setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+        });
+        toolProjectButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               if(automoving){
+                   automoving =false;
+               }else {
+                    automoving=true;
+               }
             }
         });
 
@@ -183,6 +199,10 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         gl.glRotatef(alphaZ,
                 0f, 0f, 1f
         );
+        if(automoving){
+            alphaY += 0.5;
+            alphaX += 0.2;
+        }
          // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
         new Cube(2.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.5f,0.2f,1f), new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f)).draw(gl);
 
@@ -245,9 +265,6 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
     }
 
     public void setDragable(boolean test){
-
-
-
         if (test){
             top.addMouseListener(ml);
             top.addMouseMotionListener(m2);
@@ -269,16 +286,20 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
+                automoving = false;
                 alphaX -= 1.9;
                 break;
             case KeyEvent.VK_DOWN:
                 alphaX += 1.9;
+                automoving = false;
                 break;
             case KeyEvent.VK_RIGHT:
                 alphaY += 1.9;
+                automoving = false;
                 break;
             case KeyEvent.VK_LEFT:
                 alphaY -= 1.9;
+                automoving = false;
                 break;
         }
     }
