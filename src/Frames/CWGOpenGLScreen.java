@@ -13,11 +13,14 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import Shapes.ColorRVB;
 import Shapes.Cube;
 import buttons.PinButton;
 import buttons.RevertPlaceButton;
+import com.jogamp.graph.geom.Triangle;
 import com.jogamp.opengl.util.Animator;
 import com.jogamp.opengl.util.FPSAnimator;
+import javafx.scene.shape.Sphere;
 
 public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener {
 
@@ -180,9 +183,9 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         gl.glRotatef(alphaZ,
                 0f, 0f, 1f
         );
+         // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
+        new Cube(2.0f, 0, 0, 0, new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f)).draw(gl);
 
-        // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
-        new Cube(2.0f, 0, 0, 0).draw(gl);
 
     }
 
@@ -266,16 +269,16 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                alphaX -= 0.8;
+                alphaX -= 1.9;
                 break;
             case KeyEvent.VK_DOWN:
-                alphaX += 0.8;
+                alphaX += 1.9;
                 break;
             case KeyEvent.VK_RIGHT:
-                alphaY += 0.8;
+                alphaY += 1.9;
                 break;
             case KeyEvent.VK_LEFT:
-                alphaY -= 0.8;
+                alphaY -= 1.9;
                 break;
         }
     }
