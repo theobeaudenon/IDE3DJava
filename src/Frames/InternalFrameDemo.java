@@ -114,9 +114,15 @@ public class InternalFrameDemo extends JFrame
         menu.setMnemonic(KeyEvent.VK_D);
         menuBar.add(menu);
 
+        JMenu creer = new JMenu("Creer");
+        creer.setBackground(new Color(45,48,50));
+        creer.setForeground(new Color(178, 178, 178));
+        creer.setMnemonic(KeyEvent.VK_D);
+        menuBar.add(creer);
+
 
         //Set up the first menu item.
-        JMenuItem menuIteme = new JMenuItem("Ouvrir");
+        JMenuItem menuIteme = new JMenuItem("Nouveau / Ouvrir");
         menuIteme.setBackground(new Color(45,48,50));
         menuIteme.setForeground(new Color(178, 178, 178));
         menuIteme.setMnemonic(KeyEvent.VK_N);
@@ -126,19 +132,9 @@ public class InternalFrameDemo extends JFrame
         menuIteme.addActionListener(this);
         menue.add(menuIteme);
 
-        //Set up the first menu item.
-        JMenuItem menuItem = new JMenuItem("Nouveau");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
-        menuItem.setMnemonic(KeyEvent.VK_N);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_N, ActionEvent.ALT_MASK));
-        menuItem.setActionCommand("new");
-        menuItem.addActionListener(this);
-        menue.add(menuItem);
 
         //Set up the second menu item.
-        menuItem = new JMenuItem("Quit");
+        JMenuItem menuItem = new JMenuItem("Quit");
         menuIteme.setBackground(new Color(45,48,50));
         menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_Q);
@@ -168,6 +164,26 @@ public class InternalFrameDemo extends JFrame
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
+        menuItem = new JMenuItem("Scene");
+        menuIteme.setBackground(new Color(45,48,50));
+        menuIteme.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("");
+        menuItem.addActionListener(this);
+        creer.add(menuItem);
+
+        menuItem = new JMenuItem("Objet");
+        menuIteme.setBackground(new Color(45,48,50));
+        menuIteme.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("");
+        menuItem.addActionListener(this);
+        creer.add(menuItem);
+
 
 
         return menuBar;
@@ -176,21 +192,30 @@ public class InternalFrameDemo extends JFrame
     //React to menu selections.
     public void actionPerformed(ActionEvent e) {
         if ("new".equals(e.getActionCommand())) { //new
-            createFrame();
+            welcomescreen();
         }
         else if ("Project".equals(e.getActionCommand())) { //new
             createTreeFrame();
         }
         else if ("OPGL".equals(e.getActionCommand())) { //new
             creatFrameOPGL();
-        } /*else if ("file".equals(e.getActionCommand())) { //new
-            ZipFileReader.read(this);
-        }*/
+        } else if ("file".equals(e.getActionCommand())) { //new
+            welcomescreen();
+        }else if ("quit".equals(e.getActionCommand())) { //new
+            quit();
+        }
 
 
         else { //quit
-            quit();
+
         }
+    }
+
+    private void welcomescreen() {
+        WelcomeFrame frame = new WelcomeFrame();
+        frame.setVisible(true); //necessary as of 1.3
+        //desktop.add(frame);
+        //quit();
     }
 
     //Create a new internal frame.
