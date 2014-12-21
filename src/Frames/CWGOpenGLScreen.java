@@ -184,7 +184,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
                 0f, 0f, 1f
         );
          // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
-        new Cube(2.0f, 0, 0, 0, new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f), new ColorRVB(1f,1f,1f)).draw(gl);
+        new Cube(2.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.5f,0.2f,1f), new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f)).draw(gl);
 
 
     }
