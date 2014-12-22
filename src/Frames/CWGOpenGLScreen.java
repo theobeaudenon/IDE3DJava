@@ -2,6 +2,8 @@ package Frames;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Arc2D;
+import java.util.Random;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -200,9 +202,20 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
             alphaX += 0.2;
         }
          // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
-        new Cube(2.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.5f,0.2f,1f), new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f)).draw(gl);
+        new Cube(2.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(Float.parseFloat(String.valueOf(randInt(0, 100)/10)),Float.parseFloat(String.valueOf(randInt(0, 100)/10)),Float.parseFloat(String.valueOf(randInt(0, 100)/10))), new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f)).draw(gl);
 
 
+    }
+    public static int randInt(int min, int max) {
+
+        // Usually this can be a field rather than a method variable
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
     }
 
     public void CWGCalculateFPS(){
