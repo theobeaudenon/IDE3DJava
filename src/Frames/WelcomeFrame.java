@@ -3,12 +3,16 @@ package Frames;
 import classe.Projet;
 import utils.ZipFileReader;
 
+import javax.imageio.ImageIO;
 import javax.lang.model.type.ArrayType;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -32,6 +36,12 @@ public class WelcomeFrame extends JFrame implements ActionListener{
         ImportProject.setPreferredSize(new Dimension(147, 100));
         ImportProject.addActionListener(this);
         add(ImportProject, BorderLayout.EAST);
+        try {
+            BufferedImage img = ImageIO.read(new File("res\\icon\\main.png"));
+            this.setIconImage(img);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
 
     }
     public void startP(Projet p){

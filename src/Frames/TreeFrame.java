@@ -2,6 +2,7 @@ package Frames;
 
 import buttons.PinButton;
 import buttons.RevertPlaceButton;
+import buttons.RotateButton;
 import buttons.ToolProjectButton;
 import classe.Projet;
 import utils.RightClicMenu;
@@ -25,6 +26,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
    // MouseMotionListener[] motionListeners = (MouseMotionListener[]) northPane.getListeners(MouseMotionListener.class);
     private JPanel top = new JPanel();
     private ToolProjectButton toolProjectButton = new ToolProjectButton("");
+    private RotateButton refresh = new RotateButton("");
     private PinButton pinButton = new PinButton("");
     int posX ;
     int posY ;
@@ -58,7 +60,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
     //
 
-    public TreeFrame(Projet projet, InternalFrameDemo parent){
+    public TreeFrame(final Projet projet, InternalFrameDemo parent){
 
 
         super("Project",
@@ -72,6 +74,59 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
         this.setContentPane(rightClicMenu);
         setDragable(false);
+        startup( projet);
+
+        pinButton.setPreferredSize(new Dimension(16,16));
+        top.add(pinButton);
+        pinButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                compteurClic++;
+                if (compteurClic%2 == 0){
+                    setDragable(true);
+                    setBorder(BorderFactory.createRaisedBevelBorder());
+
+                }
+                else {
+                    setDragable(false);
+                    setBorder(BorderFactory.createLineBorder(Color.black));
+                }
+            }
+        });
+
+        toolProjectButton.setPreferredSize(new Dimension(14,16));
+        top.add(toolProjectButton);
+
+        refresh.setPreferredSize(new Dimension(14,16));
+        top.add(refresh);
+        refresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startup(projet);
+            }
+        });
+        top.setBackground(new Color(45, 48, 50));
+        top.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        add(top, BorderLayout.NORTH);
+
+        setBorder(BorderFactory.createLineBorder(Color.black));
+        setOpaque(false);
+        getContentPane().setBackground(new Color(60, 63, 65));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("Project Explorer");
+        this.pack();
+        this.setVisible(true);
+        setSize(300,930);
+        setLocation(0, 0);
+
+
+    }
+
+
+    public void startup(Projet projet){
+        System.out.println("refreshing");
+
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(projet.getNom());
 
 
@@ -86,10 +141,10 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
         //create the child nodes
 
-       // DefaultMutableTreeNode fruitNode = new DefaultMutableTreeNode("sc2");
+        // DefaultMutableTreeNode fruitNode = new DefaultMutableTreeNode("sc2");
         //add the child nodes to the root node
 
-       // roott.add(fruitNode);
+        // roott.add(fruitNode);
 
 
         DefaultMutableTreeNode objets = new DefaultMutableTreeNode("Objets");
@@ -128,44 +183,11 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         tree.setForeground(Color.WHITE);
         add(tree, BorderLayout.CENTER);
 
-        pinButton.setPreferredSize(new Dimension(16,16));
-        top.add(pinButton);
-        pinButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                compteurClic++;
-                if (compteurClic%2 == 0){
-                    setDragable(true);
-                    setBorder(BorderFactory.createRaisedBevelBorder());
-
-                }
-                else {
-                    setDragable(false);
-                    setBorder(BorderFactory.createLineBorder(Color.black));
-                }
-            }
-        });
-
-        toolProjectButton.setPreferredSize(new Dimension(14,16));
-        top.add(toolProjectButton);
-
-        top.setBackground(new Color(45, 48, 50));
-        top.setBorder(BorderFactory.createLineBorder(Color.black));
-
-        add(top, BorderLayout.NORTH);
-
-        setBorder(BorderFactory.createLineBorder(Color.black));
-        setOpaque(false);
-        getContentPane().setBackground(new Color(60, 63, 65));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Project Explorer");
-        this.pack();
-        this.setVisible(true);
-        setSize(300,930);
-        setLocation(0, 0);
-
 
     }
+
+
+
     MouseAdapter ma = new MouseAdapter() {
         private void myPopupEvent(MouseEvent e) {
             int x = e.getX();

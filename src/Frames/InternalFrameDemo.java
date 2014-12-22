@@ -3,6 +3,7 @@ package Frames;
 import classe.Projet;
 import utils.ZipFileReader;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
@@ -13,7 +14,9 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -29,6 +32,15 @@ public class InternalFrameDemo extends JFrame
         //of the screen.
         int inset = 50;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        try {
+            BufferedImage img = ImageIO.read(new File("res\\icon\\main.png"));
+            this.setIconImage(img);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        //setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/icon/main.png")));
+
+
         int gameHeight = (int) (Math.round(screenSize.width * 0.95));
         int gameWidth = (int) (Math.round( screenSize.height * 0.85));
 
