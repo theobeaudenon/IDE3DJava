@@ -135,6 +135,13 @@ public class InternalFrameDemo extends JFrame
         creer.setBackground(new Color(45,48,50));
         creer.setForeground(new Color(178, 178, 178));
         creer.setMnemonic(KeyEvent.VK_D);
+
+        JMenu Objet = new JMenu("Objet");
+        creer.setBackground(new Color(45,48,50));
+        creer.setForeground(new Color(178, 178, 178));
+        creer.setMnemonic(KeyEvent.VK_D);
+        creer.add(Objet);
+
         menuBar.add(creer);
 
 
@@ -191,7 +198,7 @@ public class InternalFrameDemo extends JFrame
         menuItem.addActionListener(this);
         creer.add(menuItem);
 
-        menuItem = new JMenuItem("Objet");
+        menuItem = new JMenuItem("Carré");
         menuIteme.setBackground(new Color(45,48,50));
         menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
@@ -199,7 +206,7 @@ public class InternalFrameDemo extends JFrame
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
         menuItem.setActionCommand("");
         menuItem.addActionListener(this);
-        creer.add(menuItem);
+        Objet.add(menuItem);
 
 
 
