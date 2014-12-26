@@ -1,5 +1,7 @@
 package classe;
 
+import Shapes.Forme;
+
 import java.util.ArrayList;
 
 /**
@@ -11,15 +13,15 @@ public class Projet {
 
     private String nom;
     private ArrayList<String> scene = new ArrayList<String>();
-    private ArrayList<String> obj = new ArrayList<String>();
+    private ArrayList<Forme> obj = new ArrayList<Forme>();
 
 
 
-    public ArrayList<String> getObj() {
+    public ArrayList<Forme> getObj() {
         return obj;
     }
 
-    public void setObj(ArrayList<String> obj) {
+    public void setObj(ArrayList<Forme> obj) {
         this.obj = obj;
     }
 

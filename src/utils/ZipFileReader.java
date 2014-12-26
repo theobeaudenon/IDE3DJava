@@ -4,6 +4,9 @@ package utils;
  * Created by Boufle on 18/12/14.
  */
 
+import Shapes.ColorRVB;
+import Shapes.Cube;
+import Shapes.Forme;
 import classe.Projet;
 
 import javax.swing.*;
@@ -106,14 +109,20 @@ public class ZipFileReader {
             ArrayList<String> scene = new ZipFileReader().getFiles(path);
 
             ArrayList<String> scene1 = new ArrayList<String>();
-            ArrayList<String> obj1 = new ArrayList<String>();
+            ArrayList<Forme> obj1 = new ArrayList<Forme>();
             for (String s : scene){
                 try {
                     String[] obj = s.split("/");
                     if(obj[0].equals("scenes")){
                         scene1.add(obj[1]);
                     }else  if(obj[0].equals("obj")){
-                        obj1.add(obj[1]);
+                        Forme f = new Forme();
+                       /* Mise en place de la forme sauvegardé pour exemple */
+                        Cube e = new Cube(1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f));
+                        f.setClasse(e.getClass());
+                        f.setObj(e);
+                        f.setName("Cube Swag");
+                        obj1.add(f);
                     }
                 }catch (Exception e){
 
@@ -122,6 +131,7 @@ public class ZipFileReader {
 
             }
             pro.setScene(scene1);
+
             pro.setObj(obj1);
 
             return pro;

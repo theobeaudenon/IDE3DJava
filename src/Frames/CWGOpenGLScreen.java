@@ -27,7 +27,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private boolean automoving= true;
 
     public static void main(String[] args) {
-        new CWGOpenGLScreen().setVisible(true);
+        //new CWGOpenGLScreen(userObject).setVisible(true);
     }
 
     private static final long serialVersionUID = 635066680731362587L;
@@ -79,7 +79,8 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
     //
 
-    public CWGOpenGLScreen(){
+    public CWGOpenGLScreen(Object userObject){
+
         super("Project",
                 true, //resizable
                 true, //closable
@@ -89,15 +90,12 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
 
         this.setLayout(new BorderLayout());
-
-          /* Mise en place de la forme sauvegardé pour exemple */
-        Cube e = new Cube(1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f));
-        d.setClasse(e.getClass());
-        d.setObj(e);
+        d = (Forme)userObject;
 
 
 
-        setDragable(false);
+
+        setDragable(true);
         top.setBackground(new Color(45, 48, 50));
         top.setBorder(new LineBorder(Color.BLACK));
         top.setBorder(new LineBorder(Color.BLACK));
@@ -109,7 +107,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         top.add(revertPlaceButton);
         top.add(rotateButton);
         this.add(top, BorderLayout.NORTH);
-        this.setTitle(TAG);
+        this.setTitle(d.getName());
         this.setSize(1200, 930);
         this.setLocation(300, 0);
         this.addKeyListener(this);

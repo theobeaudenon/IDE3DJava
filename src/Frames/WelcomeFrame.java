@@ -1,5 +1,8 @@
 package Frames;
 
+import Shapes.ColorRVB;
+import Shapes.Cube;
+import Shapes.Forme;
 import classe.Projet;
 import utils.ZipFileReader;
 
@@ -101,8 +104,29 @@ public class WelcomeFrame extends JFrame implements ActionListener{
                     p.setNom("Nouveau Projet");
                     ArrayList<String> s =  new ArrayList<String>();
                     s.add("Scene1");
-                    ArrayList<String> o =  new ArrayList<String>();
-                    o.add("obj1");
+                    ArrayList<Forme> o =  new ArrayList<Forme>();
+
+
+
+
+                    Forme f = new Forme();
+                       /* Mise en place de la forme sauvegardé pour exemple */
+                    Cube e = new Cube(1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f));
+                    f.setClasse(e.getClass());
+                    f.setObj(e);
+                    f.setName("Cube Swag");
+
+                    o.add(f);
+
+
+                    Forme f1 = new Forme();
+                       /* Mise en place de la forme sauvegardé pour exemple */
+                    Cube g = new Cube(1.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f), new ColorRVB(0.4f,1f,0.2f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.2f,0.5f,0.35f));
+                    f1.setClasse(e.getClass());
+                    f1.setObj(g);
+                    f1.setName("Cube Swag 2 ");
+
+                    o.add(f1);
                     p.setObj(o);
                     p.setScene(s);
                     //Create and set up the window.

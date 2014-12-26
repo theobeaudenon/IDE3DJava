@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-import java.awt.List;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -17,7 +16,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 
 
 public class InternalFrameDemo extends JFrame
@@ -28,6 +26,8 @@ public class InternalFrameDemo extends JFrame
     public InternalFrameDemo(Projet finalPro) {
         super("InternalFrameDemo");
         this.projet = finalPro;
+
+
         //Make the big window be indented 50 pixels from each edge
         //of the screen.
         int inset = 50;
@@ -51,6 +51,8 @@ public class InternalFrameDemo extends JFrame
         //Set up the GUI.
         desktop = new JDesktopPane(); //a specialized layered pane
         setContentPane(desktop);
+
+        desktop.setBackground(new Color(68, 68, 68));
         setJMenuBar(createMenuBar());
         this.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
@@ -92,7 +94,7 @@ public class InternalFrameDemo extends JFrame
             }
         });
         createTreeFrame();
-        creatFrameOPGL();
+       // creatFrameOPGL(obj.getUserObject());
 
 
         addWindowListener(new WindowAdapter() {
@@ -212,9 +214,7 @@ public class InternalFrameDemo extends JFrame
         else if ("Project".equals(e.getActionCommand())) { //new
             createTreeFrame();
         }
-        else if ("OPGL".equals(e.getActionCommand())) { //new
-            creatFrameOPGL();
-        } else if ("file".equals(e.getActionCommand())) { //new
+         else if ("file".equals(e.getActionCommand())) { //new
             welcomescreen();
         }else if ("quit".equals(e.getActionCommand())) { //new
             quit();
@@ -243,8 +243,8 @@ public class InternalFrameDemo extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
     }
 
-    protected void creatFrameOPGL(){
-        CWGOpenGLScreen frame = new CWGOpenGLScreen();
+    protected void creatFrameOPGL(Object userObject){
+        CWGOpenGLScreen frame = new CWGOpenGLScreen(userObject);
         frame.setVisible(true); //necessary as of 1.3
         desktop.add(frame);
         try {

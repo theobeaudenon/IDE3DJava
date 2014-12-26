@@ -1,5 +1,6 @@
 package Frames;
 
+import Shapes.Forme;
 import buttons.PinButton;
 import buttons.RevertPlaceButton;
 import buttons.RotateButton;
@@ -153,7 +154,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
 
 
-        for(String p : projet.getObj())
+        for(Forme p : projet.getObj())
         {
             DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
             objets.add(vegetableNode);
@@ -193,23 +194,25 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
             int x = e.getX();
             int y = e.getY();
             JTree tree = (JTree)e.getSource();
-            TreePath path = tree.getPathForLocation(x, y);
+            final TreePath path = tree.getPathForLocation(x, y);
             if (path == null)
                 return;
 
             tree.setSelectionPath(path);
 
-            DefaultMutableTreeNode obj = (DefaultMutableTreeNode)path.getLastPathComponent();
+             final DefaultMutableTreeNode obj = (DefaultMutableTreeNode)path.getLastPathComponent();
 
-            String label =  obj.getUserObject().toString();
+            Forme label = (Forme) obj.getUserObject();
+            JMenuItem itemname = new JMenuItem(label.getName());
+            itemname.setEnabled(false);
             JPopupMenu popup = new JPopupMenu();
-            popup.add(new JMenuItem(label));
+            popup.add(itemname);
             JMenuItem item = new JMenuItem("Ouvrir/Editer");
             item.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     //ouverture de l'inspecteur avec les données de la vue
-                    parent.creatFrameOPGL();
+                    parent.creatFrameOPGL(obj.getUserObject());
 
                 }
             });
