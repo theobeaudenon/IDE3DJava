@@ -3,6 +3,7 @@ package Frames;
 import Shapes.ColorRVB;
 import Shapes.Cube;
 import Shapes.Forme;
+import Shapes.Sphere;
 import classe.Projet;
 import utils.ZipFileReader;
 
@@ -122,11 +123,23 @@ public class WelcomeFrame extends JFrame implements ActionListener{
                     Forme f1 = new Forme();
                        /* Mise en place de la forme sauvegardé pour exemple */
                     Cube g = new Cube(1.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f), new ColorRVB(0.4f,1f,0.2f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.2f,0.5f,0.35f));
-                    f1.setClasse(e.getClass());
+                    f1.setClasse(g.getClass());
                     f1.setObj(g);
                     f1.setName("Cube Swag 2 ");
 
                     o.add(f1);
+
+
+                    Forme f2 = new Forme();
+                       /* Mise en place de la forme sauvegardé pour exemple */
+                    Sphere ed = new Sphere(3.2, 0, 0, 0, new ColorRVB(0.2f,0.2f,0.9f));
+                    f2.setClasse(ed.getClass());
+                    f2.setObj(ed);
+                    f2.setName("shepre ");
+
+                    o.add(f2);
+
+
                     p.setObj(o);
                     p.setScene(s);
                     //Create and set up the window.

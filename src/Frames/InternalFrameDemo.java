@@ -1,5 +1,9 @@
 package Frames;
 
+import Shapes.ColorRVB;
+import Shapes.Cube;
+import Shapes.Forme;
+import Shapes.Sphere;
 import classe.Projet;
 import utils.ZipFileReader;
 
@@ -22,6 +26,8 @@ public class InternalFrameDemo extends JFrame
         implements ActionListener {
     private final Projet projet;
     JDesktopPane desktop;
+    private JMenuItem menuItemelog ;
+    private JMenuBar menuBar;
 
     public InternalFrameDemo(Projet finalPro) {
         super("InternalFrameDemo");
@@ -54,6 +60,8 @@ public class InternalFrameDemo extends JFrame
 
         desktop.setBackground(new Color(68, 68, 68));
         setJMenuBar(createMenuBar());
+
+
         this.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
@@ -109,8 +117,27 @@ public class InternalFrameDemo extends JFrame
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
     }
 
+
+    public void log(String log){
+        System.out.println(log);
+        //menuItemelog = new JMenuItem();
+       // menuItemelog.setAutoscrolls(true);
+        menuItemelog.setText("                                                                                                Informations : "+log);
+         //menuItemelog.setEnabled(false);
+        menuItemelog.setBackground(new Color(68, 68, 68));
+        menuItemelog.setForeground(new Color(255, 163, 79));
+        menuItemelog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuItemelog.setText("                                                                                                                                         Informations  ");
+            }
+        });
+       // menuItemelog.updateUI();
+        menuBar.updateUI();
+    }
+
     protected JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
 
         menuBar.setForeground(new Color(178, 178, 178));
         menuBar.setBackground(new Color(45,48,50));
@@ -144,6 +171,16 @@ public class InternalFrameDemo extends JFrame
 
         menuBar.add(creer);
 
+        menuBar.add(Box.createGlue());
+
+        menuItemelog = new JMenuItem("                                                                                                                                         Informations  ");
+        menuItemelog.setBackground(new Color(68, 68, 68));
+        menuItemelog.setForeground(new Color(255, 163, 79));
+        menuItemelog.setHorizontalAlignment(SwingConstants.CENTER);
+
+        menuBar.add(menuItemelog);
+
+        menuBar.add(Box.createGlue());
 
         //Set up the first menu item.
         JMenuItem menuIteme = new JMenuItem("Nouveau / Ouvrir");
@@ -204,10 +241,19 @@ public class InternalFrameDemo extends JFrame
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
-        menuItem.setActionCommand("");
+        menuItem.setActionCommand("carre");
         menuItem.addActionListener(this);
         Objet.add(menuItem);
 
+        menuItem = new JMenuItem("Sphere");
+        menuIteme.setBackground(new Color(45,48,50));
+        menuIteme.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("sphere");
+        menuItem.addActionListener(this);
+        Objet.add(menuItem);
 
 
         return menuBar;
@@ -226,7 +272,26 @@ public class InternalFrameDemo extends JFrame
         }else if ("quit".equals(e.getActionCommand())) { //new
             quit();
         }
+        else if ("sphere".equals(e.getActionCommand())) { //new
+            Forme f2 = new Forme();
+                       /* Mise en place de la forme sauvegardé pour exemple */
+            Sphere ed = new Sphere(3d, 0, 0, 0, new ColorRVB(0.2f,0.2f,0.8f));
+            f2.setClasse(ed.getClass());
+            f2.setObj(ed);
+            f2.setName("new phere");
+            creatFrameOPGL(f2);
 
+        }
+        else if ("carre".equals(e.getActionCommand())) { //new
+            Forme f1 = new Forme();
+                       /* Mise en place de la forme sauvegardé pour exemple */
+            Cube g = new Cube(1.0f, 0, 0, 0, new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f));
+            f1.setClasse(g.getClass());
+            f1.setObj(g);
+            f1.setName("new cube ");
+            creatFrameOPGL(f1);
+
+        }
 
         else { //quit
 
@@ -251,6 +316,7 @@ public class InternalFrameDemo extends JFrame
     }
 
     protected void creatFrameOPGL(Object userObject){
+        this.log("Ouverture d'une Frame OpenGL");
         CWGOpenGLScreen frame = new CWGOpenGLScreen(userObject);
         frame.setVisible(true); //necessary as of 1.3
         desktop.add(frame);
