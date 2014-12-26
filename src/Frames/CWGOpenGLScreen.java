@@ -2,7 +2,7 @@ package Frames;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Arc2D;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import javax.media.opengl.GL2;
@@ -11,17 +11,16 @@ import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
-import javax.media.opengl.glu.GLUquadric;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import Shapes.ColorRVB;
 import Shapes.Cube;
+import Shapes.Forme;
 import buttons.PinButton;
 import buttons.RevertPlaceButton;
 import buttons.RotateButton;
 import com.jogamp.opengl.util.FPSAnimator;
-import com.jogamp.opengl.util.gl2.GLUT;
 
 public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener {
 
@@ -52,7 +51,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
     public float alphaY=0f;
     // Angle courant de rotation sur l'axe Z
     public float alphaZ=0f;
-
+    public Forme d = new Forme();
 
 
     // Listener pin not pin
@@ -90,6 +89,13 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
 
         this.setLayout(new BorderLayout());
+
+          /* Mise en place de la forme sauvegardé pour exemple */
+        Cube e = new Cube(1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f));
+        d.setClasse(e.getClass());
+        d.setObj(e);
+
+
 
         setDragable(false);
         top.setBackground(new Color(45, 48, 50));
@@ -177,9 +183,9 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         // Reinitialisation de la matrice courante
         gl.glLoadIdentity();
 
-                /* (Alt aux translations) Placement de la caméra au point (4,0,12)
-                Direction vers l'origine de la scène (0,0,0)
-                Inclinaison nulle car la vue suit l'axe vertical (y) */
+        /* (Alt aux translations) Placement de la caméra au point (4,0,12)
+        Direction vers l'origine de la scène (0,0,0)
+        Inclinaison nulle car la vue suit l'axe vertical (y) */
         glu.gluLookAt(4f, 0f, 12f,
                 0f, 0f, 0f,
                 0f, 1f, 0f
@@ -203,8 +209,22 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
             alphaY += 0.5;
             alphaX += 0.2;
         }
-         // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
-        new Cube(1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f)).draw(gl);
+
+
+
+        /* recuperation de lobjet et instantiation */
+        try {
+            d.getObj().getClass().getMethod("draw" , GL2.class)   .invoke(d.getObj(),gl);
+        } catch (IllegalAccessException e1) {
+            e1.printStackTrace();
+        } catch (InvocationTargetException e1) {
+            e1.printStackTrace();
+        } catch (NoSuchMethodException e1) {
+            e1.printStackTrace();
+        }
+
+
+        // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
 
         //gl.glColor3f(0.2f,0f,0f);
        // GLUT s = new GLUT();
