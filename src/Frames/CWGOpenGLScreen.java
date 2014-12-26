@@ -25,6 +25,10 @@ import com.jogamp.opengl.util.FPSAnimator;
 public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener {
 
     private boolean automoving= true;
+    private boolean up = false;
+    private boolean down= false;
+    private boolean right= false;
+    private boolean left= false;
 
     public static void main(String[] args) {
         //new CWGOpenGLScreen(userObject).setVisible(true);
@@ -108,8 +112,8 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         top.add(rotateButton);
         this.add(top, BorderLayout.NORTH);
         this.setTitle(d.getName());
-        this.setSize(1200, 930);
-        this.setLocation(300, 0);
+        this.setSize(600, 475);
+        this.setLocation(310, 5);
         this.addKeyListener(this);
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -207,7 +211,10 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
             alphaY += 0.5;
             alphaX += 0.2;
         }
-
+        if(up){alphaX -= 1.9;}
+        if(down){alphaX += 1.9;}
+        if(right){alphaY += 1.9;}
+        if(left){alphaY -= 1.9;}
 
 
         /* recuperation de lobjet et instantiation */
@@ -320,18 +327,18 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 automoving = false;
-                alphaX -= 1.9;
+                up = true;
                 break;
             case KeyEvent.VK_DOWN:
-                alphaX += 1.9;
+                down = true;
                 automoving = false;
                 break;
             case KeyEvent.VK_RIGHT:
-                alphaY += 1.9;
+                right = true;
                 automoving = false;
                 break;
             case KeyEvent.VK_LEFT:
-                alphaY -= 1.9;
+                left = true;
                 automoving = false;
                 break;
         }
@@ -339,6 +346,23 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                automoving = false;
+                up = false;
+                break;
+            case KeyEvent.VK_DOWN:
+                down = false;
+                automoving = false;
+                break;
+            case KeyEvent.VK_RIGHT:
+                right = false;
+                automoving = false;
+                break;
+            case KeyEvent.VK_LEFT:
+                left = false;
+                automoving = false;
+                break;
+        }
     }
 }
