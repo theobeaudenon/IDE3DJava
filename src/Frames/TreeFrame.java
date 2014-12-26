@@ -58,6 +58,8 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         }
     };
     private InternalFrameDemo parent;
+    private JTree tree;
+    private DefaultMutableTreeNode root;
 
     //
 
@@ -103,14 +105,54 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         refresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startup(projet);
+                root = new DefaultMutableTreeNode(projet.getNom());
+
+
+                DefaultMutableTreeNode scene = new DefaultMutableTreeNode("scenes");
+                root.add(scene);
+                for(String p : projet.getScene())
+                {
+                    DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
+
+                    scene.add(vegetableNode);
+                }
+
+
+
+
+                DefaultMutableTreeNode objets = new DefaultMutableTreeNode("Objets");
+                root.add(objets);
+                //create the child nodes
+
+
+
+                for(Forme p : projet.getObj())
+                {
+                    DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
+
+                    objets.add(vegetableNode);
+                }
+
+                    final DefaultTreeCellRenderer renderer =
+                            (DefaultTreeCellRenderer)(tree.getCellRenderer());
+                    renderer.setBackgroundNonSelectionColor(new Color(60,63,65));
+                    renderer.setBackgroundSelectionColor(new Color(1, 126, 178));
+                    renderer.setTextNonSelectionColor(Color.WHITE);
+                    renderer.setTextSelectionColor(Color.WHITE);
+
+
+
+
+                //tree.setForeground(Color.WHITE);
+                tree.updateUI();
+                tree.setCellRenderer(renderer);
             }
         });
         top.setBackground(new Color(45, 48, 50));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
 
         add(top, BorderLayout.NORTH);
-
+        setSize(new Dimension(0,1));
         setBorder(BorderFactory.createLineBorder(Color.black));
         setOpaque(false);
         getContentPane().setBackground(new Color(60, 63, 65));
@@ -128,7 +170,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
     public void startup(Projet projet){
         System.out.println("refreshing");
 
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode(projet.getNom());
+         root = new DefaultMutableTreeNode(projet.getNom());
 
 
         DefaultMutableTreeNode scene = new DefaultMutableTreeNode("scenes");
@@ -166,7 +208,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
         this.addMouseListener(this);
         setLayout(new BorderLayout());
-        JTree tree = new JTree(root);
+         tree = new JTree(root);
         tree.addMouseListener(ma);
 
 
