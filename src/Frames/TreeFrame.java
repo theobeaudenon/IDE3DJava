@@ -157,6 +157,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         for(Forme p : projet.getObj())
         {
             DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
+
             objets.add(vegetableNode);
         }
 
@@ -220,10 +221,38 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
             popup.add(item);
             popup.show(tree, x, y);
         }
+        private void openopengj(MouseEvent e) {
+            int x = e.getX();
+            int y = e.getY();
+            JTree tree = (JTree)e.getSource();
+            final TreePath path = tree.getPathForLocation(x, y);
+            if (path == null)
+                return;
+
+
+            final DefaultMutableTreeNode obj = (DefaultMutableTreeNode)path.getLastPathComponent();
+
+            Forme label = (Forme) obj.getUserObject();
+            parent.creatFrameOPGL(obj.getUserObject());
+        }
+
+
         public void mousePressed(MouseEvent e) {
-            if (e.isPopupTrigger()) myPopupEvent(e);
+            if (e.getClickCount() == 2 && !e.isConsumed()) {
+                e.consume();
+                if (e.isPopupTrigger()) myPopupEvent(e);
+
+                //handle double click event.
+            }
         }
         public void mouseReleased(MouseEvent e) {
+
+            if (e.getClickCount() == 2 && !e.isConsumed()) {
+                e.consume();
+
+                openopengj(e);
+                //handle double click event.
+            }
             if (e.isPopupTrigger()) myPopupEvent(e);
         }
     };
