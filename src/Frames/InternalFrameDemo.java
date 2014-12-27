@@ -32,8 +32,6 @@ public class InternalFrameDemo extends JFrame
     public InternalFrameDemo(Projet finalPro) {
         super("InternalFrameDemo");
         this.projet = finalPro;
-
-
         //Make the big window be indented 50 pixels from each edge
         //of the screen.
         int inset = 50;
@@ -45,7 +43,6 @@ public class InternalFrameDemo extends JFrame
             e1.printStackTrace();
         }
         //setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/icon/main.png")));
-
 
         int gameHeight = (int) (Math.round(screenSize.width * 0.95));
         int gameWidth = (int) (Math.round( screenSize.height * 0.85));
@@ -60,7 +57,6 @@ public class InternalFrameDemo extends JFrame
 
         desktop.setBackground(new Color(68, 68, 68));
         setJMenuBar(createMenuBar());
-
 
         this.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
@@ -275,10 +271,10 @@ public class InternalFrameDemo extends JFrame
         else if ("sphere".equals(e.getActionCommand())) { //new
             Forme f2 = new Forme();
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Sphere ed = new Sphere(3d, 0, 0, 0, new ColorRVB(0.2f,0.2f,0.8f));
+            Sphere ed = new Sphere(3d, 0, 0, 0, new ColorRVB(0.8f,0.8f,0.8f));
             f2.setClasse(ed.getClass());
             f2.setObj(ed);
-            f2.setName("new phere");
+            f2.setName("new sphere");
             creatFrameOPGL(f2);
 
         }
