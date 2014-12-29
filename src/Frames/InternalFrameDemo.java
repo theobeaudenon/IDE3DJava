@@ -313,7 +313,7 @@ public class InternalFrameDemo extends JFrame
 
     protected void creatFrameOPGL(Object userObject){
         this.log("Ouverture d'une Frame OpenGL");
-        CWGOpenGLScreen frame = new CWGOpenGLScreen(userObject);
+        CWGOpenGLScreen frame = new CWGOpenGLScreen((Forme)userObject);
         frame.setVisible(true); //necessary as of 1.3
         desktop.add(frame);
         try {

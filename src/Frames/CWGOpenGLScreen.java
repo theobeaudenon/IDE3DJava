@@ -83,7 +83,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
     //
 
-    public CWGOpenGLScreen(Object userObject){
+    public CWGOpenGLScreen(Forme userObject){
 
         super("Project",
                 true, //resizable
@@ -94,7 +94,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
 
         this.setLayout(new BorderLayout());
-        d = (Forme)userObject;
+        d =  userObject;
 
 
 
@@ -215,7 +215,26 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         if(down){alphaX += 1.9;}
         if(right){alphaY += 1.9;}
         if(left){alphaY -= 1.9;}
-
+/**
+        gl.glColor3f(.3f,.3f,.3f);
+        gl.glBegin(GL2.GL_QUADS);
+        gl.glVertex3f( 0f,-0.001f, 0f);
+        gl.glVertex3f( 0f,-0.001f,10f);
+        gl.glVertex3f(10f,-0.001f,10f);
+        gl.glVertex3f(10f,-0.001f, 0f);
+        gl.glEnd();
+*/
+        //Affichage de la grille
+        gl.glBegin(GL2.GL_LINES);
+        for(int i=-0;i<=10;i++) {
+            if (i==0) { gl.glColor3f(.6f,.3f,.3f); } else { gl.glColor3f(.25f,.25f,.25f); };
+            gl.glVertex3f(i,0,0);
+            gl.glVertex3f(i,0,10);
+            if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.25f,.25f,.25f); };
+            gl.glVertex3f(0,0,i);
+            gl.glVertex3f(10,0,i);
+        };
+        gl.glEnd();
 
         /* recuperation de lobjet et instantiation */
         try {

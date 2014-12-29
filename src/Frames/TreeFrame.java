@@ -275,7 +275,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
             final DefaultMutableTreeNode obj = (DefaultMutableTreeNode)path.getLastPathComponent();
 
-            Forme label = (Forme) obj.getUserObject();
+            //Forme label = (Forme) obj.getUserObject();
             parent.creatFrameOPGL(obj.getUserObject());
         }
 
