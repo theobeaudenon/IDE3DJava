@@ -1,9 +1,6 @@
 package Frames;
 
-import Shapes.ColorRVB;
-import Shapes.Cube;
-import Shapes.Forme;
-import Shapes.Sphere;
+import Shapes.*;
 import classe.Projet;
 import utils.ZipFileReader;
 
@@ -231,6 +228,18 @@ public class InternalFrameDemo extends JFrame
         menuItem.addActionListener(this);
         creer.add(menuItem);
 
+
+        menuItem = new JMenuItem("Triangle");
+        menuIteme.setBackground(new Color(45,48,50));
+        menuIteme.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("triangle");
+        menuItem.addActionListener(this);
+        Objet.add(menuItem);
+
+
         menuItem = new JMenuItem("Carré");
         menuIteme.setBackground(new Color(45,48,50));
         menuIteme.setForeground(new Color(178, 178, 178));
@@ -287,7 +296,17 @@ public class InternalFrameDemo extends JFrame
             f1.setName("new cube ");
             creatFrameOPGL(f1);
 
-        }
+        }else if ("triangle".equals(e.getActionCommand())) { //new
+
+            Forme trian = new Forme();
+                       /* Mise en place de la forme sauvegardé pour exemple */
+            Triangle tri = new Triangle(2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f),new ColorRVB(0.2f,0.5f,0.35f));
+            trian.setClasse(tri.getClass());
+            trian.setObj(tri);
+            trian.setName("new Triangle");
+            creatFrameOPGL(trian);
+
+         }
 
         else { //quit
 

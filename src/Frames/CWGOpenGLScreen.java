@@ -215,15 +215,21 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         if(down){alphaX += 1.9;}
         if(right){alphaY += 1.9;}
         if(left){alphaY -= 1.9;}
-/**
-        gl.glColor3f(.3f,.3f,.3f);
-        gl.glBegin(GL2.GL_QUADS);
-        gl.glVertex3f( 0f,-0.001f, 0f);
-        gl.glVertex3f( 0f,-0.001f,10f);
-        gl.glVertex3f(10f,-0.001f,10f);
-        gl.glVertex3f(10f,-0.001f, 0f);
-        gl.glEnd();
-*/
+        /**
+
+            gl.glColor3f(.3f,.3f,.3f);
+            gl.glBegin(GL2.GL_QUADS);
+            gl.glVertex3f( 0f,-0.001f, 0f);
+            gl.glVertex3f( 0f,-0.001f,10f);
+            gl.glVertex3f(10f,-0.001f,10f);
+            gl.glVertex3f(10f,-0.001f, 0f);
+            gl.glEnd();
+
+        */
+
+
+
+
         //Affichage de la grille
         gl.glBegin(GL2.GL_LINES);
         for(int i=-0;i<=10;i++) {
@@ -233,6 +239,9 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
             if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.25f,.25f,.25f); };
             gl.glVertex3f(0,0,i);
             gl.glVertex3f(10,0,i);
+            if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.25f,.25f,.25f); };
+            gl.glVertex3f(0,i,0);
+            gl.glVertex3f(10,i,0);
         };
         gl.glEnd();
 
