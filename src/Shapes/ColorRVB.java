@@ -1,12 +1,13 @@
 package Shapes;
 
+import java.io.Serializable;
 import java.nio.FloatBuffer;
 
 /**
  * Shapes
  * Created by Theo on 21/12/2014 for Ide3DProject.
  */
-public class ColorRVB {
+public class ColorRVB implements Serializable {
     public float R;
     public float V;
     public float B;

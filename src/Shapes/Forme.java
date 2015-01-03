@@ -1,17 +1,18 @@
 package Shapes;
 
 import javax.media.opengl.GL2;
+import java.io.Serializable;
 
 /**
  * Shapes
  * Created by Theo on 26/12/2014 for Ide3DProject.
  */
-public class Forme {
-
+public class Forme implements Serializable {
 
     public String name;
 
     public Forme(String s) {
+
         name = s;
     }
 

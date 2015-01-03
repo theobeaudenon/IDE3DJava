@@ -55,7 +55,7 @@ public class WelcomeFrame extends JFrame implements ActionListener{
 
             JFileChooser chooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "ZIP PD", "zip");
+                    "sauvegarde txt", "txt");
             chooser.setFileFilter(filter);
             int returnVal = chooser.showOpenDialog(this);
             if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -104,34 +104,22 @@ public class WelcomeFrame extends JFrame implements ActionListener{
                     ArrayList<Forme> o =  new ArrayList<Forme>();
 
 
-
-
-
                        /* Mise en place de la forme sauvegardé pour exemple */
                     Cube e = new Cube("cube",1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f));
                     o.add(e);
 
-
-
                        /* Mise en place de la forme sauvegardé pour exemple */
                     Cube g = new Cube("Cube 2", 2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f), new ColorRVB(0.4f,1f,0.2f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.2f,0.5f,0.35f));
 
-
                     o.add(g);
-
-
 
                        /* Mise en place de la forme sauvegardé pour exemple */
                     Triangle tri = new Triangle("Triangle",2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f),new ColorRVB(0.2f,0.5f,0.35f), new ColorRVB(0.5f,0f,0.4f));
 
-
                     o.add(tri);
-
-
 
                        /* Mise en place de la forme sauvegardé pour exemple */
                     Sphere ed = new Sphere("Sphere ",3.2, 0, 0, 0, new ColorRVB(0.2f,0.2f,0.9f));
-
 
                     o.add(ed);
 

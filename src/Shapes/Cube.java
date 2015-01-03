@@ -1,8 +1,10 @@
 package Shapes;
 
 import javax.media.opengl.GL2;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Cube extends Forme{
+public class Cube extends Forme implements Serializable {
 
     // Moitié de la longueur d'un coté, simplifie les calculs
     private float tailleSur2;
@@ -14,6 +16,8 @@ public class Cube extends Forme{
     private ColorRVB colorbas;
     // Centre du Cube dans le repere global, simplifie la translation
     private int [] position;
+
+
 
     public Cube(String s, float taille, int x, int y, int z, ColorRVB colorderiere, ColorRVB colordevant, ColorRVB colordroite, ColorRVB colorgauche, ColorRVB colorhaut, ColorRVB colorbas){
         super(s);
@@ -28,6 +32,7 @@ public class Cube extends Forme{
         position[0] = x;
         position[1] = y;
         position[2] = z;
+
     }
 
 

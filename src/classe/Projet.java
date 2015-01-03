@@ -2,12 +2,13 @@ package classe;
 
 import Shapes.Forme;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Boufle on 18/12/14.
  */
-public class Projet {
+public class Projet implements Serializable {
 
 
 

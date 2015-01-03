@@ -2,6 +2,9 @@ package Frames;
 
 import Shapes.*;
 import classe.Projet;
+import com.github.julman99.gsonfire.GsonFireBuilder;
+import com.github.julman99.gsonfire.TypeSelector;
+import com.google.gson.*;
 import utils.ZipFileReader;
 
 import javax.imageio.ImageIO;
@@ -15,8 +18,7 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 
 public class InternalFrameDemo extends JFrame
@@ -187,6 +189,16 @@ public class InternalFrameDemo extends JFrame
         menuIteme.addActionListener(this);
         menue.add(menuIteme);
 
+        //Set up the second menu item.
+        JMenuItem menuItemes = new JMenuItem("Sauvegarder");
+        menuIteme.setBackground(new Color(45,48,50));
+        menuIteme.setForeground(new Color(178, 178, 178));
+        menuItemes.setMnemonic(KeyEvent.VK_Q);
+        menuItemes.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_Q, ActionEvent.ALT_MASK));
+        menuItemes.setActionCommand("save");
+        menuItemes.addActionListener(this);
+        menue.add(menuItemes);
 
         //Set up the second menu item.
         JMenuItem menuItem = new JMenuItem("Quit");
@@ -277,6 +289,9 @@ public class InternalFrameDemo extends JFrame
             welcomescreen();
         }else if ("quit".equals(e.getActionCommand())) { //new
             quit();
+
+        }else if ("save".equals(e.getActionCommand())) { //new
+            save();
         }
         else if ("sphere".equals(e.getActionCommand())) { //new
 
@@ -335,6 +350,27 @@ public class InternalFrameDemo extends JFrame
         try {
             frame.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
+    }
+
+    protected void save(){
+
+        JFileChooser chooser = new JFileChooser();
+
+        chooser.setCurrentDirectory(new File("/home/me/Documents/"+projet.getNom()+".txt"));
+        int retrival = chooser.showSaveDialog(null);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            try {
+                FileOutputStream fout = new FileOutputStream(chooser.getSelectedFile()+".txt");
+                ObjectOutputStream oos = new ObjectOutputStream(fout);
+                oos.writeObject(projet);
+                 oos.close();
+                this.log("fichier enregistré sous : "+ chooser.getSelectedFile()+".txt");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
     }
 
     protected void createTreeFrame() {

@@ -1,12 +1,13 @@
 package Shapes;
 
 import javax.media.opengl.GL2;
+import java.io.Serializable;
 
 /**
  * Shapes
  * Created by Theo on 30/12/2014 for Ide3DProject.
  */
-public class Triangle extends Forme {
+public class Triangle extends Forme implements Serializable {
 
         // Moitié de la longueur d'un coté, simplifie les calculs
         private float tailleSur2;

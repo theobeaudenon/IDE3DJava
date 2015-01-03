@@ -1,8 +1,9 @@
 package Shapes;
 
 import javax.media.opengl.GL2;
+import java.io.Serializable;
 
-public class Sphere extends Forme{
+public class Sphere extends Forme implements Serializable {
 
     // Moitié de la longueur d'un coté, simplifie les calculs
 
