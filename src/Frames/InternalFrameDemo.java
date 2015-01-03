@@ -25,6 +25,7 @@ public class InternalFrameDemo extends JFrame
     JDesktopPane desktop;
     private JMenuItem menuItemelog ;
     private JMenuBar menuBar;
+    private TreeFrame frame;
 
     public InternalFrameDemo(Projet finalPro) {
         super("InternalFrameDemo");
@@ -278,33 +279,27 @@ public class InternalFrameDemo extends JFrame
             quit();
         }
         else if ("sphere".equals(e.getActionCommand())) { //new
-            Forme f2 = new Forme();
+
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Sphere ed = new Sphere(3d, 0, 0, 0, new ColorRVB(0.8f,0.8f,0.8f));
-            f2.setClasse(ed.getClass());
-            f2.setObj(ed);
-            f2.setName("new sphere");
-            creatFrameOPGL(f2);
+            Sphere ed = new Sphere("new Sphere ", 3d, 0, 0, 0, new ColorRVB(0.8f,0.8f,0.8f));
+
+            creatFrameOPGL(ed);
 
         }
         else if ("carre".equals(e.getActionCommand())) { //new
-            Forme f1 = new Forme();
+
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Cube g = new Cube(1.0f, 0, 0, 0, new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f));
-            f1.setClasse(g.getClass());
-            f1.setObj(g);
-            f1.setName("new cube ");
-            creatFrameOPGL(f1);
+            Cube g = new Cube("new cube", 1.0f, 0, 0, 0, new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f));
+
+            creatFrameOPGL(g);
 
         }else if ("triangle".equals(e.getActionCommand())) { //new
 
-            Forme trian = new Forme();
+
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Triangle tri = new Triangle(2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f),new ColorRVB(0.2f,0.5f,0.35f));
-            trian.setClasse(tri.getClass());
-            trian.setObj(tri);
-            trian.setName("new Triangle");
-            creatFrameOPGL(trian);
+            Triangle tri = new Triangle("Triangle", 2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f),new ColorRVB(0.2f,0.5f,0.35f));
+
+            creatFrameOPGL(tri);
 
          }
 
@@ -343,14 +338,16 @@ public class InternalFrameDemo extends JFrame
     }
 
     protected void createTreeFrame() {
-        TreeFrame frame = new TreeFrame(this.projet, this);
+        frame = new TreeFrame(this.projet, this);
         frame.setVisible(true); //necessary as of 1.3
         desktop.add(frame);
         try {
             frame.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
     }
-
+    public void refreshTree(){
+        frame.refresh();
+    }
     //Quit the application.
     protected void quit() {
         System.exit(0);

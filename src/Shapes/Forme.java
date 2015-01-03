@@ -1,5 +1,7 @@
 package Shapes;
 
+import javax.media.opengl.GL2;
+
 /**
  * Shapes
  * Created by Theo on 26/12/2014 for Ide3DProject.
@@ -7,36 +9,31 @@ package Shapes;
 public class Forme {
 
 
-    public Class classe ;
     public String name;
-    public Object obj;
 
-
-    public Class getClasse() {
-        return classe;
+    public Forme(String s) {
+        name = s;
     }
 
-    public void setClasse(Class classe) {
-        this.classe = classe;
-    }
 
-    public Object getObj() {
-        return obj;
-    }
 
-    public void setObj(Object obj) {
-        this.obj = obj;
-    }
 
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String theName) {
+        this.name = theName;
     }
+
+
     @Override
     public String toString() {
         return this.getName();
     }
+
+    public void draw(GL2 gl){
+
+    }
+
+
 }

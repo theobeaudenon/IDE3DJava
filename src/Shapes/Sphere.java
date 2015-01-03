@@ -2,7 +2,7 @@ package Shapes;
 
 import javax.media.opengl.GL2;
 
-public class Sphere {
+public class Sphere extends Forme{
 
     // Moitié de la longueur d'un coté, simplifie les calculs
 
@@ -13,7 +13,8 @@ public class Sphere {
     private int [] position;
     private double r = 1;
 
-    public Sphere(Double taille, int x, int y, int z, ColorRVB colordevant){
+    public Sphere(String s, Double taille, int x, int y, int z, ColorRVB colordevant){
+        super(s);
         r = taille;
 
         this.colordevant = colordevant;
@@ -56,6 +57,11 @@ public class Sphere {
         }
 
 
+
+    }
+
+
+    public void getSetting(){
 
     }
 

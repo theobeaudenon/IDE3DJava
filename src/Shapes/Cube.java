@@ -2,7 +2,7 @@ package Shapes;
 
 import javax.media.opengl.GL2;
 
-public class Cube {
+public class Cube extends Forme{
 
     // Moitié de la longueur d'un coté, simplifie les calculs
     private float tailleSur2;
@@ -15,7 +15,8 @@ public class Cube {
     // Centre du Cube dans le repere global, simplifie la translation
     private int [] position;
 
-    public Cube(float taille, int x, int y, int z, ColorRVB colorderiere, ColorRVB colordevant, ColorRVB colordroite, ColorRVB colorgauche, ColorRVB colorhaut, ColorRVB colorbas){
+    public Cube(String s, float taille, int x, int y, int z, ColorRVB colorderiere, ColorRVB colordevant, ColorRVB colordroite, ColorRVB colorgauche, ColorRVB colorhaut, ColorRVB colorbas){
+        super(s);
         tailleSur2 = taille;
         this.colorderiere = colorderiere;
         this.colordevant = colordevant;
@@ -27,11 +28,10 @@ public class Cube {
         position[0] = x;
         position[1] = y;
         position[2] = z;
-
     }
 
 
-
+    @Override
     public void draw(GL2 gl){
 
         // Dessin de 6 quadrilateres : {4 vertex = 1 quadrilatère}

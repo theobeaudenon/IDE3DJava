@@ -6,7 +6,7 @@ import javax.media.opengl.GL2;
  * Shapes
  * Created by Theo on 30/12/2014 for Ide3DProject.
  */
-public class Triangle {
+public class Triangle extends Forme {
 
         // Moitié de la longueur d'un coté, simplifie les calculs
         private float tailleSur2;
@@ -18,7 +18,8 @@ public class Triangle {
         // Centre du Cube dans le repere global, simplifie la translation
         private int [] position;
 
-        public Triangle(float taille, int x, int y, int z,  ColorRVB colordevant, ColorRVB colordroite, ColorRVB colorgauche,  ColorRVB colorbas , ColorRVB collordessous){
+        public Triangle(String triangle, float taille, int x, int y, int z, ColorRVB colordevant, ColorRVB colordroite, ColorRVB colorgauche, ColorRVB colorbas, ColorRVB collordessous){
+            super(triangle);
             tailleSur2 = taille;
             this.colordevant = colordevant;
             this.colordroite = colordroite;

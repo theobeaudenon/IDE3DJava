@@ -13,6 +13,8 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import Shapes.ColorRVB;
 import Shapes.Cube;
@@ -58,7 +60,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
     public float alphaY=0f;
     // Angle courant de rotation sur l'axe Z
     public float alphaZ=0f;
-    public Forme d = new Forme();
+    public Forme d ;
 
     private static JComboBox comboBox;
 
@@ -156,7 +158,29 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         });
         inspector.add(chooseButton);
 
+        final JTextField name = new JTextField(d.getName());
+        name.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                warn();
+            }
 
+            public void removeUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                warn();
+            }
+
+
+            public void warn() {
+
+                    parent.log("Renomage en : " + name.getText());
+                    d.setName(name.getText());
+                    parent.refreshTree();
+            }
+        });
+        inspector.add(name);
 
         pinButton.addActionListener(new AbstractAction() {
             @Override
@@ -280,22 +304,12 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         gl.glEnd();
 
         /* recuperation de lobjet et instantiation */
-        try {
-            d.getObj().getClass().getMethod("draw" , GL2.class).invoke(d.getObj(), gl);
-        } catch (IllegalAccessException e1) {
-            e1.printStackTrace();
-        } catch (InvocationTargetException e1) {
-            e1.printStackTrace();
-        } catch (NoSuchMethodException e1) {
-            e1.printStackTrace();
-        }
+
+        d.draw(gl);
+
 
 
         // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
-
-        //gl.glColor3f(0.2f,0f,0f);
-       // GLUT s = new GLUT();
-       // s.glutSolidDodecahedron();
 
 
     }

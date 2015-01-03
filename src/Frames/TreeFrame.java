@@ -56,6 +56,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         public void mouseMoved(MouseEvent e) {
 
         }
+
     };
     private InternalFrameDemo parent;
     private JTree tree;
@@ -106,7 +107,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                parent.log("Rafraîchissement du menu");
+                //parent.log("Rafraîchissement du menu");
                 root = new DefaultMutableTreeNode(projet.getNom());
 
 
@@ -118,7 +119,6 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
                     scene.add(vegetableNode);
                 }
-
 
 
 
@@ -168,7 +168,9 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
     }
 
-
+    public void refresh(){
+        refresh.doClick();
+    }
     public void startup(Projet projet){
 
          root = new DefaultMutableTreeNode(projet.getNom());
@@ -336,7 +338,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.println("salut");
+
     }
 
     @Override

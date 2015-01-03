@@ -5,7 +5,6 @@ import classe.Projet;
 import utils.ZipFileReader;
 
 import javax.imageio.ImageIO;
-import javax.lang.model.type.ArrayType;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -107,44 +106,34 @@ public class WelcomeFrame extends JFrame implements ActionListener{
 
 
 
-                    Forme f = new Forme();
+
                        /* Mise en place de la forme sauvegardé pour exemple */
-                    Cube e = new Cube(1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f));
-                    f.setClasse(e.getClass());
-                    f.setObj(e);
-                    f.setName("Cube Swag");
-
-                    o.add(f);
+                    Cube e = new Cube("cube",1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f));
+                    o.add(e);
 
 
-                    Forme f1 = new Forme();
+
                        /* Mise en place de la forme sauvegardé pour exemple */
-                    Cube g = new Cube(2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f), new ColorRVB(0.4f,1f,0.2f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.2f,0.5f,0.35f));
-                    f1.setClasse(g.getClass());
-                    f1.setObj(g);
-                    f1.setName("Cube Swag 2 ");
-
-                    o.add(f1);
+                    Cube g = new Cube("Cube 2", 2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f), new ColorRVB(0.4f,1f,0.2f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.2f,0.5f,0.35f));
 
 
-                    Forme trian = new Forme();
+                    o.add(g);
+
+
+
                        /* Mise en place de la forme sauvegardé pour exemple */
-                    Triangle tri = new Triangle(2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f),new ColorRVB(0.2f,0.5f,0.35f), new ColorRVB(0.5f,0f,0.4f));
-                    trian.setClasse(tri.getClass());
-                    trian.setObj(tri);
-                    trian.setName("Triangle");
-
-                    o.add(trian);
+                    Triangle tri = new Triangle("Triangle",2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f),new ColorRVB(0.2f,0.5f,0.35f), new ColorRVB(0.5f,0f,0.4f));
 
 
-                    Forme f2 = new Forme();
+                    o.add(tri);
+
+
+
                        /* Mise en place de la forme sauvegardé pour exemple */
-                    Sphere ed = new Sphere(3.2, 0, 0, 0, new ColorRVB(0.2f,0.2f,0.9f));
-                    f2.setClasse(ed.getClass());
-                    f2.setObj(ed);
-                    f2.setName("Sphere ");
+                    Sphere ed = new Sphere("Sphere ",3.2, 0, 0, 0, new ColorRVB(0.2f,0.2f,0.9f));
 
-                    o.add(f2);
+
+                    o.add(ed);
 
 
                     p.setObj(o);

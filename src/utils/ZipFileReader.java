@@ -9,9 +9,6 @@ import Shapes.Cube;
 import Shapes.Forme;
 import classe.Projet;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -116,13 +113,11 @@ public class ZipFileReader {
                     if(obj[0].equals("scenes")){
                         scene1.add(obj[1]);
                     }else  if(obj[0].equals("obj")){
-                        Forme f = new Forme();
+
                        /* Mise en place de la forme sauvegardé pour exemple */
-                        Cube e = new Cube(1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f));
-                        f.setClasse(e.getClass());
-                        f.setObj(e);
-                        f.setName("Cube Swag");
-                        obj1.add(f);
+                        Cube e = new Cube("", 1.0f, 0, 0, 0, new ColorRVB(0.9f,0.9f,0.9f), new ColorRVB(0.9f,0.42f,0.1f),  new ColorRVB(0.1f,0f,1f), new ColorRVB(0.4f,1f,0.7f), new ColorRVB(0f,0f,0.5f), new ColorRVB(0.6f,0.5f,0.1f));
+
+                        obj1.add(e);
                     }
                 }catch (Exception e){
 
