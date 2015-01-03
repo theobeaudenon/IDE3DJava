@@ -330,9 +330,11 @@ public class InternalFrameDemo extends JFrame
         } catch (java.beans.PropertyVetoException e) {}
     }
 
-    protected void creatFrameOPGL(Object userObject){
-        this.log("Ouverture d'une Frame OpenGL");
-        CWGOpenGLScreen frame = new CWGOpenGLScreen((Forme)userObject);
+    protected void creatFrameOPGL(Object userObject ){
+        Forme f = (Forme)userObject;
+        this.log("Ouverture d'une Frame OpenGL : " + f.getName());
+        CWGOpenGLScreen frame = new CWGOpenGLScreen(f , this);
+
         frame.setVisible(true); //necessary as of 1.3
         desktop.add(frame);
         try {

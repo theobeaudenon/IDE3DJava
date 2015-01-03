@@ -29,6 +29,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private boolean down= false;
     private boolean right= false;
     private boolean left= false;
+    private final InternalFrameDemo parent;
 
     public static void main(String[] args) {
         //new CWGOpenGLScreen(userObject).setVisible(true);
@@ -36,6 +37,8 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
     private static final long serialVersionUID = 635066680731362587L;
     private PinButton pinButton = new PinButton("");
+    private JPanel inspector = new JPanel(new GridLayout(2, 1));
+
     private JPanel top = new JPanel();
     private static final   String TAG = "CWGOpenGLScreen";
     private GLCanvas mCanvas = new GLCanvas();
@@ -57,6 +60,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
     public float alphaZ=0f;
     public Forme d = new Forme();
 
+    private static JComboBox comboBox;
 
     // Listener pin not pin
 
@@ -81,15 +85,14 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         }
     };
 
-    //
-
-    public CWGOpenGLScreen(Forme userObject){
+    public CWGOpenGLScreen(Forme userObject, InternalFrameDemo internalFrameDemo){
 
         super("Project",
                 true, //resizable
                 true, //closable
                 true, //maximizable
                 true);//iconifiable
+        parent = internalFrameDemo;
 
         ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
 
@@ -97,20 +100,21 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         d =  userObject;
 
 
-
-
         setDragable(true);
         top.setBackground(new Color(45, 48, 50));
-        top.setBorder(new LineBorder(Color.BLACK));
+        inspector.setBackground(new Color(45, 48, 50));
+        inspector.setBorder(new LineBorder(Color.BLACK));
         top.setBorder(new LineBorder(Color.BLACK));
         pinButton.setPreferredSize(new Dimension(16, 16));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
+        inspector.setBorder(BorderFactory.createLineBorder(Color.black));
         top.add(pinButton);
         revertPlaceButton.setPreferredSize(new Dimension(16, 16));
         rotateButton.setPreferredSize(new Dimension(16, 16));
         top.add(revertPlaceButton);
         top.add(rotateButton);
         this.add(top, BorderLayout.NORTH);
+        this.add(inspector, BorderLayout.SOUTH);
         this.setTitle(d.getName());
         this.setSize(600, 475);
         this.setLocation(310, 5);
@@ -119,6 +123,39 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         setBorder(BorderFactory.createLineBorder(Color.black));
         CWGSetupGL();
         this.setVisible(true);
+
+
+
+
+
+        // Combobox
+        JLabel labelCombo = new JLabel("Bank Code");
+
+        // Options in the combobox
+        String[] options = { "Option1", "Option2", "Option3", "Option4", "Option15" };
+        comboBox = new JComboBox(options);
+        comboBox.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.log(e.paramString());
+
+            }
+        });
+        inspector.add(comboBox);
+
+        JButton chooseButton = new JButton("Choix Couleur");
+        chooseButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Color backgroundColor = JColorChooser.showDialog(parent,
+                        "Choisir votre couleur", Color.white);
+                if(backgroundColor != null){
+                    parent.log(backgroundColor.toString());
+                }
+            }
+        });
+        inspector.add(chooseButton);
+
 
 
         pinButton.addActionListener(new AbstractAction() {
@@ -157,7 +194,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
             }
         });
 
-//    CWGDebug.info(TAG, "Window created!");
+        //    CWGDebug.info(TAG, "Window created!");
         animator = null;
     }
     private void CWGSetupGL(){
@@ -227,9 +264,6 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
         */
 
-
-
-
         //Affichage de la grille
         gl.glBegin(GL2.GL_LINES);
         for(int i=-0;i<=10;i++) {
@@ -247,7 +281,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
         /* recuperation de lobjet et instantiation */
         try {
-            d.getObj().getClass().getMethod("draw" , GL2.class)   .invoke(d.getObj(),gl);
+            d.getObj().getClass().getMethod("draw" , GL2.class).invoke(d.getObj(), gl);
         } catch (IllegalAccessException e1) {
             e1.printStackTrace();
         } catch (InvocationTargetException e1) {

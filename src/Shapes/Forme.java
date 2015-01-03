@@ -20,8 +20,6 @@ public class Forme {
         this.classe = classe;
     }
 
-
-
     public Object getObj() {
         return obj;
     }
