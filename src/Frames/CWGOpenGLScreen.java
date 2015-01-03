@@ -127,12 +127,6 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         this.setVisible(true);
 
 
-
-
-
-        // Combobox
-        JLabel labelCombo = new JLabel("Bank Code");
-
         // Options in the combobox
         String[] options = { "Option1", "Option2", "Option3", "Option4", "Option15" };
         comboBox = new JComboBox(options);

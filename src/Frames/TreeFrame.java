@@ -2,20 +2,19 @@ package Frames;
 
 import Shapes.Forme;
 import buttons.PinButton;
-import buttons.RevertPlaceButton;
 import buttons.RotateButton;
 import buttons.ToolProjectButton;
 import classe.Projet;
 import utils.RightClicMenu;
+import utils.TreeUtil;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Field;
 
 /**
  * Created by Boufle on 16/12/14.
@@ -61,10 +60,11 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
     private InternalFrameDemo parent;
     private JTree tree;
     private DefaultMutableTreeNode root;
+    private final Projet projet;
 
     //
 
-    public TreeFrame(final Projet projet, final InternalFrameDemo parent){
+    public TreeFrame(  Projet projett, final InternalFrameDemo parent){
 
 
         super("Project",
@@ -72,13 +72,14 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
                 true, //closable
                 true, //maximizable
                 true);//iconifiable
+        this.projet = projett;
         this.parent = parent;
         //create the root node
         ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
 
         this.setContentPane(rightClicMenu);
         setDragable(false);
-        startup( projet);
+        startup(  );
 
         pinButton.setPreferredSize(new Dimension(16,16));
         top.add(pinButton);
@@ -108,22 +109,27 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
             public void actionPerformed(ActionEvent e) {
 
                 //parent.log("Rafraîchissement du menu");
-                root = new DefaultMutableTreeNode(projet.getNom());
+                root.removeAllChildren();
+                //root = new DefaultMutableTreeNode(projet.getNom());
+
 
 
                 DefaultMutableTreeNode scene = new DefaultMutableTreeNode("scenes");
-                root.add(scene);
+
+                DefaultMutableTreeNode objets = new DefaultMutableTreeNode("Objets");
+
+
                 for(String p : projet.getScene())
                 {
                     DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
 
                     scene.add(vegetableNode);
                 }
+                root.add(scene);
 
 
 
-                DefaultMutableTreeNode objets = new DefaultMutableTreeNode("Objets");
-                root.add(objets);
+
                 //create the child nodes
 
 
@@ -131,25 +137,30 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
                 for(Forme p : projet.getObj())
                 {
                     DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
-
                     objets.add(vegetableNode);
                 }
+                root.add(objets);
 
-                    final DefaultTreeCellRenderer renderer =
-                            (DefaultTreeCellRenderer)(tree.getCellRenderer());
-                    renderer.setBackgroundNonSelectionColor(new Color(60,63,65));
-                    renderer.setBackgroundSelectionColor(new Color(1, 126, 178));
-                    renderer.setTextNonSelectionColor(Color.WHITE);
-                    renderer.setTextSelectionColor(Color.WHITE);
-
-
+                final DefaultTreeCellRenderer renderer =
+                        (DefaultTreeCellRenderer)(tree.getCellRenderer());
+                renderer.setBackgroundNonSelectionColor(new Color(60, 63, 65));
+                renderer.setBackgroundSelectionColor(new Color(1, 126, 178));
+                renderer.setTextNonSelectionColor(Color.WHITE);
+                renderer.setTextSelectionColor(Color.WHITE);
 
 
                 //tree.setForeground(Color.WHITE);
+                tree.setDragEnabled(true);
+                //tree.setDropMode(DropMode.ON);
                 tree.updateUI();
                 tree.setCellRenderer(renderer);
+
+                for (int i = 0; i < tree.getRowCount(); i++) {
+                    tree.expandRow(i);
+                }
             }
         });
+
         top.setBackground(new Color(45, 48, 50));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
 
@@ -168,36 +179,32 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
     }
 
+
+
+
     public void refresh(){
         refresh.doClick();
     }
-    public void startup(Projet projet){
+    public void startup(){
 
-         root = new DefaultMutableTreeNode(projet.getNom());
+
+        root = new DefaultMutableTreeNode(projet.getNom());
 
 
         DefaultMutableTreeNode scene = new DefaultMutableTreeNode("scenes");
-        root.add(scene);
+        DefaultMutableTreeNode objets = new DefaultMutableTreeNode("Objets");
+
         for(String p : projet.getScene())
         {
             DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
 
             scene.add(vegetableNode);
         }
+        root.add(scene);
+
+
 
         //create the child nodes
-
-        // DefaultMutableTreeNode fruitNode = new DefaultMutableTreeNode("sc2");
-        //add the child nodes to the root node
-
-        // roott.add(fruitNode);
-
-
-        DefaultMutableTreeNode objets = new DefaultMutableTreeNode("Objets");
-        root.add(objets);
-        //create the child nodes
-
-
 
         for(Forme p : projet.getObj())
         {
@@ -205,7 +212,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
             objets.add(vegetableNode);
         }
-
+        root.add(objets);
 
         //create the tree by passing in the root node
 
@@ -229,7 +236,19 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         tree.setBackground(new Color(60,63,65));
         tree.setForeground(Color.WHITE);
         add(tree, BorderLayout.CENTER);
+        final DefaultTreeCellRenderer renderer =
+                (DefaultTreeCellRenderer)(tree.getCellRenderer());
+        renderer.setBackgroundNonSelectionColor(new Color(60,63,65));
+        renderer.setBackgroundSelectionColor(new Color(1, 126, 178));
+        renderer.setTextNonSelectionColor(Color.WHITE);
+        renderer.setTextSelectionColor(Color.WHITE);
 
+
+
+
+        //tree.setForeground(Color.WHITE);
+        tree.updateUI();
+        tree.setCellRenderer(renderer);
 
     }
 
@@ -248,7 +267,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
              final DefaultMutableTreeNode obj = (DefaultMutableTreeNode)path.getLastPathComponent();
 
-            Forme label = (Forme) obj.getUserObject();
+              Forme label = (Forme) obj.getUserObject();
             JMenuItem itemname = new JMenuItem(label.getName());
             itemname.setEnabled(false);
             JPopupMenu popup = new JPopupMenu();
@@ -262,8 +281,19 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
                 }
             });
-
+            JMenuItem iteme = new JMenuItem("Suprimer");
+            iteme.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //ouverture de l'inspecteur avec les données de la vue
+                    parent.removeOBJ(obj.getUserObject());
+                    System.out.println(projet.getObj());
+                    parent.log("Supression d'un objet");
+                    refresh();
+                }
+            });
             popup.add(item);
+            popup.add(iteme);
             popup.show(tree, x, y);
         }
         private void openopengj(MouseEvent e) {

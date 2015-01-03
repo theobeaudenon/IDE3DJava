@@ -30,7 +30,7 @@ public class InternalFrameDemo extends JFrame
     private TreeFrame frame;
 
     public InternalFrameDemo(Projet finalPro) {
-        super("InternalFrameDemo");
+        super("Editeur 3D SUPINFO");
         this.projet = finalPro;
         //Make the big window be indented 50 pixels from each edge
         //of the screen.
@@ -159,6 +159,11 @@ public class InternalFrameDemo extends JFrame
         creer.setForeground(new Color(178, 178, 178));
         creer.setMnemonic(KeyEvent.VK_D);
 
+        JMenu aide = new JMenu("Aide");
+        aide.setBackground(new Color(45,48,50));
+        aide.setForeground(new Color(178, 178, 178));
+        aide.setMnemonic(KeyEvent.VK_D);
+
         JMenu Objet = new JMenu("Objet");
         creer.setBackground(new Color(45,48,50));
         creer.setForeground(new Color(178, 178, 178));
@@ -166,7 +171,7 @@ public class InternalFrameDemo extends JFrame
         creer.add(Objet);
 
         menuBar.add(creer);
-
+        menuBar.add(aide);
         menuBar.add(Box.createGlue());
 
         menuItemelog = new JMenuItem("                                                                                                                                         Informations  ");
@@ -273,6 +278,16 @@ public class InternalFrameDemo extends JFrame
         menuItem.addActionListener(this);
         Objet.add(menuItem);
 
+        menuItem = new JMenuItem("A Propos");
+        menuIteme.setBackground(new Color(45,48,50));
+        menuIteme.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("propos");
+        menuItem.addActionListener(this);
+        aide.add(menuItem);
+
 
         return menuBar;
     }
@@ -296,24 +311,26 @@ public class InternalFrameDemo extends JFrame
         else if ("sphere".equals(e.getActionCommand())) { //new
 
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Sphere ed = new Sphere("new Sphere ", 3d, 0, 0, 0, new ColorRVB(0.8f,0.8f,0.8f));
-
+            Sphere ed = new Sphere(name(), 3d, 0, 0, 0, new ColorRVB(0.8f,0.8f,0.8f));
+            addOBJ(ed);
+            refreshTree();
             creatFrameOPGL(ed);
 
         }
         else if ("carre".equals(e.getActionCommand())) { //new
 
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Cube g = new Cube("new cube", 1.0f, 0, 0, 0, new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f));
-
+            Cube g = new Cube(name(), 1.0f, 0, 0, 0, new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f), new ColorRVB(1.0f,1.0f,1.0f));
+            addOBJ(g);
+            refreshTree();
             creatFrameOPGL(g);
 
         }else if ("triangle".equals(e.getActionCommand())) { //new
 
-
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Triangle tri = new Triangle("Triangle", 2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f),new ColorRVB(0.2f,0.5f,0.35f));
-
+            Triangle tri = new Triangle(name(), 2.0f, 0, 0, 0, new ColorRVB(1f,1f,0.9f), new ColorRVB(0.5f,0f,0.4f), new ColorRVB(0.9f,0.9f,0.1f),  new ColorRVB(0.9f,0f,1f),new ColorRVB(0.2f,0.5f,0.35f));
+            addOBJ(tri);
+            refreshTree();
             creatFrameOPGL(tri);
 
          }
@@ -322,7 +339,12 @@ public class InternalFrameDemo extends JFrame
 
         }
     }
+    public static String name(){
+        JFrame frame = new JFrame("Nom");
+        // prompt the user to enter their name
+        return  JOptionPane.showInputDialog(frame, "Entrez le nom de l'objet");
 
+    }
     private void welcomescreen() {
         WelcomeFrame frame = new WelcomeFrame();
         frame.setVisible(true); //necessary as of 1.3
@@ -356,21 +378,28 @@ public class InternalFrameDemo extends JFrame
 
         JFileChooser chooser = new JFileChooser();
 
-        chooser.setCurrentDirectory(new File("/home/me/Documents/"+projet.getNom()+".txt"));
+        chooser.setSelectedFile(new File("/home/me/Documents/"+projet.getNom()+".eb"));
         int retrival = chooser.showSaveDialog(null);
         if (retrival == JFileChooser.APPROVE_OPTION) {
             try {
-                FileOutputStream fout = new FileOutputStream(chooser.getSelectedFile()+".txt");
+                FileOutputStream fout = new FileOutputStream(chooser.getSelectedFile());
                 ObjectOutputStream oos = new ObjectOutputStream(fout);
                 oos.writeObject(projet);
                  oos.close();
-                this.log("fichier enregistré sous : "+ chooser.getSelectedFile()+".txt");
+                this.log("fichier enregistré sous : "+ chooser.getSelectedFile());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
 
 
+    }
+
+    public void removeOBJ(Object o){
+        projet.getObj().remove(o);
+    }
+    public void addOBJ(Forme o){
+        projet.getObj().add(o);
     }
 
     protected void createTreeFrame() {

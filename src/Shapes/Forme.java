@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Shapes
  * Created by Theo on 26/12/2014 for Ide3DProject.
  */
-public class Forme implements Serializable {
+public abstract class Forme implements Serializable {
 
     public String name;
 
@@ -32,9 +32,7 @@ public class Forme implements Serializable {
         return this.getName();
     }
 
-    public void draw(GL2 gl){
-
-    }
+    abstract public void draw(GL2 gl) ;
 
 
 }
