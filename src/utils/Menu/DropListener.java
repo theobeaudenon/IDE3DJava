@@ -1,17 +1,12 @@
 package utils.Menu;
 
 import Frames.InternalFrameDemo;
-import classe.Forme;
-import classe.Projet;
-import utils.ZipFileReader;
 
-import javax.swing.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
-import java.io.File;
 
 /**
  * utils.Menu

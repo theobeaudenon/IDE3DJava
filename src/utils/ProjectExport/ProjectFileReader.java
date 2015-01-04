@@ -1,4 +1,4 @@
-package utils;
+package utils.ProjectExport;
 
 /**
  * Created by Boufle on 18/12/14.
@@ -8,20 +8,9 @@ import classe.Projet;
 
 import java.io.*;
 
-public class ZipFileReader {
-
-
-
-
+public class ProjectFileReader {
     public  static Projet read(String name, String path ){
-       /* JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "ZIP PD", "zip");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(cmp);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: " +
-                    chooser.getSelectedFile().getAbsolutePath());*/
+
         Projet pro = new Projet();
 
 
@@ -38,8 +27,6 @@ public class ZipFileReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return pro;
 
     }

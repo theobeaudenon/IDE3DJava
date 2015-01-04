@@ -1,5 +1,4 @@
 import Frames.WelcomeFrame;
-import utils.ZipFileReader;
 
 /**
  * Created by Boufle on 16/12/14.

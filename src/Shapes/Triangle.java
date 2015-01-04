@@ -1,7 +1,7 @@
 package Shapes;
 
 import classe.Forme;
-import utils.ColorRVB;
+import classe.ColorRVB;
 
 import javax.media.opengl.GL2;
 import java.io.Serializable;

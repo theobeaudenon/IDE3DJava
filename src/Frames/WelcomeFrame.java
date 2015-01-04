@@ -3,8 +3,8 @@ package Frames;
 import Shapes.*;
 import classe.Forme;
 import classe.Projet;
-import utils.ColorRVB;
-import utils.ZipFileReader;
+import classe.ColorRVB;
+import utils.ProjectExport.ProjectFileReader;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -65,7 +65,7 @@ public class WelcomeFrame extends JFrame implements ActionListener{
                         chooser.getSelectedFile().getAbsolutePath());
             Projet pro =null;
             do {
-                pro = ZipFileReader.read(chooser.getSelectedFile().getName(), chooser.getSelectedFile().getAbsolutePath());
+                pro = ProjectFileReader.read(chooser.getSelectedFile().getName(), chooser.getSelectedFile().getAbsolutePath());
 
             }while (pro == null);
 
