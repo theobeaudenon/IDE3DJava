@@ -1,12 +1,11 @@
 package Frames;
 
-import Shapes.Forme;
+import classe.Forme;
 import buttons.PinButton;
 import buttons.RotateButton;
 import buttons.ToolProjectButton;
 import classe.Projet;
 import utils.RightClicMenu;
-import utils.TreeUtil;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -14,7 +13,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Field;
 
 /**
  * Created by Boufle on 16/12/14.
@@ -245,7 +243,9 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
 
 
-
+        for (int i = 0; i < tree.getRowCount(); i++) {
+            tree.expandRow(i);
+        }
         //tree.setForeground(Color.WHITE);
         tree.updateUI();
         tree.setCellRenderer(renderer);

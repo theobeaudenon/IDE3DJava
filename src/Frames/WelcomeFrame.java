@@ -1,7 +1,9 @@
 package Frames;
 
 import Shapes.*;
+import classe.Forme;
 import classe.Projet;
+import utils.ColorRVB;
 import utils.ZipFileReader;
 
 import javax.imageio.ImageIO;

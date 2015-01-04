@@ -1,4 +1,4 @@
-package Shapes;
+package classe;
 
 import javax.media.opengl.GL2;
 import java.io.Serializable;

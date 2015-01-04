@@ -2,7 +2,6 @@ package Frames;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import javax.media.opengl.GL2;
@@ -16,9 +15,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import Shapes.ColorRVB;
-import Shapes.Cube;
-import Shapes.Forme;
+import classe.Forme;
 import buttons.PinButton;
 import buttons.RevertPlaceButton;
 import buttons.RotateButton;

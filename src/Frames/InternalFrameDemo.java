@@ -1,10 +1,9 @@
 package Frames;
 
 import Shapes.*;
+import classe.Forme;
 import classe.Projet;
-import com.github.julman99.gsonfire.GsonFireBuilder;
-import com.github.julman99.gsonfire.TypeSelector;
-import com.google.gson.*;
+import utils.ColorRVB;
 import utils.ZipFileReader;
 
 import javax.imageio.ImageIO;
@@ -378,7 +377,7 @@ public class InternalFrameDemo extends JFrame
 
         JFileChooser chooser = new JFileChooser();
 
-        chooser.setSelectedFile(new File("/home/me/Documents/"+projet.getNom()+".eb"));
+        chooser.setSelectedFile(new File("/home/me/Documents/" + projet.getNom() + ".eb"));
         int retrival = chooser.showSaveDialog(null);
         if (retrival == JFileChooser.APPROVE_OPTION) {
             try {

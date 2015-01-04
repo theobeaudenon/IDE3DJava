@@ -1,8 +1,10 @@
 package Shapes;
 
+import classe.Forme;
+import utils.ColorRVB;
+
 import javax.media.opengl.GL2;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Cube extends Forme implements Serializable {
 

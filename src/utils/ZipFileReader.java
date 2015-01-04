@@ -4,19 +4,9 @@ package utils;
  * Created by Boufle on 18/12/14.
  */
 
-import Shapes.Cube;
-import Shapes.Forme;
-import Shapes.Triangle;
 import classe.Projet;
-import com.github.julman99.gsonfire.GsonFireBuilder;
-import com.github.julman99.gsonfire.TypeSelector;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class ZipFileReader {
 

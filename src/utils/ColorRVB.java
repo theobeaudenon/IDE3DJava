@@ -1,4 +1,4 @@
-package Shapes;
+package utils;
 
 import java.io.Serializable;
 import java.nio.FloatBuffer;

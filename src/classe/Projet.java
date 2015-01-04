@@ -1,7 +1,5 @@
 package classe;
 
-import Shapes.Forme;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
