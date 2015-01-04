@@ -59,13 +59,10 @@ public class MenuAction {
         }
 
         else { //quit
-
+            thiss.log("Action non prise en compte");
         }
     }
     public static String name(){
-        JFrame frame = new JFrame("Nom");
-        // prompt the user to enter their name
-        return  JOptionPane.showInputDialog(frame, "Entrez le nom de l'objet");
-
+        return  JOptionPane.showInputDialog(new JFrame(""), "Entrez le nom de l'objet");
     }
 }
