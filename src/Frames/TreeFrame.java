@@ -242,6 +242,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         renderer.setTextSelectionColor(Color.WHITE);
 
 
+        tree.setDragEnabled(true);
 
         for (int i = 0; i < tree.getRowCount(); i++) {
             tree.expandRow(i);
