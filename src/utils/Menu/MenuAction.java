@@ -27,10 +27,8 @@ public class MenuAction {
             thiss.welcomescreen();
         }else if ("propos".equals(e.getActionCommand())) { //new
             thiss.createPropos();
-
         }else if ("quit".equals(e.getActionCommand())) { //new
             thiss.quit();
-
         }else if ("save".equals(e.getActionCommand())) { //new
             ProjectFileSaver.save(thiss.getProjet(), thiss, 1);
         }else if ("saveas".equals(e.getActionCommand())) { //new
