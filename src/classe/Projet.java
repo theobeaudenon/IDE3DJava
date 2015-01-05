@@ -11,8 +11,6 @@ public class Projet implements Serializable {
 
 
     private String nom;
-
-
     private String path;
     private ArrayList<String> scene = new ArrayList<String>();
     private ArrayList<Forme> obj = new ArrayList<Forme>();

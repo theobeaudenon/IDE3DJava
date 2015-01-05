@@ -25,6 +25,9 @@ public class MenuAction {
         }
         else if ("file".equals(e.getActionCommand())) { //new
             thiss.welcomescreen();
+        }else if ("propos".equals(e.getActionCommand())) { //new
+            thiss.createPropos();
+
         }else if ("quit".equals(e.getActionCommand())) { //new
             thiss.quit();
 
