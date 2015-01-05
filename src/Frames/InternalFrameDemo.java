@@ -3,6 +3,7 @@ package Frames;
 import classe.Forme;
 import classe.Projet;
 import utils.Menu.MenuAction;
+import utils.ProjectExport.ProjectFileSaver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -70,12 +71,24 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         createTreeFrame();
        // creatFrameOPGL(obj.getUserObject());
 
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                JDialog.setDefaultLookAndFeelDecorated(true);
+                int response = JOptionPane.showConfirmDialog(null, "Voulez vous sauvegarder le projet ? ", "Oui",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.NO_OPTION) {
+                    System.exit(10);
+                } else if (response == JOptionPane.YES_OPTION) {
+                    ProjectFileSaver.save(projet);
+                    System.exit(20);
+                } else if (response == JOptionPane.CLOSED_OPTION) {
+                    System.out.println("JOptionPane closed");
+                }
                 // Fermeture de l'application
-                System.exit(0);
+
             }
         });
 
@@ -149,7 +162,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     }
     //Quit the application.
     public void quit() {
-        System.exit(0);
+        System.exit(5);
     }
 
 
