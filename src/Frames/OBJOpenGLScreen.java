@@ -15,8 +15,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import buttons.CloseButton;
 import classe.Forme;
-import buttons.PinButton;
 import buttons.RevertPlaceButton;
 import buttons.RotateButton;
 import com.jogamp.opengl.util.FPSAnimator;
@@ -35,7 +35,7 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     }
 
     private static final long serialVersionUID = 635066680731362587L;
-    private PinButton pinButton = new PinButton("");
+    private CloseButton pinButton = new CloseButton("");
     private JPanel inspector = new JPanel(new GridLayout(2, 1));
 
     private JPanel top = new JPanel();
@@ -44,6 +44,7 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private long fpsLast = System.currentTimeMillis();
     private FPSAnimator animator;
     private RevertPlaceButton revertPlaceButton = new RevertPlaceButton("");
+    private CloseButton closeButton = new CloseButton("");
     private RotateButton rotateButton = new RotateButton("");
     int posX ;
     int posY ;
@@ -110,8 +111,10 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         top.add(pinButton);
         revertPlaceButton.setPreferredSize(new Dimension(16, 16));
         rotateButton.setPreferredSize(new Dimension(16, 16));
+        closeButton.setPreferredSize(new Dimension(16, 16));
         top.add(revertPlaceButton);
         top.add(rotateButton);
+        top.add(closeButton);
         this.add(top, BorderLayout.NORTH);
         this.add(inspector, BorderLayout.SOUTH);
         this.setTitle(d.getName());
@@ -206,6 +209,13 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
                 } else {
                     automoving = true;
                 }
+            }
+        });
+
+        closeButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OBJOpenGLScreen.this.dispose();
             }
         });
 
