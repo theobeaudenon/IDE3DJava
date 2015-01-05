@@ -169,9 +169,9 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
             public void warn() {
 
-                    parent.log("Renomage en : " + name.getText());
-                    d.setName(name.getText());
-                    parent.refreshTree();
+                parent.log("Renomage en : " + name.getText());
+                d.setName(name.getText());
+                parent.refreshTree();
             }
         });
         inspector.add(name);
@@ -211,11 +211,15 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
                 }
             }
         });
-
+        final OBJOpenGLScreen open = this;
         closeButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OBJOpenGLScreen.this.dispose();
+                try {
+                    animator.stop();
+                    mCanvas.getAnimator().stop();
+                    open.dispose();
+                }catch (Exception ee){}
             }
         });
 
@@ -226,7 +230,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         GLCapabilities mCaps = new GLCapabilities(null);
         mCaps.setHardwareAccelerated(true);
         mCaps.setDoubleBuffered(true);
-
         mCanvas = new GLCanvas(mCaps);
         mCanvas.addGLEventListener(this);
         mCanvas.addKeyListener(this);

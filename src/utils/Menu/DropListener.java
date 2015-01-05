@@ -13,7 +13,6 @@ import java.awt.dnd.DropTargetDropEvent;
  * Created by Theo on 04/01/2015 for Ide3DProject.
  */
 public class DropListener {
-
     public static void Drop(final InternalFrameDemo inte) {
         inte.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent event) {
@@ -27,7 +26,6 @@ public class DropListener {
                     inte.log(tr.getTransferData(DataFlavor.javaFileListFlavor).toString());
                 }
                 catch (  Exception e) {
-
                     e.printStackTrace();
                     event.rejectDrop();
                     inte.log("Erreur de drop :  "+e.getMessage());
@@ -36,5 +34,4 @@ public class DropListener {
             }
         });
     }
-
 }
