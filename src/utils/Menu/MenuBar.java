@@ -59,30 +59,34 @@ public class MenuBar {
 
         //Set up the first menu item.
         JMenuItem menuIteme = new JMenuItem("Nouveau / Ouvrir");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
         menuIteme.setMnemonic(KeyEvent.VK_N);
         menuIteme.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_N, ActionEvent.ALT_MASK));
+                KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         menuIteme.setActionCommand("file");
         menuIteme.addActionListener(internalFrameDemo);
         menue.add(menuIteme);
+        menue.add(new JSeparator());
 
         //Set up the second menu item.
-        JMenuItem menuItemes = new JMenuItem("Sauvegarder");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
+        JMenuItem menuItemes = new JMenuItem("Enregistrer");
+
         menuItemes.setMnemonic(KeyEvent.VK_Q);
         menuItemes.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_Q, ActionEvent.ALT_MASK));
+                KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         menuItemes.setActionCommand("save");
         menuItemes.addActionListener(internalFrameDemo);
         menue.add(menuItemes);
 
+        JMenuItem saveas = new JMenuItem("Enregistrer Sous");
+        saveas.setMnemonic(KeyEvent.VK_Q);
+        saveas.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_S, ActionEvent.ALT_MASK));
+        saveas.setActionCommand("saveas");
+        saveas.addActionListener(internalFrameDemo);
+        menue.add(saveas);
+        menue.add(new JSeparator());
         //Set up the second menu item.
         JMenuItem menuItem = new JMenuItem("Quit");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_Q);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_Q, ActionEvent.ALT_MASK));
@@ -91,8 +95,6 @@ public class MenuBar {
         menue.add(menuItem);
 
         menuItem = new JMenuItem("Project");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_O, ActionEvent.ALT_MASK));
@@ -101,8 +103,6 @@ public class MenuBar {
         menu.add(menuItem);
 
         menuItem = new JMenuItem("OPGL");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
@@ -111,8 +111,6 @@ public class MenuBar {
         menu.add(menuItem);
 
         menuItem = new JMenuItem("Scene");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
@@ -122,8 +120,6 @@ public class MenuBar {
 
 
         menuItem = new JMenuItem("Triangle");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
@@ -133,8 +129,6 @@ public class MenuBar {
 
 
         menuItem = new JMenuItem("Carré");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
@@ -143,8 +137,6 @@ public class MenuBar {
         Objet.add(menuItem);
 
         menuItem = new JMenuItem("Sphere");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
@@ -153,8 +145,6 @@ public class MenuBar {
         Objet.add(menuItem);
 
         menuItem = new JMenuItem("A Propos");
-        menuIteme.setBackground(new Color(45,48,50));
-        menuIteme.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));

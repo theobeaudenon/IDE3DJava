@@ -29,7 +29,10 @@ public class MenuAction {
             thiss.quit();
 
         }else if ("save".equals(e.getActionCommand())) { //new
-            ProjectFileSaver.save(thiss.getProjet(), thiss);
+            ProjectFileSaver.save(thiss.getProjet(), thiss, 1);
+        }else if ("saveas".equals(e.getActionCommand())) { //new
+
+            ProjectFileSaver.save(thiss.getProjet(), thiss, 2);
         }
         else if ("sphere".equals(e.getActionCommand())) { //new
 

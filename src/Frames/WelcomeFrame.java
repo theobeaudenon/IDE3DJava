@@ -7,7 +7,6 @@ import classe.ColorRVB;
 import classe.Forme;
 import classe.Projet;
 import utils.ProjectExport.ProjectFileReader;
-import utils.ProjectExport.ProjectFileSaver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -136,6 +135,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
                     p.setObj(o);
                     p.setScene(s);
+                    p.setPath(null);
                     //Create and set up the window.
                     InternalFrameDemo frame = new InternalFrameDemo(p);
                     frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

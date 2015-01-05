@@ -82,7 +82,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
                 if (response == JOptionPane.NO_OPTION) {
                     System.exit(10);
                 } else if (response == JOptionPane.YES_OPTION) {
-                    ProjectFileSaver.save(projet);
+                    ProjectFileSaver.save(projet,null, 1);
                     System.exit(20);
                 } else if (response == JOptionPane.CLOSED_OPTION) {
                     System.out.println("JOptionPane closed");

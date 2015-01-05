@@ -19,7 +19,7 @@ public class ProjectFileReader {
             streamIn = new FileInputStream(path);
             ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
             pro = (Projet) objectinputstream.readObject();
-
+            pro.setPath(path);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

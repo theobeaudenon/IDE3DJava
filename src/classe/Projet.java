@@ -11,10 +11,20 @@ public class Projet implements Serializable {
 
 
     private String nom;
+
+
+    private String path;
     private ArrayList<String> scene = new ArrayList<String>();
     private ArrayList<Forme> obj = new ArrayList<Forme>();
 
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public ArrayList<Forme> getObj() {
         return obj;

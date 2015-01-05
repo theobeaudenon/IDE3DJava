@@ -13,36 +13,38 @@ import java.io.ObjectOutputStream;
  * Created by Theo on 04/01/2015 for Ide3DProject.
  */
 public class ProjectFileSaver {
-    public static void save(Projet projet, InternalFrameDemo thiss){
-        JFileChooser chooser = new JFileChooser();
-        chooser.setSelectedFile(new File("/home/me/Documents/" + projet.getNom() + ".eb"));
-        int retrival = chooser.showSaveDialog(null);
-        if (retrival == JFileChooser.APPROVE_OPTION) {
+    public static void save(Projet projet, InternalFrameDemo thiss, int i) {
+        if (projet.getPath() == null || i == 2) {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(new File("/home/me/Documents/" + projet.getNom() + ".eb"));
+            int retrival = chooser.showSaveDialog(null);
+            if (retrival == JFileChooser.APPROVE_OPTION) {
+                try {
+                    FileOutputStream fout = new FileOutputStream(chooser.getSelectedFile());
+                    ObjectOutputStream oos = new ObjectOutputStream(fout);
+                    oos.writeObject(projet);
+                    oos.close();
+                    projet.setPath(chooser.getSelectedFile().getAbsolutePath());
+                    if (thiss != null) {
+                        thiss.log("fichier enregistré sous : " + chooser.getSelectedFile());
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } else {
             try {
-                FileOutputStream fout = new FileOutputStream(chooser.getSelectedFile());
+                FileOutputStream fout = new FileOutputStream(projet.getPath());
                 ObjectOutputStream oos = new ObjectOutputStream(fout);
                 oos.writeObject(projet);
                 oos.close();
-                thiss.log("fichier enregistré sous : " + chooser.getSelectedFile());
+                if (thiss != null) {
+                    thiss.log("fichier enregistré sous : " + projet.getPath());
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
     }
 
-    public static void save(Projet projet) {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setSelectedFile(new File("/home/me/Documents/" + projet.getNom() + ".eb"));
-        int retrival = chooser.showSaveDialog(null);
-        if (retrival == JFileChooser.APPROVE_OPTION) {
-            try {
-                FileOutputStream fout = new FileOutputStream(chooser.getSelectedFile());
-                ObjectOutputStream oos = new ObjectOutputStream(fout);
-                oos.writeObject(projet);
-                oos.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 }
