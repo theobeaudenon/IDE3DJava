@@ -6,6 +6,7 @@ import Shapes.Triangle;
 import classe.ColorRVB;
 import classe.Forme;
 import classe.Projet;
+import classe.Scene;
 import utils.ProjectExport.ProjectFileReader;
 
 import javax.imageio.ImageIO;
@@ -108,8 +109,13 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
                     Projet p = new Projet();
                     p.setNom("Nouveau Projet");
-                    ArrayList<String> s = new ArrayList<String>();
-                    s.add("Scene1");
+                    ArrayList<Scene> s = new ArrayList<Scene>();
+
+                    Scene sc = new Scene();
+                    sc.setName("Scene 1");
+                    s.add(sc);
+
+
                     ArrayList<Forme> o = new ArrayList<Forme>();
 
 

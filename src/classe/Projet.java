@@ -12,7 +12,7 @@ public class Projet implements Serializable {
 
     private String nom;
     private String path;
-    private ArrayList<String> scene = new ArrayList<String>();
+    private ArrayList<Scene> scene = new ArrayList<Scene>();
     private ArrayList<Forme> obj = new ArrayList<Forme>();
 
 
@@ -40,11 +40,11 @@ public class Projet implements Serializable {
         this.nom = nom;
     }
 
-    public ArrayList<String> getScene() {
+    public ArrayList<Scene> getScene() {
         return scene;
     }
 
-    public void setScene(ArrayList<String> scene) {
+    public void setScene(ArrayList<Scene> scene) {
         this.scene = scene;
     }
 

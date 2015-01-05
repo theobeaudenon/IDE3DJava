@@ -5,6 +5,7 @@ import buttons.PinButton;
 import buttons.RotateButton;
 import buttons.ToolProjectButton;
 import classe.Projet;
+import classe.Scene;
 import utils.RightClicMenu;
 
 import javax.swing.*;
@@ -117,7 +118,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
                 DefaultMutableTreeNode objets = new DefaultMutableTreeNode("Objets");
 
 
-                for(String p : projet.getScene())
+                for(Scene p : projet.getScene())
                 {
                     DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
 
@@ -192,7 +193,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         DefaultMutableTreeNode scene = new DefaultMutableTreeNode("scenes");
         DefaultMutableTreeNode objets = new DefaultMutableTreeNode("Objets");
 
-        for(String p : projet.getScene())
+        for(Scene p : projet.getScene())
         {
             DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode(p);
 
