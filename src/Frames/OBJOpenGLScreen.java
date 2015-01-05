@@ -35,7 +35,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     }
 
     private static final long serialVersionUID = 635066680731362587L;
-    private CloseButton pinButton = new CloseButton("");
     private JPanel inspector = new JPanel(new GridLayout(2, 1));
 
     private JPanel top = new JPanel();
@@ -105,10 +104,8 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         inspector.setBackground(new Color(45, 48, 50));
         inspector.setBorder(new LineBorder(Color.BLACK));
         top.setBorder(new LineBorder(Color.BLACK));
-        pinButton.setPreferredSize(new Dimension(16, 16));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
         inspector.setBorder(BorderFactory.createLineBorder(Color.black));
-        top.add(pinButton);
         revertPlaceButton.setPreferredSize(new Dimension(16, 16));
         rotateButton.setPreferredSize(new Dimension(16, 16));
         closeButton.setPreferredSize(new Dimension(16, 16));
@@ -176,22 +173,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         });
         inspector.add(name);
 
-        pinButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                compteurClic++;
-
-                if (compteurClic%2 == 0){
-                    setDragable(true);
-                    setBorder(BorderFactory.createRaisedBevelBorder());
-
-                }
-                else {
-                    setDragable(false);
-                    setBorder(BorderFactory.createLineBorder(Color.black));
-                }
-            }
-        });
 
         revertPlaceButton.addActionListener(new AbstractAction() {
             @Override

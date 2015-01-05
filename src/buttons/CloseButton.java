@@ -19,7 +19,7 @@ public class CloseButton extends JButton implements MouseListener {
         setBorderPainted(false);
         this.setContentAreaFilled(false);
         try {
-            img = ImageIO.read(new File("res\\img\\pin.jpg"));
+            img = ImageIO.read(new File("res\\img\\close.gif"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class CloseButton extends JButton implements MouseListener {
     public void mouseEntered(MouseEvent e) {
 
         try {
-            img = ImageIO.read(new File("res\\img\\pin_hoover.jpg"));
+            img = ImageIO.read(new File("res\\img\\close.gif"));
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class CloseButton extends JButton implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
         try {
-            img = ImageIO.read(new File("res\\img\\pin.jpg"));
+            img = ImageIO.read(new File("res\\img\\close.gif"));
         } catch (IOException e1) {
             e1.printStackTrace();
         }
