@@ -12,7 +12,6 @@ import java.awt.event.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.text.NumberFormat;
 
 
 public class InternalFrameDemo extends JFrame implements ActionListener {
@@ -132,7 +131,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     public void creatFrameOPGL(Object userObject){
         Forme f = (Forme)userObject;
         this.log("Ouverture d'une Frame OpenGL : " + f.getName());
-        CWGOpenGLScreen frame = new CWGOpenGLScreen(f , this);
+        OBJOpenGLScreen frame = new OBJOpenGLScreen(f , this);
 
         frame.setVisible(true); //necessary as of 1.3
         desktop.add(frame);

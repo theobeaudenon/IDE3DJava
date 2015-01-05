@@ -21,7 +21,7 @@ import buttons.RevertPlaceButton;
 import buttons.RotateButton;
 import com.jogamp.opengl.util.FPSAnimator;
 
-public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener {
+public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener {
 
     private boolean automoving= true;
     private boolean up = false;
@@ -84,7 +84,7 @@ public class CWGOpenGLScreen extends JInternalFrame implements GLEventListener,K
         }
     };
 
-    public CWGOpenGLScreen(Forme userObject, InternalFrameDemo internalFrameDemo){
+    public OBJOpenGLScreen(Forme userObject, InternalFrameDemo internalFrameDemo){
 
         super("Project",
                 true, //resizable
