@@ -1,5 +1,6 @@
 package Frames;
 
+import classe.BoLASoupe;
 import classe.Forme;
 import classe.Projet;
 import classe.Scene;
@@ -162,6 +163,13 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
 
 
     public void removeOBJ(Object o){
+       for( Scene scenee : projet.getScene()){
+           for (int i=0;i<scenee.getFormes().size();i++){
+               if(o.equals(scenee.getFormes().get(i).getForme())){
+                   scenee.getFormes().remove(i);
+               }
+           }
+       }
         projet.getObj().remove(o);
     }
     public void addOBJ(Forme o){
