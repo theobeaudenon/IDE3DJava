@@ -7,7 +7,6 @@ import classe.BoLASoupe;
 import classe.Forme;
 import classe.Scene;
 import com.jogamp.opengl.util.FPSAnimator;
-import utils.Camera.CameraRotation;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -17,11 +16,8 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 
 /**
  * Frames
