@@ -122,7 +122,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
 
     //React to menu selections.
     public void actionPerformed(ActionEvent e) {
-        MenuAction.actionPerformed(e,this);
+        MenuAction.actionPerformed(e, this);
     }
 
     public void welcomescreen() {
@@ -210,5 +210,9 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     }
     public void updateInspecteur(Forme forme){
         inspeframe.setModule(forme);
+    }
+
+    public void remInspecteur() {
+        inspeframe.remModule();
     }
 }

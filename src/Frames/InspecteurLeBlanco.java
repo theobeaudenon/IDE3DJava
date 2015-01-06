@@ -195,4 +195,9 @@ public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
     }
 
 
+    public void remModule() {
+        top.removeAll();
+        top.repaint();
+        top.setPreferredSize(this.getSize());
+    }
 }

@@ -393,6 +393,7 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     @Override
     public void internalFrameClosed(InternalFrameEvent e) {
 
+
     }
 
     @Override
@@ -408,12 +409,11 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     @Override
     public void internalFrameActivated(InternalFrameEvent e) {
         parent.log("Focus sur "+d.getName());
-
         parent.updateInspecteur(d);
     }
 
     @Override
     public void internalFrameDeactivated(InternalFrameEvent e) {
-
+        parent.remInspecteur();
     }
 }

@@ -36,7 +36,7 @@ public class Sphere extends Forme implements Serializable {
     public void draw(GL2 gl){
         gl.glColor3fv(couleurs.get(0).buffer());
         int i, j;
-        double lats= 10;
+        double lats= 30;
         for(i = 0; i <= lats; i++) {
             double lat0 = Math.PI * (-0.5 + (double) (i - 1) / lats);
             double z0  = Math.sin(lat0);
@@ -47,7 +47,7 @@ public class Sphere extends Forme implements Serializable {
             double zr1 = Math.cos(lat1);
 
             gl.glBegin(gl.GL_QUAD_STRIP);
-            double longs = 10;
+            double longs = 30;
             for(j = 0; j <= longs; j++) {
                 double lng = 2 * Math.PI * (double) (j - 1) / longs;
                 double x = Math.cos(lng);
