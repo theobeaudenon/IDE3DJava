@@ -7,6 +7,7 @@ import classe.BoLASoupe;
 import classe.Forme;
 import classe.Scene;
 import com.jogamp.opengl.util.FPSAnimator;
+import utils.Camera.CameraRotation;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -28,12 +29,24 @@ import java.util.Random;
  */
 public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener  {
 
-    private boolean automoving= true;
+    private boolean automoving= false;
     private boolean up = false;
     private boolean down= false;
     private boolean right= false;
     private boolean left= false;
+    private boolean first= true;
+    private int openglX = 0;
+    private int openglY = 0;
     private final InternalFrameDemo parent;
+
+    // Caméra rotation variable
+    private float cameraX = 4f;
+    private float cameraY = 6f;
+    private float cameraZ = 20f;
+
+    private float rotationcameraX = 0f;
+    private float rotationcameraY = 0f;
+    private float rotationcameraZ = 0f;
 
     public static void main(String[] args) {
         //new CWGOpenGLScreen(userObject).setVisible(true);
@@ -123,7 +136,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         setBorder(BorderFactory.createLineBorder(Color.black));
         CWGSetupGL();
         this.setVisible(true);
-
         JButton button2 = new JButton("Ajouter");
 
         button2.addActionListener(new ActionListener() {
@@ -210,11 +222,61 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         // Reinitialisation de la matrice courante
         gl.glLoadIdentity();
 
+        mCanvas.addMouseMotionListener(new MouseMotionListener() {
+            public void mouseMoved(MouseEvent e) {
+                // System.out.println(e);
+            }
+
+            public void mouseDragged(MouseEvent e) {
+
+                if(SwingUtilities.isRightMouseButton(e)){
+                    if (first) {
+                        openglX = e.getX();
+                        openglY = e.getY();
+                    }
+                    first = false;
+
+                    if (e.getX() < openglX) {
+                        rotationcameraX-=0.0001f;
+                    }
+                    if (e.getX() > openglX) {
+                        rotationcameraX+=0.0001f;
+                    }
+                    if (e.getY() < openglY) {
+                        rotationcameraY+=0.0001f;
+                    }
+                    if (e.getY() > openglY) {
+                        rotationcameraY-=0.0001f;
+                    }
+
+                  //  mCanvas.repaint();
+                }
+
+
+            }
+        });
+
+        mCanvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                first = true;
+            }
+        });
+        mCanvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+                if (e.getPreciseWheelRotation() > 0){
+                    cameraX+=1;
+                }
+            }
+        });
         /* (Alt aux translations) Placement de la caméra au point (4,0,12)
         Direction vers l'origine de la scène (0,0,0)
         Inclinaison nulle car la vue suit l'axe vertical (y) */
-        glu.gluLookAt(4f, 0f, 12f,
-                0f, 0f, 0f,
+        glu.gluLookAt(cameraX, cameraY, cameraZ,
+                rotationcameraX, rotationcameraY, rotationcameraZ,
                 0f, 1f, 0f
         );
 
@@ -237,6 +299,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             alphaX += 0.2;
         }
         if(up){alphaX -= 1.9;}
+        if(down){alphaX += 1.9;}
         if(down){alphaX += 1.9;}
         if(right){alphaY += 1.9;}
         if(left){alphaY -= 1.9;}
