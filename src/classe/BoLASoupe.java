@@ -1,15 +1,25 @@
 package classe;
 
+import java.io.Serializable;
+
 /**
  * classe
  * Created by Theo on 06/01/2015 for Ide3DProject.
  */
-public class BoLASoupe {
+public class BoLASoupe  implements Serializable {
 
     Forme forme;
     Float x;
     Float y;
     Float z;
+
+    public BoLASoupe(Forme forme) {
+
+        this.forme = forme;
+        x=0f;
+        y=0f;
+        z=0f;
+    }
 
     public Forme getForme() {
         return forme;
