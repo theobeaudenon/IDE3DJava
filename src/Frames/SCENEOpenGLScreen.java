@@ -269,8 +269,9 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
         /* recuperation de lobjet et instantiation */
         for (BoLASoupe var : d.getFormes()){
-
+            gl.glTranslatef(var.getX(),var.getY(),var.getZ());
             var.getForme().draw(gl);
+            gl.glTranslatef(-var.getX(),-var.getY(),-var.getZ());
         }
 
 
@@ -279,17 +280,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
 
 
-    }
-    public static int randInt(int min, int max) {
-
-        // Usually this can be a field rather than a method variable
-        Random rand = new Random();
-
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-
-        return randomNum;
     }
 
     public void CWGCalculateFPS(){

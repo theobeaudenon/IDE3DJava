@@ -18,9 +18,9 @@ public class BoLASoupe  implements Serializable {
     public BoLASoupe(Forme forme) {
 
         this.forme = forme;
-        x= Float.parseFloat(String.valueOf(RandomUtils.randInt(0, 20)));
-        y=Float.parseFloat(String.valueOf(RandomUtils.randInt(0, 20)));
-        z=Float.parseFloat(String.valueOf(RandomUtils.randInt(0, 20)));
+        x= Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
+        y=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
+        z=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
     }
 
     public Forme getForme() {
