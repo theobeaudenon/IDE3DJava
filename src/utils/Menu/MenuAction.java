@@ -6,6 +6,7 @@ import Shapes.Cube;
 import Shapes.Sphere;
 import Shapes.Triangle;
 import classe.ColorRVB;
+import classe.Scene;
 import utils.ProjectExport.ProjectFileSaver;
 
 import javax.swing.*;
@@ -35,8 +36,13 @@ public class MenuAction {
         }else if ("saveas".equals(e.getActionCommand())) { //new
 
             ProjectFileSaver.save(thiss.getProjet(), thiss, 2);
-        }
-        else if ("sphere".equals(e.getActionCommand())) { //new
+        }else if ("scene".equals(e.getActionCommand())) { //new
+            Scene sc = new Scene();
+            sc.setName(name());
+            thiss.addSCN(sc);
+            thiss.refreshTree();
+            thiss.creatFrameOPGL(sc);
+        }else if ("sphere".equals(e.getActionCommand())) { //new
 
              /* Mise en place de la forme sauvegardé pour exemple */
             Sphere ed = new Sphere(name(), 3d, 0, 0, 0, new ColorRVB(0.8f,0.8f,0.8f));

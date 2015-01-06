@@ -114,7 +114,7 @@ public class MenuBar {
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
-        menuItem.setActionCommand("");
+        menuItem.setActionCommand("scene");
         menuItem.addActionListener(internalFrameDemo);
         creer.add(menuItem);
 
