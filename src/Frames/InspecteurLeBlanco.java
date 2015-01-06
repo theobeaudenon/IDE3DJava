@@ -150,26 +150,19 @@ public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
             public void changedUpdate(DocumentEvent e) {
                 warn();
             }
-
             public void removeUpdate(DocumentEvent e) {
                 warn();
             }
-
             public void insertUpdate(DocumentEvent e) {
                 warn();
             }
-
-
             public void warn() {
-
                 parent.log("Renomage en : " + name.getText());
                 module.setName(name.getText());
                 parent.refreshTree();
             }
         });
         top.add(name);
-
-
 
         for (final ColorRVB color : module.params()){
             final ColorButton chooseButton = new ColorButton("Choix Couleur" );
@@ -187,9 +180,6 @@ public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
             });
             top.add(chooseButton);
         }
-
-
-
     }
 
     public void setModule(Scene module) {

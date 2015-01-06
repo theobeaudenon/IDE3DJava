@@ -195,6 +195,9 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     }
 
 
+    public void addSCN(Scene sc) {
+        projet.getScene().add(sc);
+    }
     public Projet getProjet() {
         return projet;
     }
