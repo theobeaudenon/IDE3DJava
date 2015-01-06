@@ -1,7 +1,8 @@
 package Frames;
 
-import classe.Forme;
+import buttons.CloseButton;
 import buttons.PinButton;
+import classe.Forme;
 import buttons.RotateButton;
 import buttons.ToolProjectButton;
 import classe.Projet;
@@ -26,7 +27,6 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
     private JPanel top = new JPanel();
     private ToolProjectButton toolProjectButton = new ToolProjectButton("");
     private RotateButton refresh = new RotateButton("");
-    private PinButton pinButton = new PinButton("");
     int posX ;
     int posY ;
     private int compteurClic = 1;
@@ -79,24 +79,6 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         this.setContentPane(rightClicMenu);
         setDragable(false);
         startup(  );
-
-        pinButton.setPreferredSize(new Dimension(16,16));
-        top.add(pinButton);
-        pinButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                compteurClic++;
-                if (compteurClic%2 == 0){
-                    setDragable(true);
-                    setBorder(BorderFactory.createRaisedBevelBorder());
-
-                }
-                else {
-                    setDragable(false);
-                    setBorder(BorderFactory.createLineBorder(Color.black));
-                }
-            }
-        });
 
         toolProjectButton.setPreferredSize(new Dimension(14,16));
         top.add(toolProjectButton);
@@ -172,7 +154,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         this.setTitle("Project Explorer");
         this.pack();
         this.setVisible(true);
-        setSize(300,930);
+        setSize(300,465);
         setLocation(0, 0);
 
 

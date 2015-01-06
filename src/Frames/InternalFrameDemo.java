@@ -20,6 +20,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     private JMenuItem menuItemelog ;
     private JMenuBar menuBar;
     private TreeFrame frame;
+    private InspecteurLeBlanco inspeframe;
 
     public InternalFrameDemo(Projet finalPro) {
         super("Editeur 3D SUPINFO");
@@ -68,6 +69,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         /**
          * OUVERTURE MENU
          */
+        createInspecteur();
         createTreeFrame();
        // creatFrameOPGL(obj.getUserObject());
 
@@ -176,6 +178,15 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         desktop.add(propos);
         try {
             propos.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {}
+    }
+
+    public void createInspecteur(){
+        inspeframe = new InspecteurLeBlanco(this);
+        inspeframe.setVisible(true); //necessary as of 1.3
+        desktop.add(inspeframe);
+        try {
+            inspeframe.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
     }
 }
