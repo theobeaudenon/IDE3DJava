@@ -1,6 +1,7 @@
 package utils.Menu;
 
 import Frames.InternalFrameDemo;
+import Frames.PopupObjectFrame;
 import Shapes.Cube;
 import Shapes.Sphere;
 import Shapes.Triangle;
@@ -67,6 +68,8 @@ public class MenuAction {
         }
     }
     public static String name(){
-        return  JOptionPane.showInputDialog(new JFrame(""), "Entrez le nom de l'objet");
+
+        PopupObjectFrame popupObjectFrame = new PopupObjectFrame();
+        return "salut"; //JOptionPane.showInputDialog(new JFrame(""), "Entrez le nom de l'objet");
     }
 }

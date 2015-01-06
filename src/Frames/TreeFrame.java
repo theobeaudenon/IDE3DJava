@@ -1,7 +1,5 @@
 package Frames;
 
-import buttons.CloseButton;
-import buttons.PinButton;
 import classe.Forme;
 import buttons.RotateButton;
 import buttons.ToolProjectButton;

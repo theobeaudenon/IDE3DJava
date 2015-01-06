@@ -1,20 +1,16 @@
 package Frames;
 
-import buttons.PinButton;
+import buttons.ColorButton;
 import buttons.RotateButton;
 import buttons.ToolProjectButton;
 import classe.ColorRVB;
 import classe.Forme;
-import classe.Projet;
 import classe.Scene;
 import utils.RightClicMenu;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -144,6 +140,12 @@ public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
 
 
         final JTextField name = new JTextField(module.getName());
+        name.setBackground(new Color(45,48,50));
+        name.setForeground(Color.WHITE);
+        name.setHorizontalAlignment(SwingConstants.CENTER);
+        name.setCaretColor(Color.WHITE);
+        name.setBorder(BorderFactory.createEmptyBorder());
+        name.setFont(new Font("Courier", Font.BOLD, 21));
         name.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 warn();
@@ -170,7 +172,7 @@ public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
 
 
         for (final ColorRVB color : module.params()){
-            final JButton chooseButton = new JButton("Choix Couleur" );
+            final ColorButton chooseButton = new ColorButton("Choix Couleur" );
             chooseButton.setForeground(color.color());
             chooseButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
