@@ -70,6 +70,7 @@ public class MenuAction {
     public static String name(){
 
         PopupObjectFrame popupObjectFrame = new PopupObjectFrame();
+
         return "salut"; //JOptionPane.showInputDialog(new JFrame(""), "Entrez le nom de l'objet");
     }
 }

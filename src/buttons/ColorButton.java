@@ -17,6 +17,7 @@ public class ColorButton extends JButton  implements MouseListener {
         super(str);
         this.name = str;
         setBorderPainted(false);
+        setForeground(Color.WHITE);
         setContentAreaFilled(false);
         setSelected(false);
 
