@@ -12,16 +12,16 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.event.*;
 
 import buttons.CloseButton;
 import classe.Forme;
 import buttons.RevertPlaceButton;
 import buttons.RotateButton;
 import com.jogamp.opengl.util.FPSAnimator;
+import utils.RandomUtils;
 
-public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener {
+public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener, InternalFrameListener {
 
     private boolean automoving= true;
     private boolean up = false;
@@ -122,56 +122,8 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         setBorder(BorderFactory.createLineBorder(Color.black));
         CWGSetupGL();
         this.setVisible(true);
+        addInternalFrameListener(this);
 
-
-        // Options in the combobox
-        String[] options = { "Option1", "Option2", "Option3", "Option4", "Option15" };
-        comboBox = new JComboBox(options);
-        comboBox.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.log(e.paramString());
-
-            }
-        });
-        inspector.add(comboBox);
-
-        JButton chooseButton = new JButton("Choix Couleur");
-        chooseButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Color backgroundColor = JColorChooser.showDialog(parent,
-                        "Choisir votre couleur", Color.white);
-                if(backgroundColor != null){
-                    parent.log(backgroundColor.toString());
-                }
-            }
-        });
-        inspector.add(chooseButton);
-
-        final JTextField name = new JTextField(d.getName());
-        name.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
-                warn();
-            }
-
-            public void removeUpdate(DocumentEvent e) {
-                warn();
-            }
-
-            public void insertUpdate(DocumentEvent e) {
-                warn();
-            }
-
-
-            public void warn() {
-
-                parent.log("Renomage en : " + name.getText());
-                d.setName(name.getText());
-                parent.refreshTree();
-            }
-        });
-        inspector.add(name);
 
 
         revertPlaceButton.addActionListener(new AbstractAction() {
@@ -425,5 +377,43 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
                 automoving = false;
                 break;
         }
+    }
+
+
+    @Override
+    public void internalFrameOpened(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {
+        parent.log("Focus sur "+d.getName());
+
+        parent.updateInspecteur(d);
+    }
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {
+
     }
 }

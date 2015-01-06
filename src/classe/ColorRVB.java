@@ -1,5 +1,6 @@
 package classe;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.nio.FloatBuffer;
 
@@ -43,8 +44,12 @@ public class ColorRVB implements Serializable {
     public void setB(float b) {
         B = b;
     }
-
-
+    public void setColor(Color d){
+        setR((1.0f/255)*d.getRed());
+        setV((1.0f/255)*d.getGreen());
+        setB((1.0f/255)*d.getBlue());
+    }
+    public Color color(){ return new Color(R,V,B);}
     public FloatBuffer buffer(){
         return   FloatBuffer.wrap(new float[]{R,V,B});
     }

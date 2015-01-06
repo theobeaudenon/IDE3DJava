@@ -3,12 +3,15 @@ package Frames;
 import buttons.PinButton;
 import buttons.RotateButton;
 import buttons.ToolProjectButton;
+import classe.ColorRVB;
 import classe.Forme;
 import classe.Projet;
 import classe.Scene;
 import utils.RightClicMenu;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
@@ -20,7 +23,7 @@ import java.awt.event.*;
  */
 public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
 
-        private JPanel top = new JPanel();
+        private JPanel top = new JPanel(new GridLayout(10,1,1,3));
         private ToolProjectButton toolProjectButton = new ToolProjectButton("");
         private RotateButton refresh = new RotateButton("");
         int posX ;
@@ -54,7 +57,7 @@ public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
         };
         private InternalFrameDemo parent;
 
-        //
+    //
 
         public InspecteurLeBlanco( final InternalFrameDemo parent){
 
@@ -76,8 +79,10 @@ public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.pack();
             this.setVisible(true);
-            setSize(300,465);
+            setSize(300, 465);
             setLocation(0, 465);
+            top.setBackground(new Color(60, 63, 65));
+            this.add(top);
 
 
         }
@@ -131,5 +136,63 @@ public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
     public void mouseExited(MouseEvent e) {
 
     }
+
+    public void setModule(final Forme module) {
+        top.removeAll();
+        top.repaint();
+        top.setPreferredSize(this.getSize());
+
+
+        final JTextField name = new JTextField(module.getName());
+        name.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                warn();
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                warn();
+            }
+
+
+            public void warn() {
+
+                parent.log("Renomage en : " + name.getText());
+                module.setName(name.getText());
+                parent.refreshTree();
+            }
+        });
+        top.add(name);
+
+
+
+        for (final ColorRVB color : module.params()){
+            final JButton chooseButton = new JButton("Choix Couleur" );
+            chooseButton.setForeground(color.color());
+            chooseButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Color backgroundColor = JColorChooser.showDialog(parent,
+                            "Choisir votre couleur",color.color());
+                    if(backgroundColor != null){
+                        parent.log(backgroundColor.toString());
+                        color.setColor(backgroundColor);
+                        chooseButton.setForeground(backgroundColor);
+                    }
+                }
+            });
+            top.add(chooseButton);
+        }
+
+
+
+    }
+
+    public void setModule(Scene module) {
+
+    }
+
 
 }

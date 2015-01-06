@@ -5,13 +5,14 @@ import classe.ColorRVB;
 
 import javax.media.opengl.GL2;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Sphere extends Forme implements Serializable {
 
     // Moitié de la longueur d'un coté, simplifie les calculs
 
+    public ArrayList<ColorRVB> couleurs = new ArrayList<ColorRVB>() ;
 
-    private ColorRVB colordevant;
 
     // Centre du Cube dans le repere global, simplifie la translation
     private int [] position;
@@ -21,7 +22,7 @@ public class Sphere extends Forme implements Serializable {
         super(s);
         r = taille;
 
-        this.colordevant = colordevant;
+        couleurs.add(colordevant);
 
         position = new int [3];
         position[0] = x;
@@ -33,7 +34,7 @@ public class Sphere extends Forme implements Serializable {
 
 
     public void draw(GL2 gl){
-        gl.glColor3fv(colordevant.buffer());
+        gl.glColor3fv(couleurs.get(0).buffer());
         int i, j;
         double lats= 10;
         for(i = 0; i <= lats; i++) {
@@ -64,9 +65,9 @@ public class Sphere extends Forme implements Serializable {
 
     }
 
-
-    public void getSetting(){
-
+    @Override
+    public ArrayList<ColorRVB> params() {
+        return couleurs;
     }
 
 }

@@ -2,6 +2,7 @@ package classe;
 
 import javax.media.opengl.GL2;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Shapes
@@ -33,6 +34,7 @@ public abstract class Forme implements Serializable {
     }
 
     abstract public void draw(GL2 gl) ;
+    abstract public ArrayList<ColorRVB> params() ;
 
 
 }

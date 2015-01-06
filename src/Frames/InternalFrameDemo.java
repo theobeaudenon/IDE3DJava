@@ -176,6 +176,8 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
             frame.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
     }
+
+
     public void refreshTree(){
         frame.refresh();
     }
@@ -205,5 +207,8 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         try {
             inspeframe.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
+    }
+    public void updateInspecteur(Forme forme){
+        inspeframe.setModule(forme);
     }
 }
