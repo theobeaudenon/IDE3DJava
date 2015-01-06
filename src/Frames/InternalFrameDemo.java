@@ -2,6 +2,7 @@ package Frames;
 
 import classe.Forme;
 import classe.Projet;
+import classe.Scene;
 import utils.Menu.MenuAction;
 import utils.ProjectExport.ProjectFileSaver;
 
@@ -131,15 +132,31 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
 
 
     public void creatFrameOPGL(Object userObject){
-        Forme f = (Forme)userObject;
-        this.log("Ouverture d'une Frame OpenGL : " + f.getName());
-        OBJOpenGLScreen frame = new OBJOpenGLScreen(f , this);
-
-        frame.setVisible(true); //necessary as of 1.3
-        desktop.add(frame);
         try {
-            frame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
+            Forme f = (Forme)userObject;
+            this.log("Ouverture d'une Frame OpenGL : " + f.getName());
+            OBJOpenGLScreen frame = new OBJOpenGLScreen(f , this);
+
+            frame.setVisible(true); //necessary as of 1.3
+            desktop.add(frame);
+            try {
+                frame.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {}
+
+        }catch (ClassCastException e){
+            Scene f = (Scene) userObject;
+            this.log("Ouverture d'une Scene OpenGL : " + f.getName());
+            SCENEOpenGLScreen frame = new SCENEOpenGLScreen(f , this);
+
+            frame.setVisible(true); //necessary as of 1.3
+            desktop.add(frame);
+            try {
+                frame.setSelected(true);
+            } catch (java.beans.PropertyVetoException ce) {}
+
+
+        }
+
     }
 
 

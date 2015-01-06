@@ -11,14 +11,18 @@ public class Scene implements Serializable {
 
     String name;
 
-    ArrayList<Forme> formes = new ArrayList<>();
+    ArrayList<BoLASoupe> formes = new ArrayList<>();
 
-    public ArrayList<Forme> getFormes() {
+    public ArrayList<BoLASoupe> getFormes() {
         return formes;
     }
 
-    public void setFormes(ArrayList<Forme> formes) {
+    public void setFormes(ArrayList<BoLASoupe> formes) {
         this.formes = formes;
+    }
+
+    public void addForme(BoLASoupe formes) {
+        this.formes.add(formes);
     }
 
     public String getName() {
