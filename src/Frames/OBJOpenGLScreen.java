@@ -414,6 +414,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
     @Override
     public void internalFrameDeactivated(InternalFrameEvent e) {
-        parent.remInspecteur();
+       // parent.remInspecteur();
     }
 }
