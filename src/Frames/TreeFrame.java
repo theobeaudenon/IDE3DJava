@@ -146,7 +146,6 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         top.setBorder(BorderFactory.createLineBorder(Color.black));
 
         add(top, BorderLayout.NORTH);
-        setSize(new Dimension(0,1));
         setBorder(BorderFactory.createLineBorder(Color.black));
         setOpaque(false);
         getContentPane().setBackground(new Color(60, 63, 65));
@@ -155,6 +154,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         this.pack();
         this.setVisible(true);
         setSize(300,465);
+        int test = parent.getWidth();
         setLocation(0, 0);
 
 

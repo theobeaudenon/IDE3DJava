@@ -74,7 +74,6 @@ public class InspecteurLeBlanco extends JInternalFrame implements MouseListener{
             setOpaque(false);
             getContentPane().setBackground(new Color(60, 63, 65));
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setTitle("Project Explorer");
             this.pack();
             this.setVisible(true);
             setSize(300,465);
