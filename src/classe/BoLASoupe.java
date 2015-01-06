@@ -1,5 +1,7 @@
 package classe;
 
+import utils.RandomUtils;
+
 import java.io.Serializable;
 
 /**
@@ -16,9 +18,9 @@ public class BoLASoupe  implements Serializable {
     public BoLASoupe(Forme forme) {
 
         this.forme = forme;
-        x=0f;
-        y=0f;
-        z=0f;
+        x= Float.parseFloat(String.valueOf(RandomUtils.randInt(0, 20)));
+        y=Float.parseFloat(String.valueOf(RandomUtils.randInt(0, 20)));
+        z=Float.parseFloat(String.valueOf(RandomUtils.randInt(0, 20)));
     }
 
     public Forme getForme() {

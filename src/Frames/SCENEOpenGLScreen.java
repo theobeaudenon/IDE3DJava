@@ -269,6 +269,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
         /* recuperation de lobjet et instantiation */
         for (BoLASoupe var : d.getFormes()){
+
             var.getForme().draw(gl);
         }
 
