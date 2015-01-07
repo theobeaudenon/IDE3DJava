@@ -14,7 +14,7 @@ public class BoLASoupe  implements Serializable {
     Float x;
     Float y;
     Float z;
-    private Boolean selected = true;
+    private Boolean selected = false;
 
     public BoLASoupe(Forme forme) {
 
