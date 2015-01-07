@@ -25,4 +25,7 @@ public class RandomUtils extends Random {
 
         return randomNum;
     }
+    public static float randFloat(float min, float max) {
+        return min + (float)Math.random() * (max - min);
+    }
 }

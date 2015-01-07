@@ -14,6 +14,7 @@ public class BoLASoupe  implements Serializable {
     Float x;
     Float y;
     Float z;
+    private Boolean selected = true;
 
     public BoLASoupe(Forme forme) {
 
@@ -23,6 +24,13 @@ public class BoLASoupe  implements Serializable {
         z=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
     }
 
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
+    }
     public Forme getForme() {
         return forme;
     }

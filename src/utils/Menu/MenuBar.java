@@ -144,7 +144,7 @@ public class MenuBar {
         menuItem.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+                KeyEvent.VK_1, ActionEvent.CTRL_MASK));
         menuItem.setActionCommand("scene");
         menuItem.addActionListener(internalFrameDemo);
         creer.add(menuItem);

@@ -11,6 +11,8 @@ public class Scene implements Serializable {
 
     String name;
 
+
+
     ArrayList<BoLASoupe> formes = new ArrayList<>();
 
     public ArrayList<BoLASoupe> getFormes() {
@@ -28,7 +30,6 @@ public class Scene implements Serializable {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }

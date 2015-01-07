@@ -8,6 +8,7 @@ import classe.Forme;
 import classe.Scene;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.sun.swing.internal.plaf.synth.resources.synth_sv;
+import utils.RandomUtils;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -219,9 +220,10 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             }
 
             int i = 0;
+
             public void mouseDragged(MouseEvent e) {
 
-                if(SwingUtilities.isRightMouseButton(e)){
+                if (SwingUtilities.isRightMouseButton(e)) {
                     if (first) {
                         openglX = e.getX();
                         openglY = e.getY();
@@ -231,19 +233,19 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                     i++;
                     System.out.println(i);
                     if (e.getX() < openglX) {
-                        rotationcameraX-=0.0001f;
+                        rotationcameraX -= 0.0001f;
                     }
                     if (e.getX() > openglX) {
-                        rotationcameraX+=0.0001f;
+                        rotationcameraX += 0.0001f;
                     }
                     if (e.getY() < openglY) {
-                        rotationcameraY+=0.0001f;
+                        rotationcameraY += 0.0001f;
                     }
                     if (e.getY() > openglY) {
-                        rotationcameraY-=0.0001f;
+                        rotationcameraY -= 0.0001f;
                     }
 
-                  //  mCanvas.repaint();
+                    //  mCanvas.repaint();
                 }
 
 
@@ -337,9 +339,20 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         /* recuperation de lobjet et instantiation */
         for (BoLASoupe var : d.getFormes()){
            // System.out.println(d.getFormes());
-            gl.glTranslatef(var.getX(),var.getY(),var.getZ());
-            var.getForme().draw(gl);
-            gl.glTranslatef(-var.getX(),-var.getY(),-var.getZ());
+
+            if(var.getSelected()){
+                float x = RandomUtils.randFloat(-0.1f, 0.1f);
+                float y = RandomUtils.randFloat(-0.1f, 0.1f);
+                float z = RandomUtils.randFloat(-0.1f, 0.1f);
+                gl.glTranslatef(var.getX()+x,var.getY()+y,var.getZ()+z);
+                var.getForme().draw(gl);
+                gl.glTranslatef(-var.getX()-x,-var.getY()-y,-var.getZ()-z);
+            }else {
+                gl.glTranslatef(var.getX(),var.getY(),var.getZ());
+                var.getForme().draw(gl);
+                gl.glTranslatef(-var.getX(),-var.getY(),-var.getZ());
+            }
+
         }
 
 
