@@ -61,9 +61,17 @@ public class PopupObjectFrame extends JDialog {
 
         }
     };
-    public PopupObjectFrame(){
+    ActionListener dsd = new ActionListener() {
 
-        name.setPlaceholder("Nom de l'objet");
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Name = name.getText();
+            PopupObjectFrame.this.dispose();
+        }
+    };
+    public PopupObjectFrame(String nameask){
+
+        name.setPlaceholder(nameask);
         name.setBackground(new Color(45,48,50));
         name.setForeground(Color.WHITE);
         name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -71,6 +79,7 @@ public class PopupObjectFrame extends JDialog {
         name.setBorder(BorderFactory.createEmptyBorder());
         name.setFont(new Font("Courier", Font.BOLD, 21));
         name.setPreferredSize(this.getSize());
+        name.addActionListener(dsd);
         setModal(true);
         setSize(new Dimension(300, 130));
         setUndecorated(true);

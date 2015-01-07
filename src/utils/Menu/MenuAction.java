@@ -9,7 +9,6 @@ import classe.ColorRVB;
 import classe.Scene;
 import utils.ProjectExport.ProjectFileSaver;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -45,7 +44,7 @@ public class MenuAction {
         }else if ("sphere".equals(e.getActionCommand())) { //new
 
              /* Mise en place de la forme sauvegardé pour exemple */
-            Sphere ed = new Sphere(name(), 3d, 0, 0, 0, new ColorRVB(0.8f,0.8f,0.8f));
+            Sphere ed = new Sphere(name(), 1f, 0, 0, 0, new ColorRVB(0.8f,0.8f,0.8f), 30);
             thiss.addOBJ(ed);
             thiss.refreshTree();
             thiss.creatFrameOPGL(ed);
@@ -75,7 +74,7 @@ public class MenuAction {
     }
     public static String name(){
 
-        PopupObjectFrame popupObjectFrame = new PopupObjectFrame();
+        PopupObjectFrame popupObjectFrame = new PopupObjectFrame("Nom de l'objet");
 
         return popupObjectFrame.getName(); //JOptionPane.showInputDialog(new JFrame(""), "Entrez le nom de l'objet");
     }

@@ -1,10 +1,7 @@
 package Frames;
 
 import buttons.ColorButton;
-import classe.BoLASoupe;
-import classe.ColorRVB;
-import classe.Forme;
-import classe.Scene;
+import classe.*;
 import utils.RightClicMenu;
 
 import javax.swing.*;
@@ -100,10 +97,27 @@ public class InspecteurLeBlanco extends JInternalFrame {
             });
             top.add(chooseButton);
         }
+
+
+        for (final DataConf color : module.conf()) {
+            JButton chooseButton = new JButton(color.getEmplacement()) ;
+            chooseButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    PopupObjectFrame popupObjectFrame = new PopupObjectFrame(String.valueOf(color.getValue()));
+                    try {
+                        color.setValue(Float.valueOf( popupObjectFrame.getName()));
+                        parent.log("Nouvelle Valeur : "+color.getValue());
+                    }catch (Exception ee){
+                        parent.log("Valeur Invalide");
+                    }
+                }
+            });
+            top.add(chooseButton);
+        }
     }
 
     public void setModule(final Scene module) {
-        top.setLayout(new GridLayout(2, 2,10,10));
+        top.setLayout(new GridLayout(2, 2, 10, 10));
         top.removeAll();
         top.repaint();
         top.setPreferredSize(this.getSize());

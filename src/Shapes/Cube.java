@@ -1,5 +1,6 @@
 package Shapes;
 
+import classe.DataConf;
 import classe.Forme;
 import classe.ColorRVB;
 import classe.ParamsForms;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 public class Cube extends Forme implements Serializable {
 
     // Moitié de la longueur d'un coté, simplifie les calculs
-    private float tailleSur2;
     public ArrayList<ColorRVB> couleurs = new ArrayList<ColorRVB>() ;
+    public ArrayList<DataConf> data = new ArrayList<DataConf>() ;
 
     // Centre du Cube dans le repere global, simplifie la translation
     private int [] position;
@@ -21,7 +22,7 @@ public class Cube extends Forme implements Serializable {
 
     public Cube(String s, float taille, int x, int y, int z, ColorRVB colorderiere, ColorRVB colordevant, ColorRVB colordroite, ColorRVB colorgauche, ColorRVB colorhaut, ColorRVB colorbas){
         super(s);
-        tailleSur2 = taille;
+        data.add(new DataConf("rayon",taille));
         couleurs.add(colorderiere);
         couleurs.add(colordevant);
         couleurs.add(colordroite);
@@ -44,42 +45,42 @@ public class Cube extends Forme implements Serializable {
 
         // le quadrilatere de devant et de derriere, blanc
         gl.glColor3fv(couleurs.get(0).buffer());
-        gl.glVertex3f(position[0]-tailleSur2, position[1]-tailleSur2, position[2]+tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]-tailleSur2, position[2]+tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]+tailleSur2, position[2]+tailleSur2);
-        gl.glVertex3f(position[0]-tailleSur2, position[1]+tailleSur2, position[2]+tailleSur2);
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]+data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]+data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]+data.get(0).getValue());
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]+data.get(0).getValue());
 
         gl.glColor3fv(couleurs.get(1).buffer());
-        gl.glVertex3f(position[0]-tailleSur2, position[1]-tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]-tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]+tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]-tailleSur2, position[1]+tailleSur2, position[2]-tailleSur2);
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]-data.get(0).getValue());
 
         // le quadrilatere de gauche et de droite, gris
         gl.glColor3fv(couleurs.get(2).buffer());
-        gl.glVertex3f(position[0]-tailleSur2, position[1]-tailleSur2, position[2]+tailleSur2);
-        gl.glVertex3f(position[0]-tailleSur2, position[1]-tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]-tailleSur2, position[1]+tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]-tailleSur2, position[1]+tailleSur2, position[2]+tailleSur2);
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]+data.get(0).getValue());
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]+data.get(0).getValue());
 
         gl.glColor3fv(couleurs.get(3).buffer());
-        gl.glVertex3f(position[0]+tailleSur2, position[1]-tailleSur2, position[2]+tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]-tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]+tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]+tailleSur2, position[2]+tailleSur2);
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]+data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]+data.get(0).getValue());
 
         // le quadrilatere du haut et du bas, bleu
         gl.glColor3fv(couleurs.get(4).buffer());
-        gl.glVertex3f(position[0]-tailleSur2, position[1]+tailleSur2, position[2]+tailleSur2);
-        gl.glVertex3f(position[0]-tailleSur2, position[1]+tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]+tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]+tailleSur2, position[2]+tailleSur2);
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]+data.get(0).getValue());
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]+data.get(0).getValue(), position[2]+data.get(0).getValue());
 
         gl.glColor3fv(couleurs.get(5).buffer());
-        gl.glVertex3f(position[0]-tailleSur2, position[1]-tailleSur2, position[2]+tailleSur2);
-        gl.glVertex3f(position[0]-tailleSur2, position[1]-tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]-tailleSur2, position[2]-tailleSur2);
-        gl.glVertex3f(position[0]+tailleSur2, position[1]-tailleSur2, position[2]+tailleSur2);
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]+data.get(0).getValue());
+        gl.glVertex3f(position[0]-data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]-data.get(0).getValue());
+        gl.glVertex3f(position[0]+data.get(0).getValue(), position[1]-data.get(0).getValue(), position[2]+data.get(0).getValue());
 
         gl.glEnd();
 
@@ -90,6 +91,10 @@ public class Cube extends Forme implements Serializable {
         return couleurs;
     }
 
+    @Override
+    public ArrayList<DataConf> conf() {
+        return data;
+    }
 
 
 }

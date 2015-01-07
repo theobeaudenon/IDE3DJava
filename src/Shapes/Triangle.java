@@ -1,5 +1,6 @@
 package Shapes;
 
+import classe.DataConf;
 import classe.Forme;
 import classe.ColorRVB;
 import classe.ParamsForms;
@@ -15,14 +16,15 @@ import java.util.ArrayList;
 public class Triangle extends Forme implements Serializable {
 
         // Moitié de la longueur d'un coté, simplifie les calculs
-        private float tailleSur2;
         public ArrayList<ColorRVB> couleurs = new ArrayList<ColorRVB>() ;
-        // Centre du Cube dans le repere global, simplifie la translation
+        public ArrayList<DataConf> data = new ArrayList<DataConf>() ;
+
+    // Centre du Cube dans le repere global, simplifie la translation
         private int [] position;
 
         public Triangle(String triangle, float taille, int x, int y, int z, ColorRVB colordevant, ColorRVB colordroite, ColorRVB colorgauche, ColorRVB colorbas, ColorRVB collordessous){
             super(triangle);
-            tailleSur2 = taille;
+            data.add(new DataConf("taille",taille));
             couleurs.add(colordevant);
             couleurs.add(colordroite);
             couleurs.add(colorgauche);
@@ -78,5 +80,10 @@ public class Triangle extends Forme implements Serializable {
     @Override
     public ArrayList<ColorRVB> params() {
         return couleurs;
+    }
+
+    @Override
+    public ArrayList<DataConf> conf() {
+        return data;
     }
 }

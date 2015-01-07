@@ -35,6 +35,7 @@ public abstract class Forme implements Serializable {
 
     abstract public void draw(GL2 gl) ;
     abstract public ArrayList<ColorRVB> params() ;
+    abstract public ArrayList<DataConf> conf() ;
 
 
 }

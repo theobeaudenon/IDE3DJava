@@ -133,7 +133,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
                     o.add(tri);
 
                        /* Mise en place de la forme sauvegardé pour exemple */
-                    Sphere ed = new Sphere("Sphere ", 3.2, 0, 0, 0, new ColorRVB(0.2f, 0.2f, 0.9f));
+                    Sphere ed = new Sphere("Sphere ", 3.2f, 0, 0, 0, new ColorRVB(0.2f, 0.2f, 0.9f), 30);
 
                     o.add(ed);
 
