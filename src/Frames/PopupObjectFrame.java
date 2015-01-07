@@ -44,7 +44,22 @@ public class PopupObjectFrame extends JDialog {
         }
 
     };
+    AbstractAction d = new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            PopupObjectFrame.this.dispose();
+        }
+    };
 
+    AbstractAction s= new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            Name = name.getText();
+            PopupObjectFrame.this.dispose();
+
+        }
+    };
     public PopupObjectFrame(){
 
 
@@ -60,7 +75,7 @@ public class PopupObjectFrame extends JDialog {
         setSize(new Dimension(300, 130));
         setUndecorated(true);
         setLocationRelativeTo(this);
-       // setAlwaysOnTop(true);
+        // setAlwaysOnTop(true);
         top.setBackground(new Color(45, 48, 50));
         top.setPreferredSize(new Dimension(300, 40));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -68,6 +83,10 @@ public class PopupObjectFrame extends JDialog {
         add(body, BorderLayout.CENTER);
         add(top, BorderLayout.NORTH);
         closeButton.setPreferredSize(new Dimension(20, 20));
+        closeButton.addActionListener(d);
+
+
+        ok.addActionListener(s);
         top.add(closeButton);
         top.addMouseListener(ml);
         top.addMouseMotionListener(m2);
@@ -75,26 +94,13 @@ public class PopupObjectFrame extends JDialog {
         body.add(ok);
         setVisible(true);
 
-        closeButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PopupObjectFrame.this.dispose();
-            }
-        });
 
-
-        ok.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-               Name = name.getText();
-               PopupObjectFrame.this.dispose();
-
-            }
-        });
 
 
     }
+
+
+
     public String getName(){
         return name.getText();
     }

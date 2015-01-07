@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
-public class ColorButton extends JButton  implements MouseListener {
+public class ColorButton extends JButton   {
 
     private String name;
     private Image img;
@@ -23,30 +23,7 @@ public class ColorButton extends JButton  implements MouseListener {
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
 
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 
 
 }
