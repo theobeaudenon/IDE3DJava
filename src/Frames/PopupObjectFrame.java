@@ -2,6 +2,7 @@ package Frames;
 
 import buttons.CloseButton;
 import buttons.ColorButton;
+import utils.CustomTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class PopupObjectFrame extends JDialog {
     private JPanel top = new JPanel();
     private JPanel body = new JPanel(new GridLayout(2,1));
     private CloseButton closeButton = new CloseButton("");
-    private JTextField name = new JTextField("Name : ...");
+    private CustomTextField name = new CustomTextField(20);
     private ColorButton ok = new ColorButton("OK");
     static String Name = null;
     boolean wait = false;
@@ -62,7 +63,7 @@ public class PopupObjectFrame extends JDialog {
     };
     public PopupObjectFrame(){
 
-
+        name.setPlaceholder("Nom de l'objet");
         name.setBackground(new Color(45,48,50));
         name.setForeground(Color.WHITE);
         name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -70,7 +71,6 @@ public class PopupObjectFrame extends JDialog {
         name.setBorder(BorderFactory.createEmptyBorder());
         name.setFont(new Font("Courier", Font.BOLD, 21));
         name.setPreferredSize(this.getSize());
-
         setModal(true);
         setSize(new Dimension(300, 130));
         setUndecorated(true);
