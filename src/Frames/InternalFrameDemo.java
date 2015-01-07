@@ -69,7 +69,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         utils.Menu.DropListener.Drop(this);
 
         /**
-         * OUVERTURE MENU
+         * OUVERTURE MENU & INSPECTEUR
          */
         createInspecteur();
         createTreeFrame();
@@ -103,8 +103,6 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
 
     public void log(String log){
         System.out.println(log);
-        //menuItemelog = new JMenuItem();
-       // menuItemelog.setAutoscrolls(true);
         menuItemelog.setText("                                                                                                Informations : "+log);
          //menuItemelog.setEnabled(false);
         menuItemelog.setBackground(new Color(68, 68, 68));
@@ -115,7 +113,6 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
                 menuItemelog.setText("                                                                                                                                         Informations  ");
             }
         });
-       // menuItemelog.updateUI();
         menuBar.updateUI();
     }
 
@@ -148,16 +145,12 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
             Scene f = (Scene) userObject;
             this.log("Ouverture d'une Scene OpenGL : " + f.getName());
             SCENEOpenGLScreen frame = new SCENEOpenGLScreen(f , this);
-
             frame.setVisible(true); //necessary as of 1.3
             desktop.add(frame);
             try {
                 frame.setSelected(true);
             } catch (java.beans.PropertyVetoException ce) {}
-
-
         }
-
     }
 
 
@@ -220,6 +213,9 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         } catch (java.beans.PropertyVetoException e) {}
     }
     public void updateInspecteur(Forme forme){
+        inspeframe.setModule(forme);
+    }
+    public void updateInspecteur(Scene forme){
         inspeframe.setModule(forme);
     }
 
