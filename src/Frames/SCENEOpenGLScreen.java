@@ -16,6 +16,8 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -23,7 +25,7 @@ import java.awt.event.*;
  * Frames
  * Created by Theo on 05/01/2015 for Ide3DProject.
  */
-public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener  {
+public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener , InternalFrameListener {
 
     private boolean automoving= false;
     private boolean up = false;
@@ -134,6 +136,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         this.setVisible(true);
         JButton button2 = new JButton("Ajouter");
 
+        addInternalFrameListener(this);
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -459,4 +462,39 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         }
     }
 
+    @Override
+    public void internalFrameOpened(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+
+    }
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {
+        parent.log("Focus sur "+d.getName());
+        parent.updateInspecteur(d);
+    }
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {
+
+    }
 }
