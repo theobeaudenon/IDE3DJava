@@ -27,9 +27,9 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     public InternalFrameDemo(Projet finalPro) {
         super("Editeur 3D SUPINFO");
         this.projet = finalPro;
+        //setUndecorated(true);
         //Make the big window be indented 50 pixels from each edge
         //of the screen.
-
 
         try {
             BufferedImage img = ImageIO.read(new File("res\\icon\\main.png"));
@@ -80,7 +80,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JDialog.setDefaultLookAndFeelDecorated(true);
+            //    JDialog.setDefaultLookAndFeelDecorated(true);
                 int response = JOptionPane.showConfirmDialog(null, "Voulez vous sauvegarder le projet ? ", "Oui",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (response == JOptionPane.NO_OPTION) {

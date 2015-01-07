@@ -7,6 +7,7 @@ import classe.BoLASoupe;
 import classe.Forme;
 import classe.Scene;
 import com.jogamp.opengl.util.FPSAnimator;
+import com.sun.swing.internal.plaf.synth.resources.synth_sv;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -159,16 +160,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         top.add(button2);
 
 
-
-
-        revertPlaceButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setLocation(300,0);
-                setDragable(false);
-                setBorder(BorderFactory.createLineBorder(Color.black));
-            }
-        });
         rotateButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -223,6 +214,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                 // System.out.println(e);
             }
 
+            int i = 0;
             public void mouseDragged(MouseEvent e) {
 
                 if(SwingUtilities.isRightMouseButton(e)){
@@ -232,6 +224,8 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                     }
                     first = false;
 
+                    i++;
+                    System.out.println(i);
                     if (e.getX() < openglX) {
                         rotationcameraX-=0.0001f;
                     }
@@ -249,6 +243,16 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                 }
 
 
+            }
+        });
+
+        revertPlaceButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                glu.gluLookAt(4f, 6f, 20f,
+                        0f, 0f, 0f,
+                        0f, 1f, 0f
+                );
             }
         });
 

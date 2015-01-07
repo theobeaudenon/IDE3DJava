@@ -105,7 +105,6 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    JFrame.setDefaultLookAndFeelDecorated(true);
 
                     Projet p = new Projet();
                     p.setNom("Nouveau Projet");
