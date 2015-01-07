@@ -1,5 +1,6 @@
-package Frames;
+package Frames.FixedFrame;
 
+import Frames.InternalFrameDemo;
 import classe.Forme;
 import buttons.RotateButton;
 import buttons.ToolProjectButton;
@@ -77,7 +78,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
         this.setContentPane(rightClicMenu);
         setDragable(false);
-        startup(  );
+        startup();
 
         toolProjectButton.setPreferredSize(new Dimension(14,16));
         top.add(toolProjectButton);
@@ -153,7 +154,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         this.setTitle("Project Explorer");
         this.pack();
         this.setVisible(true);
-        setSize(300,465);
+        setSize(300, 465);
         int test = parent.getWidth();
         setLocation(0, 0);
 

@@ -1,6 +1,9 @@
 package Frames;
 
-import classe.BoLASoupe;
+import Frames.FixedFrame.InspecteurLeBlanco;
+import Frames.FixedFrame.TreeFrame;
+import Frames.OpenGl.OBJOpenGLScreen;
+import Frames.OpenGl.SCENEOpenGLScreen;
 import classe.Forme;
 import classe.Projet;
 import classe.Scene;

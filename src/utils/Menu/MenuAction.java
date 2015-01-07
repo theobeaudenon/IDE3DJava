@@ -1,7 +1,7 @@
 package utils.Menu;
 
 import Frames.InternalFrameDemo;
-import Frames.PopupObjectFrame;
+import Frames.Dialog.PopupObjectFrame;
 import Shapes.Cube;
 import Shapes.Sphere;
 import Shapes.Triangle;

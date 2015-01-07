@@ -1,5 +1,7 @@
-package Frames;
+package Frames.FixedFrame;
 
+import Frames.InternalFrameDemo;
+import Frames.Dialog.PopupObjectFrame;
 import buttons.ColorButton;
 import classe.*;
 import utils.RightClicMenu;

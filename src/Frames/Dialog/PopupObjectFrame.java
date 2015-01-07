@@ -1,4 +1,4 @@
-package Frames;
+package Frames.Dialog;
 
 import buttons.CloseButton;
 import buttons.ColorButton;
@@ -72,7 +72,7 @@ public class PopupObjectFrame extends JDialog {
     public PopupObjectFrame(String nameask){
 
         name.setPlaceholder(nameask);
-        name.setBackground(new Color(45,48,50));
+        name.setBackground(new Color(45, 48, 50));
         name.setForeground(Color.WHITE);
         name.setHorizontalAlignment(SwingConstants.CENTER);
         name.setCaretColor(Color.WHITE);

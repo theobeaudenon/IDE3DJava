@@ -1,8 +1,14 @@
-package Frames;
+package Frames.OpenGl;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Random;
+import Frames.InternalFrameDemo;
+import buttons.CloseButton;
+import buttons.RevertPlaceButton;
+import buttons.RotateButton;
+import classe.BoLASoupe;
+import classe.Forme;
+import classe.Scene;
+import com.jogamp.opengl.util.FPSAnimator;
+import utils.RandomUtils;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -12,30 +18,41 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.event.*;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+import java.awt.*;
+import java.awt.event.*;
 
-import buttons.CloseButton;
-import classe.Forme;
-import buttons.RevertPlaceButton;
-import buttons.RotateButton;
-import com.jogamp.opengl.util.FPSAnimator;
-import utils.RandomUtils;
+/**
+ * Frames
+ * Created by Theo on 05/01/2015 for Ide3DProject.
+ */
+public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener , InternalFrameListener {
 
-public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener, InternalFrameListener {
-
-    private boolean automoving= true;
+    private boolean automoving= false;
     private boolean up = false;
     private boolean down= false;
     private boolean right= false;
     private boolean left= false;
+    private boolean first= true;
+    private int openglX = 0;
+    private int openglY = 0;
     private final InternalFrameDemo parent;
+
+    // Caméra rotation variable
+    private float cameraX = 4f;
+    private float cameraY = 6f;
+    private float cameraZ = 20f;
+
+    private float rotationcameraX = 0f;
+    private float rotationcameraY = 0f;
+    private float rotationcameraZ = 0f;
 
     public static void main(String[] args) {
         //new CWGOpenGLScreen(userObject).setVisible(true);
     }
 
     private static final long serialVersionUID = 635066680731362587L;
-    private JPanel inspector = new JPanel(new GridLayout(2, 1));
 
     private JPanel top = new JPanel();
     private static final   String TAG = "CWGOpenGLScreen";
@@ -57,7 +74,7 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     public float alphaY=0f;
     // Angle courant de rotation sur l'axe Z
     public float alphaZ=0f;
-    public Forme d ;
+    public Scene d ;
 
     private static JComboBox comboBox;
 
@@ -84,7 +101,7 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         }
     };
 
-    public OBJOpenGLScreen(Forme userObject, InternalFrameDemo internalFrameDemo){
+    public SCENEOpenGLScreen(Scene userObject, InternalFrameDemo internalFrameDemo){
 
         super("Project",
                 true, //resizable
@@ -101,11 +118,9 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
         setDragable(true);
         top.setBackground(new Color(45, 48, 50));
-        inspector.setBackground(new Color(45, 48, 50));
-        inspector.setBorder(new LineBorder(Color.BLACK));
+
         top.setBorder(new LineBorder(Color.BLACK));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
-        inspector.setBorder(BorderFactory.createLineBorder(Color.black));
         revertPlaceButton.setPreferredSize(new Dimension(16, 16));
         rotateButton.setPreferredSize(new Dimension(16, 16));
         closeButton.setPreferredSize(new Dimension(16, 16));
@@ -113,7 +128,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         top.add(rotateButton);
         top.add(closeButton);
         this.add(top, BorderLayout.NORTH);
-        this.add(inspector, BorderLayout.SOUTH);
         this.setTitle(d.getName());
         this.setSize(600, 475);
         this.setLocation(310, 5);
@@ -122,18 +136,35 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         setBorder(BorderFactory.createLineBorder(Color.black));
         CWGSetupGL();
         this.setVisible(true);
+        JButton button2 = new JButton("Ajouter");
+
         addInternalFrameListener(this);
-
-
-
-        revertPlaceButton.addActionListener(new AbstractAction() {
+        button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setLocation(300,0);
-                setDragable(false);
-                setBorder(BorderFactory.createLineBorder(Color.black));
+                JPanel panel = new JPanel();
+                panel.add(new JLabel("Liste des Objets:"));
+                DefaultComboBoxModel model = new DefaultComboBoxModel();
+                for(Forme f : parent.getProjet().getObj()){
+
+                    model.addElement(f);
+                }
+                JComboBox comboBox = new JComboBox(model);
+                panel.add(comboBox);
+
+                int result = JOptionPane.showConfirmDialog(null, panel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                switch (result) {
+                    case JOptionPane.OK_OPTION:
+                        d.addForme(new BoLASoupe((Forme)comboBox.getSelectedItem()));
+                        parent.log("Ajouté : " + comboBox.getSelectedItem());
+                        parent.updateInspecteur(d);
+                        break;
+                }
             }
         });
+        top.add(button2);
+
+
         rotateButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -144,7 +175,7 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
                 }
             }
         });
-        final OBJOpenGLScreen open = this;
+        final SCENEOpenGLScreen open = this;
         closeButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -183,11 +214,75 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         // Reinitialisation de la matrice courante
         gl.glLoadIdentity();
 
+        mCanvas.addMouseMotionListener(new MouseMotionListener() {
+            public void mouseMoved(MouseEvent e) {
+                // System.out.println(e);
+            }
+
+            int i = 0;
+
+            public void mouseDragged(MouseEvent e) {
+
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    if (first) {
+                        openglX = e.getX();
+                        openglY = e.getY();
+                    }
+                    first = false;
+
+                    i++;
+                    System.out.println(i);
+                    if (e.getX() < openglX) {
+                        rotationcameraX -= 0.0001f;
+                    }
+                    if (e.getX() > openglX) {
+                        rotationcameraX += 0.0001f;
+                    }
+                    if (e.getY() < openglY) {
+                        rotationcameraY += 0.0001f;
+                    }
+                    if (e.getY() > openglY) {
+                        rotationcameraY -= 0.0001f;
+                    }
+
+                    //  mCanvas.repaint();
+                }
+
+
+            }
+        });
+
+        revertPlaceButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                glu.gluLookAt(4f, 6f, 20f,
+                        0f, 0f, 0f,
+                        0f, 1f, 0f
+                );
+            }
+        });
+
+        mCanvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                first = true;
+            }
+        });
+        mCanvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+                if (e.getPreciseWheelRotation() > 0){
+                    cameraX+=1;
+                }
+            }
+        });
         /* (Alt aux translations) Placement de la caméra au point (4,0,12)
         Direction vers l'origine de la scène (0,0,0)
         Inclinaison nulle car la vue suit l'axe vertical (y) */
-        glu.gluLookAt(4f, 0f, 12f,
-                0f, 0f, 0f,
+        glu.gluLookAt(cameraX, cameraY, cameraZ,
+                rotationcameraX, rotationcameraY, rotationcameraZ,
                 0f, 1f, 0f
         );
 
@@ -211,19 +306,20 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         }
         if(up){alphaX -= 1.9;}
         if(down){alphaX += 1.9;}
+        if(down){alphaX += 1.9;}
         if(right){alphaY += 1.9;}
         if(left){alphaY -= 1.9;}
         /**
 
-            gl.glColor3f(.3f,.3f,.3f);
-            gl.glBegin(GL2.GL_QUADS);
-            gl.glVertex3f( 0f,-0.001f, 0f);
-            gl.glVertex3f( 0f,-0.001f,10f);
-            gl.glVertex3f(10f,-0.001f,10f);
-            gl.glVertex3f(10f,-0.001f, 0f);
-            gl.glEnd();
+         gl.glColor3f(.3f,.3f,.3f);
+         gl.glBegin(GL2.GL_QUADS);
+         gl.glVertex3f( 0f,-0.001f, 0f);
+         gl.glVertex3f( 0f,-0.001f,10f);
+         gl.glVertex3f(10f,-0.001f,10f);
+         gl.glVertex3f(10f,-0.001f, 0f);
+         gl.glEnd();
 
-        */
+         */
 
         //Affichage de la grille
         gl.glBegin(GL2.GL_LINES);
@@ -241,25 +337,30 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         gl.glEnd();
 
         /* recuperation de lobjet et instantiation */
+        for (BoLASoupe var : d.getFormes()){
+           // System.out.println(d.getFormes());
 
-        d.draw(gl);
+            if(var.getSelected()){
+                float x = RandomUtils.randFloat(-0.1f, 0.1f);
+                float y = RandomUtils.randFloat(-0.1f, 0.1f);
+                float z = RandomUtils.randFloat(-0.1f, 0.1f);
+                gl.glTranslatef(var.getX()+x,var.getY()+y,var.getZ()+z);
+                var.getForme().draw(gl);
+                gl.glTranslatef(-var.getX()-x,-var.getY()-y,-var.getZ()-z);
+            }else {
+                gl.glTranslatef(var.getX(),var.getY(),var.getZ());
+                var.getForme().draw(gl);
+                gl.glTranslatef(-var.getX(),-var.getY(),-var.getZ());
+            }
+
+        }
+
 
 
 
         // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
 
 
-    }
-    public static int randInt(int min, int max) {
-
-        // Usually this can be a field rather than a method variable
-        Random rand = new Random();
-
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-
-        return randomNum;
     }
 
     public void CWGCalculateFPS(){
@@ -379,7 +480,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         }
     }
 
-
     @Override
     public void internalFrameOpened(InternalFrameEvent e) {
 
@@ -392,7 +492,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
     @Override
     public void internalFrameClosed(InternalFrameEvent e) {
-
 
     }
 
@@ -414,6 +513,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
     @Override
     public void internalFrameDeactivated(InternalFrameEvent e) {
-       // parent.remInspecteur();
+
     }
 }
