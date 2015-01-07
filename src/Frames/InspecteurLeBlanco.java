@@ -3,6 +3,7 @@ package Frames;
 import buttons.ColorButton;
 import buttons.RotateButton;
 import buttons.ToolProjectButton;
+import classe.BoLASoupe;
 import classe.ColorRVB;
 import classe.Forme;
 import classe.Scene;
@@ -130,6 +131,14 @@ public class InspecteurLeBlanco extends JInternalFrame {
             }
         });
         top.add(name);
+
+
+        for (final BoLASoupe forme : module.getFormes()){
+            final ColorButton chooseButton = new ColorButton(forme.getForme().getName() );
+
+
+            top.add(chooseButton);
+        }
 
     }
 

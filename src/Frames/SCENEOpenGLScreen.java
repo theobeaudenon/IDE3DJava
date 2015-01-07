@@ -156,6 +156,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                     case JOptionPane.OK_OPTION:
                         d.addForme(new BoLASoupe((Forme)comboBox.getSelectedItem()));
                         parent.log("Ajouté : " + comboBox.getSelectedItem());
+                        parent.updateInspecteur(d);
                         break;
                 }
             }
