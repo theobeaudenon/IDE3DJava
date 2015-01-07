@@ -48,7 +48,6 @@ public class PopupObjectFrame extends JDialog {
     public PopupObjectFrame(){
 
 
-
         name.setBackground(new Color(45,48,50));
         name.setForeground(Color.WHITE);
         name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -57,11 +56,11 @@ public class PopupObjectFrame extends JDialog {
         name.setFont(new Font("Courier", Font.BOLD, 21));
         name.setPreferredSize(this.getSize());
 
-
+        setModal(true);
         setSize(new Dimension(300, 130));
         setUndecorated(true);
         setLocationRelativeTo(this);
-        setAlwaysOnTop(true);
+       // setAlwaysOnTop(true);
         top.setBackground(new Color(45, 48, 50));
         top.setPreferredSize(new Dimension(300, 40));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -87,10 +86,16 @@ public class PopupObjectFrame extends JDialog {
         ok.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                Name = name.getText();
                PopupObjectFrame.this.dispose();
+
             }
         });
 
+
+    }
+    public String getName(){
+        return name.getText();
     }
 }

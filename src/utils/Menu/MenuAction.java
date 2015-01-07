@@ -77,6 +77,6 @@ public class MenuAction {
 
         PopupObjectFrame popupObjectFrame = new PopupObjectFrame();
 
-        return "salut"; //JOptionPane.showInputDialog(new JFrame(""), "Entrez le nom de l'objet");
+        return popupObjectFrame.getName(); //JOptionPane.showInputDialog(new JFrame(""), "Entrez le nom de l'objet");
     }
 }
