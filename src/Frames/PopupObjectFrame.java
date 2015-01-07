@@ -58,9 +58,9 @@ public class PopupObjectFrame extends JDialog {
 
         setModal(true);
         setSize(new Dimension(300, 130));
-        setUndecorated(true);
+        //setUndecorated(true);
         setLocationRelativeTo(this);
-       // setAlwaysOnTop(true);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         top.setBackground(new Color(45, 48, 50));
         top.setPreferredSize(new Dimension(300, 40));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
