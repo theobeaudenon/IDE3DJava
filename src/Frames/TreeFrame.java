@@ -25,6 +25,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
     private JPanel top = new JPanel();
     private ToolProjectButton toolProjectButton = new ToolProjectButton("");
     private RotateButton refresh = new RotateButton("");
+    private JScrollPane jScrollPane = new JScrollPane();
     int posX ;
     int posY ;
     private int compteurClic = 1;
@@ -144,6 +145,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         top.setBorder(BorderFactory.createLineBorder(Color.black));
 
         add(top, BorderLayout.NORTH);
+        add(jScrollPane, BorderLayout.CENTER);
         setBorder(BorderFactory.createLineBorder(Color.black));
         setOpaque(false);
         getContentPane().setBackground(new Color(60, 63, 65));
@@ -214,7 +216,8 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
 
         tree.setBackground(new Color(60,63,65));
         tree.setForeground(Color.WHITE);
-        add(tree, BorderLayout.CENTER);
+        jScrollPane = new JScrollPane(tree);
+        jScrollPane.setBorder(BorderFactory.createEmptyBorder());
         final DefaultTreeCellRenderer renderer =
                 (DefaultTreeCellRenderer)(tree.getCellRenderer());
         renderer.setBackgroundNonSelectionColor(new Color(60,63,65));
