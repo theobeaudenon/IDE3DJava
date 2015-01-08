@@ -215,6 +215,8 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
 
         */
 
+
+
         //Affichage de la grille
         gl.glBegin(GL2.GL_LINES);
         for(int i=-0;i<=10;i++) {

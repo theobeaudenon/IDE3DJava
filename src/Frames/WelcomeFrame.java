@@ -138,7 +138,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
                     o.add(ed);
 
-                    Cylindre sy = new Cylindre("cycy",1,1,1f,1f);
+                    Cylindre sy = new Cylindre("cycy",1f,1f,1f,1f,1f,new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f));
                     o.add(sy);
 
                     p.setObj(o);
