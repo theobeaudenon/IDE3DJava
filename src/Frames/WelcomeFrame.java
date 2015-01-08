@@ -1,6 +1,7 @@
 package Frames;
 
 import Shapes.Cube;
+import Shapes.Cylindre;
 import Shapes.Sphere;
 import Shapes.Triangle;
 import classe.ColorRVB;
@@ -137,6 +138,8 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
                     o.add(ed);
 
+                    Cylindre sy = new Cylindre("cycy",1,1,1f,1f);
+                    o.add(sy);
 
                     p.setObj(o);
                     p.setScene(s);

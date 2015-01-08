@@ -41,37 +41,37 @@ public class Triangle extends Forme implements Serializable {
         public void draw(GL2 gl){
 
             gl.glBegin(GL2.GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
-            // Front
-            gl.glColor3fv(couleurs.get(0).buffer());     // Red
-            gl.glVertex3f( 0.0f, 1.0f, 0.0f);
-            gl.glVertex3f(-1.0f, -1.0f, 1.0f);
-            gl.glVertex3f(1.0f, -1.0f, 1.0f);
 
-            // Right
+            gl.glColor3fv(couleurs.get(0).buffer());     // Red
+            gl.glVertex3f( 0.0f, data.get(0).getValue(), 0.0f);
+            gl.glVertex3f(-data.get(0).getValue(), -data.get(0).getValue(), data.get(0).getValue());
+            gl.glVertex3f(data.get(0).getValue(), -data.get(0).getValue(), data.get(0).getValue());
+
+
             gl.glColor3fv(couleurs.get(1).buffer());     // Red
-            gl.glVertex3f(0.0f, 1.0f, 0.0f);
-            gl.glVertex3f(1.0f, -1.0f, 1.0f);
-            gl.glVertex3f(1.0f, -1.0f, -1.0f);
+            gl.glVertex3f(0.0f, data.get(0).getValue(), 0.0f);
+            gl.glVertex3f(data.get(0).getValue(), -data.get(0).getValue(), data.get(0).getValue());
+            gl.glVertex3f(data.get(0).getValue(), -data.get(0).getValue(), -data.get(0).getValue());
 
             // Back
             gl.glColor3fv(couleurs.get(2).buffer());     // Red
-            gl.glVertex3f(0.0f, 1.0f, 0.0f);
-            gl.glVertex3f(1.0f, -1.0f, -1.0f);
-            gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+            gl.glVertex3f(0.0f, data.get(0).getValue(), 0.0f);
+            gl.glVertex3f(data.get(0).getValue(), -data.get(0).getValue(), -data.get(0).getValue());
+            gl.glVertex3f(-data.get(0).getValue(), -data.get(0).getValue(), -data.get(0).getValue());
 
-            // Left
+
             gl.glColor3fv(couleurs.get(3).buffer());       // Red
-            gl.glVertex3f(0.0f, 1.0f, 0.0f);
-            gl.glVertex3f(-1.0f,-1.0f,-1.0f);
-            gl.glVertex3f(-1.0f,-1.0f, 1.0f);
+            gl.glVertex3f(0.0f, data.get(0).getValue(), 0.0f);
+            gl.glVertex3f(-data.get(0).getValue(),-data.get(0).getValue(),-data.get(0).getValue());
+            gl.glVertex3f(-data.get(0).getValue(),-data.get(0).getValue(), data.get(0).getValue());
             gl.glEnd();   // Done drawing the pyramid
 
             gl.glBegin(GL2.GL_QUADS);
             gl.glColor3fv(couleurs.get(4).buffer());
-            gl.glVertex3f(-1.0f, -1.0f, 1.0f);
-            gl.glVertex3f(1.0f, -1.0f,1.0f);
-            gl.glVertex3f(1.0f, -1.0f, -1.0f);
-            gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+            gl.glVertex3f(-data.get(0).getValue(), -data.get(0).getValue(), data.get(0).getValue());
+            gl.glVertex3f(data.get(0).getValue(), -data.get(0).getValue(),data.get(0).getValue());
+            gl.glVertex3f(data.get(0).getValue(), -data.get(0).getValue(), -data.get(0).getValue());
+            gl.glVertex3f(-data.get(0).getValue(), -data.get(0).getValue(), -data.get(0).getValue());
             gl.glEnd();   // Done drawing the pyramid
 
         }
