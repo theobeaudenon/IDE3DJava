@@ -1,7 +1,6 @@
 package classe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * classe

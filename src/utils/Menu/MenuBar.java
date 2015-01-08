@@ -1,7 +1,6 @@
 package utils.Menu;
 
 import Frames.InternalFrameDemo;
-import sun.tools.jar.resources.jar_sv;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

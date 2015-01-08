@@ -330,16 +330,16 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.25f,.25f,.25f); };
             gl.glVertex3f(0,0,i);
             gl.glVertex3f(10,0,i);
-            if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.25f,.25f,.25f); };
-            gl.glVertex3f(0,i,0);
-            gl.glVertex3f(10,i,0);
         };
+        gl.glColor3f(.3f,.6f,.3f);
+        gl.glVertex3f(0,0,0);
+        gl.glVertex3f(0,10,0);
+        gl.glColor3f(.25f,.25f,.25f);
         gl.glEnd();
 
         /* recuperation de lobjet et instantiation */
         for (BoLASoupe var : d.getFormes()){
            // System.out.println(d.getFormes());
-
             if(var.getSelected()){
                 float x = RandomUtils.randFloat(-0.1f, 0.1f);
                 float y = RandomUtils.randFloat(-0.1f, 0.1f);

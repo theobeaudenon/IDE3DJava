@@ -3,7 +3,6 @@ package Shapes;
 import classe.DataConf;
 import classe.Forme;
 import classe.ColorRVB;
-import classe.ParamsForms;
 
 import javax.media.opengl.GL2;
 import java.io.Serializable;

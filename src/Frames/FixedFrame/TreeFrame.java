@@ -129,9 +129,9 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
                 renderer.setTextNonSelectionColor(Color.WHITE);
                 renderer.setTextSelectionColor(Color.WHITE);
 
-
                 //tree.setForeground(Color.WHITE);
                 tree.setDragEnabled(true);
+
                 //tree.setDropMode(DropMode.ON);
                 tree.updateUI();
                 tree.setCellRenderer(renderer);

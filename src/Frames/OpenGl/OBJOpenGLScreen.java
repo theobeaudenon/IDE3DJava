@@ -30,13 +30,8 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private boolean left= false;
     private final InternalFrameDemo parent;
 
-    public static void main(String[] args) {
-        //new CWGOpenGLScreen(userObject).setVisible(true);
-    }
-
     private static final long serialVersionUID = 635066680731362587L;
     private JPanel inspector = new JPanel(new GridLayout(2, 1));
-
     private JPanel top = new JPanel();
     private static final   String TAG = "CWGOpenGLScreen";
     private GLCanvas mCanvas = new GLCanvas();
@@ -47,8 +42,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private RotateButton rotateButton = new RotateButton("");
     int posX ;
     int posY ;
-    private int compteurClic = 1;
-    private int test;
     // Utilitaire donnant accès aux commandes bas niveau d'OpenGL
     private GLU glu;
     // Angle courant de rotation sur l'axe X
@@ -58,9 +51,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     // Angle courant de rotation sur l'axe Z
     public float alphaZ=0f;
     public Forme d ;
-
-    private static JComboBox comboBox;
-
     // Listener pin not pin
 
     MouseListener ml = new MouseAdapter() {
@@ -234,10 +224,11 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
             if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.25f,.25f,.25f); };
             gl.glVertex3f(0,0,i);
             gl.glVertex3f(10,0,i);
-            if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.25f,.25f,.25f); };
-            gl.glVertex3f(0,i,0);
-            gl.glVertex3f(10,i,0);
         };
+        gl.glColor3f(.3f,.6f,.3f);
+        gl.glVertex3f(0,0,0);
+        gl.glVertex3f(0,10,0);
+        gl.glColor3f(.25f,.25f,.25f);
         gl.glEnd();
 
         /* recuperation de lobjet et instantiation */
