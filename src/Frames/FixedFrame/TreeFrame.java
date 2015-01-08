@@ -6,7 +6,7 @@ import buttons.RotateButton;
 import buttons.ToolProjectButton;
 import classe.Projet;
 import classe.Scene;
-import utils.RightClicMenu;
+import utils.Menu.RightClicMenu;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;

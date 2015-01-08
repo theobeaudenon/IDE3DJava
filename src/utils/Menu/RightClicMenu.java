@@ -1,4 +1,4 @@
-package utils;
+package utils.Menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

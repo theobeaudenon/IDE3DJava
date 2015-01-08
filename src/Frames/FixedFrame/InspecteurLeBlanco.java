@@ -4,7 +4,7 @@ import Frames.InternalFrameDemo;
 import Frames.Dialog.PopupObjectFrame;
 import buttons.ColorButton;
 import classe.*;
-import utils.RightClicMenu;
+import utils.Menu.RightClicMenu;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
