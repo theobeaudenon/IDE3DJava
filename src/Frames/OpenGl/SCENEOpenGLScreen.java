@@ -214,70 +214,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         // Reinitialisation de la matrice courante
         gl.glLoadIdentity();
 
-        mCanvas.addMouseMotionListener(new MouseMotionListener() {
-            public void mouseMoved(MouseEvent e) {
-                // System.out.println(e);
-            }
 
-            int i = 0;
-
-            public void mouseDragged(MouseEvent e) {
-
-                if (SwingUtilities.isRightMouseButton(e)) {
-                    if (first) {
-                        openglX = e.getX();
-                        openglY = e.getY();
-                    }
-                    first = false;
-
-                    i++;
-                    System.out.println(i);
-                    if (e.getX() < openglX) {
-                        rotationcameraX -= 0.0001f;
-                    }
-                    if (e.getX() > openglX) {
-                        rotationcameraX += 0.0001f;
-                    }
-                    if (e.getY() < openglY) {
-                        rotationcameraY += 0.0001f;
-                    }
-                    if (e.getY() > openglY) {
-                        rotationcameraY -= 0.0001f;
-                    }
-
-                    //  mCanvas.repaint();
-                }
-
-
-            }
-        });
-
-        revertPlaceButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                glu.gluLookAt(4f, 6f, 20f,
-                        0f, 0f, 0f,
-                        0f, 1f, 0f
-                );
-            }
-        });
-
-        mCanvas.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                first = true;
-            }
-        });
-        mCanvas.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                super.mouseWheelMoved(e);
-                if (e.getPreciseWheelRotation() > 0){
-                    cameraX+=1;
-                }
-            }
-        });
         /* (Alt aux translations) Placement de la caméra au point (4,0,12)
         Direction vers l'origine de la scène (0,0,0)
         Inclinaison nulle car la vue suit l'axe vertical (y) */
@@ -387,6 +324,76 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
         // Joli mélange de couleur, et lissage des textures
         gl.glShadeModel(GL2.GL_SMOOTH);
+        mCanvas.addMouseMotionListener(new MouseMotionListener() {
+            public void mouseMoved(MouseEvent e) {
+                // System.out.println(e);
+            }
+
+            int i = 0;
+
+            final float sensi = 0.0501f;
+            public void mouseDragged(MouseEvent e) {
+
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    if (first) {
+                        openglX = e.getX();
+                        openglY = e.getY();
+                    }
+                    first = false;
+                    i++;
+
+                    if (e.getX() < openglX) {
+                        rotationcameraX -=sensi;
+                        first = true;
+                    }
+                    if (e.getX() > openglX) {
+                        rotationcameraX += sensi;
+                        first = true;
+                    }
+                    if (e.getY() < openglY) {
+                        rotationcameraY += sensi;
+                        first = true;
+                    }
+                    if (e.getY() > openglY) {
+                        rotationcameraY -= sensi;
+                        first = true;
+                    }
+
+                    //  mCanvas.repaint();
+                }
+
+
+            }
+
+        });
+
+        revertPlaceButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                glu.gluLookAt(4f, 6f, 20f,
+                        0f, 0f, 0f,
+                        0f, 1f, 0f
+                );
+            }
+        });
+
+        mCanvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                first = true;
+            }
+        });
+        mCanvas.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+
+                if (e.getPreciseWheelRotation() > 0){
+                    cameraX+=1;
+
+                }else {cameraX-=1;}
+            }
+        });
     }
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height){
 
