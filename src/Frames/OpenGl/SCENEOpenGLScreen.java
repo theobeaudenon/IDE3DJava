@@ -389,9 +389,9 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             public void mouseWheelMoved(MouseWheelEvent e) {
 
                 if (e.getPreciseWheelRotation() > 0){
-                    cameraX+=1;
+                    cameraZ-=1;
 
-                }else {cameraX-=1;}
+                }else {cameraZ+=1;}
             }
         });
     }
