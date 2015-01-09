@@ -30,6 +30,12 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private boolean left= false;
     private final InternalFrameDemo parent;
 
+    private float rotationcameraX = 0f;
+    private float rotationcameraY = 0f;
+    private float rotationcameraZ = 0f;
+    private float cameraX = 4f;
+    private float cameraY = 6f;
+    private float cameraZ = 20f;
     private static final long serialVersionUID = 635066680731362587L;
     private JPanel inspector = new JPanel(new GridLayout(2, 1));
     private JPanel top = new JPanel();
@@ -180,6 +186,10 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
                 0f, 0f, 0f,
                 0f, 1f, 0f
         );
+        glu.gluLookAt(cameraX, cameraY, cameraZ,
+                rotationcameraX, rotationcameraY, rotationcameraZ,
+                0f, 1f, 0f
+        );
 
         // Rotation de la matrice courante de l'angle alpha autour de l'axe x (1,0,0)
         gl.glRotatef(alphaX,
@@ -195,6 +205,7 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         gl.glRotatef(alphaZ,
                 0f, 0f, 1f
         );
+
         if(automoving){
             alphaY += 0.5;
             alphaX += 0.2;
@@ -279,6 +290,26 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
         // Joli mélange de couleur, et lissage des textures
         gl.glShadeModel(GL2.GL_SMOOTH);
+
+
+        mCanvas.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+
+                if (e.getPreciseWheelRotation() > 0){
+                    cameraX += -Math.sin(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
+                    cameraZ += Math.cos(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
+                    cameraY -= -Math.sin(Math.toRadians(rotationcameraX)) * 5;
+
+
+                }else {
+                    cameraX -= -Math.sin(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
+                    cameraZ -= Math.cos(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
+                    cameraY += -Math.sin(Math.toRadians(rotationcameraX)) * 1;
+
+                }
+            }
+        });
     }
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height){
 

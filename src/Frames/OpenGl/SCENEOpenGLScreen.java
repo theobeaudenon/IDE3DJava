@@ -389,9 +389,17 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             public void mouseWheelMoved(MouseWheelEvent e) {
 
                 if (e.getPreciseWheelRotation() > 0){
-                    cameraX+=1;
+                    cameraX += -Math.sin(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
+                    cameraZ += Math.cos(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
+                    cameraY -= -Math.sin(Math.toRadians(rotationcameraX)) * 5;
 
-                }else {cameraX-=1;}
+
+                }else {
+                    cameraX -= -Math.sin(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
+                    cameraZ -= Math.cos(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
+                    cameraY += -Math.sin(Math.toRadians(rotationcameraX)) * 1;
+
+                }
             }
         });
     }
@@ -433,7 +441,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         else {
             top.removeMouseListener(ml);
             top.removeMouseMotionListener(m2);
-
         }
     }
 
