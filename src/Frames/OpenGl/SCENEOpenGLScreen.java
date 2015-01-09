@@ -215,6 +215,8 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         gl.glLoadIdentity();
 
 
+
+
         /* (Alt aux translations) Placement de la caméra au point (4,0,12)
         Direction vers l'origine de la scène (0,0,0)
         Inclinaison nulle car la vue suit l'axe vertical (y) */
