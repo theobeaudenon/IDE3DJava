@@ -48,10 +48,6 @@ public class CustomTextField extends JTextField {
         return placeholderForeground;
     }
 
-    public void setPlaceholderForeground(Color placeholderForeground) {
-        this.placeholderForeground = placeholderForeground;
-    }
-
     public boolean isTextWrittenIn() {
         return textWrittenIn;
     }

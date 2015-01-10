@@ -10,22 +10,7 @@ import java.io.IOException;
 
 public class PinButton extends JButton implements MouseListener {
 
-    private String name;
     private Image img;
-
-    public PinButton(String str){
-        super(str);
-        this.name = str;
-        setBorderPainted(false);
-        this.setContentAreaFilled(false);
-        try {
-            img = ImageIO.read(new File("res\\img\\pin.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.addMouseListener(this);
-
-    }
 
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D)g;

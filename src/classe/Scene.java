@@ -19,10 +19,6 @@ public class Scene implements Serializable {
         return formes;
     }
 
-    public void setFormes(ArrayList<BoLASoupe> formes) {
-        this.formes = formes;
-    }
-
     public void addForme(BoLASoupe formes) {
         this.formes.add(formes);
     }

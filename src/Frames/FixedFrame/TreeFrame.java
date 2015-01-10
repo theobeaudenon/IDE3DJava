@@ -29,7 +29,6 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
     private JScrollPane jScrollPane = new JScrollPane();
     int posX ;
     int posY ;
-    private int compteurClic = 1;
     private RightClicMenu rightClicMenu = new RightClicMenu();
 
 

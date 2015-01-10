@@ -10,12 +10,10 @@ import java.io.IOException;
 
 public class RevertPlaceButton extends JButton implements MouseListener {
 
-    private String name;
     private Image img;
 
     public RevertPlaceButton(String str){
         super(str);
-        this.name = str;
         setBorderPainted(false);
         this.setContentAreaFilled(false);
         try {

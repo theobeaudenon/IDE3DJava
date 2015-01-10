@@ -10,12 +10,10 @@ import java.io.IOException;
 
 public class ToolProjectButton extends JButton implements MouseListener {
 
-    private String name;
     private Image img;
 
     public ToolProjectButton(String str){
         super(str);
-        this.name = str;
         setBorderPainted(false);
         this.setContentAreaFilled(false);
         try {

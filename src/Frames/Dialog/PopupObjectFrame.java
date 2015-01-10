@@ -18,8 +18,6 @@ public class PopupObjectFrame extends JDialog {
     private CloseButton closeButton = new CloseButton("");
     private CustomTextField name = new CustomTextField(20);
     private ColorButton ok = new ColorButton("OK");
-    static String Name = null;
-    boolean wait = false;
     int posX ;
     int posY ;
 
@@ -56,7 +54,6 @@ public class PopupObjectFrame extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            Name = name.getText();
             PopupObjectFrame.this.dispose();
 
         }
@@ -65,7 +62,6 @@ public class PopupObjectFrame extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Name = name.getText();
             PopupObjectFrame.this.dispose();
         }
     };

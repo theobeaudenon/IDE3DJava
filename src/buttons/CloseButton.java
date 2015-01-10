@@ -10,12 +10,10 @@ import java.io.IOException;
 
 public class CloseButton extends JButton implements MouseListener {
 
-    private String name;
     private Image img;
 
     public CloseButton(String str){
         super(str);
-        this.name = str;
         setBorderPainted(false);
         this.setContentAreaFilled(false);
         try {

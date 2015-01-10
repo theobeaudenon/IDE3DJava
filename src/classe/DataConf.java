@@ -1,10 +1,12 @@
 package classe;
 
+import java.io.Serializable;
+
 /**
  * classe
  * Created by Theo on 07/01/2015 for Ide3DProject.
  */
-public class DataConf {
+public class DataConf implements Serializable {
     String emplacement;
     float value;
 
@@ -24,10 +26,6 @@ public class DataConf {
 
     public String getEmplacement() {
         return emplacement;
-    }
-
-    public void setEmplacement(String emplacement) {
-        this.emplacement = emplacement;
     }
 
 

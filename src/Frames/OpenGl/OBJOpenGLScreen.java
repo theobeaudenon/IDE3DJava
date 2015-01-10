@@ -36,7 +36,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private float cameraX = 4f;
     private float cameraY = 6f;
     private float cameraZ = 20f;
-    private static final long serialVersionUID = 635066680731362587L;
     private JPanel inspector = new JPanel(new GridLayout(2, 1));
     private JPanel top = new JPanel();
     private static final   String TAG = "CWGOpenGLScreen";
@@ -253,24 +252,6 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
 
 
-    }
-    public static int randInt(int min, int max) {
-
-        // Usually this can be a field rather than a method variable
-        Random rand = new Random();
-
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-
-        return randomNum;
-    }
-
-    public void CWGCalculateFPS(){
-        try {
-            this.setTitle(TAG + " [" + 1000 / (System.currentTimeMillis() - fpsLast) + "]");
-        }catch (Exception e){};
-        fpsLast = System.currentTimeMillis();
     }
 
     public void init(GLAutoDrawable drawable){

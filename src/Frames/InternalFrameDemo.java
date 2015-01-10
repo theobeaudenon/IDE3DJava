@@ -222,7 +222,4 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         inspeframe.setModule(forme);
     }
 
-    public void remInspecteur() {
-        inspeframe.remModule();
-    }
 }

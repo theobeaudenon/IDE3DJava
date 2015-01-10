@@ -52,8 +52,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         //new CWGOpenGLScreen(userObject).setVisible(true);
     }
 
-    private static final long serialVersionUID = 635066680731362587L;
-
     private JPanel top = new JPanel();
     private static final   String TAG = "CWGOpenGLScreen";
     private GLCanvas mCanvas = new GLCanvas();
@@ -64,8 +62,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
     private RotateButton rotateButton = new RotateButton("");
     int posX ;
     int posY ;
-    private int compteurClic = 1;
-    private int test;
     // Utilitaire donnant accès aux commandes bas niveau d'OpenGL
     private GLU glu;
     // Angle courant de rotation sur l'axe X
@@ -75,8 +71,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
     // Angle courant de rotation sur l'axe Z
     public float alphaZ=0f;
     public Scene d ;
-
-    private static JComboBox comboBox;
 
     // Listener pin not pin
 
@@ -298,13 +292,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
 
 
-    }
-
-    public void CWGCalculateFPS(){
-        try {
-            this.setTitle(TAG + " [" + 1000 / (System.currentTimeMillis() - fpsLast) + "]");
-        }catch (Exception e){};
-        fpsLast = System.currentTimeMillis();
     }
 
     public void init(GLAutoDrawable drawable){

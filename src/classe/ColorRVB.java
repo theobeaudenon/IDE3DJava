@@ -21,24 +21,12 @@ public class ColorRVB implements Serializable {
     }
 
 
-    public float getR() {
-        return R;
-    }
-
     public void setR(float r) {
         this.R = r;
     }
 
-    public float getV() {
-        return V;
-    }
-
     public void setV(float v) {
         V = v;
-    }
-
-    public float getB() {
-        return B;
     }
 
     public void setB(float b) {
