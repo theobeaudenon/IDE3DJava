@@ -353,7 +353,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             }
 
         });
-
         revertPlaceButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -363,7 +362,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                 );
             }
         });
-
         mCanvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -374,18 +372,14 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         mCanvas.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-
                 if (e.getPreciseWheelRotation() > 0){
                     cameraX += -Math.sin(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
                     cameraZ += Math.cos(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
                     cameraY -= -Math.sin(Math.toRadians(rotationcameraX)) * 5;
-
-
                 }else {
                     cameraX -= -Math.sin(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
                     cameraZ -= Math.cos(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
                     cameraY += -Math.sin(Math.toRadians(rotationcameraX)) * 1;
-
                 }
             }
         });
