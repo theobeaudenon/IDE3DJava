@@ -14,11 +14,14 @@ public class BoLASoupe  implements Serializable {
     Float x;
     Float y;
     Float z;
+    String name;
+    Scene teleportTo = null;
     private Boolean selected = false;
 
     public BoLASoupe(Forme forme) {
 
         this.forme = forme;
+        this.name = forme.getName();
         x= Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
         y=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
         z=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
@@ -45,6 +48,19 @@ public class BoLASoupe  implements Serializable {
 
     public Float getZ() {
         return z;
+    }
+
+    public Scene getTeleportTo() {
+        return teleportTo;
+    }
+
+    public void setTeleportTo(Scene teleportTo) {
+        this.teleportTo = teleportTo;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
 }

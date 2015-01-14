@@ -62,8 +62,6 @@ public class MenuBar {
         menuBar.add(aide);
         menuBar.add(Box.createGlue());
 
-
-
         //Set up the first menu item.
         JMenuItem menuIteme = new JMenuItem("Nouveau / Ouvrir");
         menuIteme.setBackground(new Color(45,48,50));
@@ -204,11 +202,6 @@ public class MenuBar {
         menuItem.setActionCommand("cone");
         menuItem.addActionListener(internalFrameDemo);
         Objet.add(menuItem);
-
-
-
-
-
 
         menuItem = new JMenuItem("A Propos");
         menuItem.setBackground(new Color(45,48,50));
