@@ -107,14 +107,11 @@ public class PopupObjectAdd extends JDialog {
         }
     };
     ActionListener dsd = new ActionListener() {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             PopupObjectAdd.this.dispose();
         }
     };
-
-
     public void statup(InternalFrameDemo parent){
 
         DefaultComboBoxModel model = new DefaultComboBoxModel();
