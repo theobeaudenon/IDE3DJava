@@ -37,8 +37,8 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
     private boolean first= true;
     private int openglX = 0;
     private int openglY = 0;
+    Robot robot;
     private final InternalFrameDemo parent;
-
     // Caméra rotation variable
     private float cameraX = 4f;
     private float cameraY = 6f;
@@ -112,7 +112,11 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
         setDragable(true);
         top.setBackground(new Color(45, 48, 50));
-
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
         top.setBorder(new LineBorder(Color.BLACK));
         top.setBorder(BorderFactory.createLineBorder(Color.black));
         revertPlaceButton.setPreferredSize(new Dimension(16, 16));
@@ -131,6 +135,9 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         CWGSetupGL();
         this.setVisible(true);
         JButton button2 = new JButton("Ajouter");
+
+
+
 
         addInternalFrameListener(this);
         button2.addActionListener(new ActionListener() {
@@ -321,6 +328,17 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             final float sensi = 0.0501f;
             public void mouseDragged(MouseEvent e) {
 
+                if (e.getX() >= SCENEOpenGLScreen.this.getWidth()){
+                    robot.mouseMove(SCENEOpenGLScreen.this.getX()+ parent.getX()+10,(e.getY()+parent.getY())+(SCENEOpenGLScreen.this.getY()+SCENEOpenGLScreen.this.top.getHeight()+40));
+                }
+
+                if (e.getX() <= 0){
+                    robot.mouseMove((SCENEOpenGLScreen.this.getX()+ parent.getX())+SCENEOpenGLScreen.this.getWidth(),(e.getY()+parent.getY())+(SCENEOpenGLScreen.this.getY()+SCENEOpenGLScreen.this.top.getHeight()+40));
+                }
+
+                if (e.getY() >= SCENEOpenGLScreen.this.getHeight()){
+                    robot.mouseMove(e.getX(),SCENEOpenGLScreen.this.getY());
+                }
                 if (SwingUtilities.isRightMouseButton(e)) {
                     if (first) {
                         openglX = e.getX();
