@@ -158,7 +158,7 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
                     int result = JOptionPane.showConfirmDialog(null, panel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                     switch (result) {
                         case JOptionPane.OK_OPTION:
-                            d.addForme(new BoLASoupe((Forme)comboBox.getSelectedItem()));
+                            //d.addForme(new BoLASoupe((Forme)comboBox.getSelectedItem(), Float.parseFloat(xObject.getText()), Float.parseFloat(yObject.getText()), Float.parseFloat(zObject.getText()), selectedItem1, selectedItem.getName()));
                             parent.log("Ajouté : " + comboBox.getSelectedItem());
                             parent.updateInspecteur(d);
                             break;

@@ -18,13 +18,13 @@ public class BoLASoupe  implements Serializable {
     Scene teleportTo = null;
     private Boolean selected = false;
 
-    public BoLASoupe(Forme forme) {
+    public BoLASoupe(Forme forme, float x, float y, float z, Scene selectedItem1, String name) {
 
         this.forme = forme;
-        this.name = forme.getName();
-        x= Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
-        y=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
-        z=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
+        this.name = name;
+        this.x= Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
+        this.y=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
+        this.z=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
     }
 
     public Boolean getSelected() {

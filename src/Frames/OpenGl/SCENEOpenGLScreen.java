@@ -1,5 +1,6 @@
 package Frames.OpenGl;
 
+import Frames.Dialog.PopupObjectAdd;
 import Frames.InternalFrameDemo;
 import buttons.CloseButton;
 import buttons.RevertPlaceButton;
@@ -143,24 +144,18 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JPanel panel = new JPanel();
-                panel.add(new JLabel("Liste des Objets:"));
-                DefaultComboBoxModel model = new DefaultComboBoxModel();
-                for(Forme f : parent.getProjet().getObj()){
 
-                    model.addElement(f);
-                }
-                JComboBox comboBox = new JComboBox(model);
-                panel.add(comboBox);
 
-                int result = JOptionPane.showConfirmDialog(null, panel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                switch (result) {
-                    case JOptionPane.OK_OPTION:
-                        d.addForme(new BoLASoupe((Forme)comboBox.getSelectedItem()));
-                        parent.log("Ajouté : " + comboBox.getSelectedItem());
-                        parent.updateInspecteur(d);
-                        break;
+                PopupObjectAdd ef = new PopupObjectAdd(parent);
+                if(ef.getBol() != null){
+                    d.addForme(ef.getBol());
+                    // parent.log("Ajouté : " + comboBox.getSelectedItem());
+                    parent.updateInspecteur(d);
                 }
+
+
+
+
             }
         });
         top.add(button2);

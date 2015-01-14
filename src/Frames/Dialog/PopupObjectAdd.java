@@ -1,7 +1,11 @@
 package Frames.Dialog;
 
+import Frames.InternalFrameDemo;
 import buttons.CloseButton;
 import buttons.ColorButton;
+import classe.BoLASoupe;
+import classe.Forme;
+import classe.Scene;
 import utils.CustomTextField;
 
 import javax.swing.*;
@@ -33,6 +37,11 @@ public class PopupObjectAdd extends JDialog {
     private JLabel teleporteur = new JLabel("Teleporteur");
     private JComboBox teleporteurBox = new JComboBox();
     int compteur = 0;
+    private BoLASoupe bol = null;
+
+    public BoLASoupe getBol() {
+        return bol;
+    }
 
     int posX ;
     int posY ;
@@ -70,7 +79,16 @@ public class PopupObjectAdd extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            PopupObjectAdd.this.dispose();
+
+            try{
+                Forme selectedItem = (Forme) objectBox.getSelectedItem();
+                Scene selectedItem1 = (Scene) teleporteurBox.getSelectedItem();
+                bol = new BoLASoupe(selectedItem ,Float.parseFloat(xObject.getText()),Float.parseFloat(yObject.getText()),Float.parseFloat(zObject.getText()),selectedItem1 , selectedItem.getName());
+                PopupObjectAdd.this.dispose();
+            }catch (Exception ef){
+
+            }
+
 
         }
     };
@@ -81,7 +99,24 @@ public class PopupObjectAdd extends JDialog {
             PopupObjectAdd.this.dispose();
         }
     };
-    public PopupObjectAdd(){
+    public PopupObjectAdd(InternalFrameDemo parent){
+
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for(Forme f : parent.getProjet().getObj()){
+
+            model.addElement(f);
+        }
+        objectBox.setModel(model);
+
+
+
+        DefaultComboBoxModel modele = new DefaultComboBoxModel();
+        modele.addElement(null);
+        for(Scene f : parent.getProjet().getScene()){
+
+            modele.addElement(f);
+        }
+        teleporteurBox.setModel(modele);
 
 
         setModal(true);
@@ -269,5 +304,6 @@ public class PopupObjectAdd extends JDialog {
 
 
     }
+
 
 }
