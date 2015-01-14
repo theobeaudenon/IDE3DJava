@@ -183,6 +183,33 @@ public class MenuBar {
         menuItem.addActionListener(internalFrameDemo);
         Objet.add(menuItem);
 
+        menuItem = new JMenuItem("Cylindre");
+        menuItem.setBackground(new Color(45,48,50));
+        menuItem.setBorder(BorderFactory.createEmptyBorder());
+        menuItem.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("cylindre");
+        menuItem.addActionListener(internalFrameDemo);
+        Objet.add(menuItem);
+
+        menuItem = new JMenuItem("Cone");
+        menuItem.setBackground(new Color(45,48,50));
+        menuItem.setBorder(BorderFactory.createEmptyBorder());
+        menuItem.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("cone");
+        menuItem.addActionListener(internalFrameDemo);
+        Objet.add(menuItem);
+
+
+
+
+
+
         menuItem = new JMenuItem("A Propos");
         menuItem.setBackground(new Color(45,48,50));
         menuItem.setBorder(BorderFactory.createEmptyBorder());

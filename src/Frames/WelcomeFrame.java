@@ -1,9 +1,6 @@
 package Frames;
 
-import Shapes.Cube;
-import Shapes.Cylindre;
-import Shapes.Sphere;
-import Shapes.Triangle;
+import Shapes.*;
 import classe.ColorRVB;
 import classe.Forme;
 import classe.Projet;
@@ -138,8 +135,11 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
                     o.add(ed);
 
-                    Cylindre sy = new Cylindre("cycy",1f,1f,1f,1f,1f,new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f));
+                    Cylindre sy = new Cylindre("Cylindre",1f,1f,1f,1f,1f,new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f));
                     o.add(sy);
+
+                    Cone cone = new Cone("Cone", new ColorRVB(1f, 1f, 0.9f), new ColorRVB(0.9f, 0.9f, 0.1f),  1f,5f,5f);
+                    o.add(cone);
 
                     p.setObj(o);
                     p.setScene(s);
