@@ -174,6 +174,9 @@ public class PopupObjectAdd extends JDialog {
                     setSize(new Dimension(300, 200));
                     teleporteur.setVisible(false);
                     teleporteurBox.setVisible(false);
+
+
+
                 }
                 else {
                     avanceJbutton.setText("v     masquer les options");
