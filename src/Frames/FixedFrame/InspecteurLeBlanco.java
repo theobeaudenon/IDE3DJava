@@ -1,7 +1,7 @@
 package Frames.FixedFrame;
 
-import Frames.InternalFrameDemo;
 import Frames.Dialog.PopupObjectFrame;
+import Frames.InternalFrameDemo;
 import buttons.ColorButton;
 import classe.*;
 import utils.Menu.RightClicMenu;
@@ -9,6 +9,8 @@ import utils.Menu.RightClicMenu;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -102,14 +104,14 @@ public class InspecteurLeBlanco extends JInternalFrame {
 
 
         for (final DataConf color : module.conf()) {
-            JButton chooseButton = new JButton(color.getEmplacement()) ;
+            JButton chooseButton = new JButton(color.getEmplacement());
             chooseButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     PopupObjectFrame popupObjectFrame = new PopupObjectFrame(String.valueOf(color.getValue()));
                     try {
-                        color.setValue(Float.valueOf( popupObjectFrame.getName()));
-                        parent.log("Nouvelle Valeur : "+color.getValue());
-                    }catch (Exception ee){
+                        color.setValue(Float.valueOf(popupObjectFrame.getName()));
+                        parent.log("Nouvelle Valeur : " + color.getValue());
+                    } catch (Exception ee) {
                         parent.log("Valeur Invalide");
                     }
                 }
@@ -123,7 +125,6 @@ public class InspecteurLeBlanco extends JInternalFrame {
         top.removeAll();
         top.repaint();
         top.setPreferredSize(this.getSize());
-
 
         final JTextField name = new JTextField(module.getName());
         name.setBackground(new Color(45, 48, 50));
@@ -163,28 +164,29 @@ public class InspecteurLeBlanco extends JInternalFrame {
         list.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         list.setBackground(new Color(60, 63, 65));
         list.setForeground(new Color(205, 198, 183));
-
         list.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 int index = list.locationToIndex(e.getPoint());
                 BoLASoupe item = (BoLASoupe) model.getElementAt(index);
                 item.setSelected(true);
-                if (e.getClickCount() == 2) {
 
-                }
+
             }
 
             public void mouseReleased(MouseEvent e) {
                 for (final BoLASoupe forme : module.getFormes()) {
                     forme.setSelected(false);
+                 }
+                if (e.getClickCount() == 2 && !e.isConsumed()) {
+                    e.consume();
+
+                    parent.log("YOLOO");
+                    //handle double click event.
                 }
             }
         });
         top.add(list);
-
         top.add(Box.createHorizontalStrut(10));
-
-
     }
 
 

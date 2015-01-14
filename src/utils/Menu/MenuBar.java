@@ -62,8 +62,6 @@ public class MenuBar {
         menuBar.add(aide);
         menuBar.add(Box.createGlue());
 
-
-
         //Set up the first menu item.
         JMenuItem menuIteme = new JMenuItem("Nouveau / Ouvrir");
         menuIteme.setBackground(new Color(45,48,50));
@@ -180,6 +178,28 @@ public class MenuBar {
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.ALT_MASK));
         menuItem.setActionCommand("sphere");
+        menuItem.addActionListener(internalFrameDemo);
+        Objet.add(menuItem);
+
+        menuItem = new JMenuItem("Cylindre");
+        menuItem.setBackground(new Color(45,48,50));
+        menuItem.setBorder(BorderFactory.createEmptyBorder());
+        menuItem.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("cylindre");
+        menuItem.addActionListener(internalFrameDemo);
+        Objet.add(menuItem);
+
+        menuItem = new JMenuItem("Cone");
+        menuItem.setBackground(new Color(45,48,50));
+        menuItem.setBorder(BorderFactory.createEmptyBorder());
+        menuItem.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("cone");
         menuItem.addActionListener(internalFrameDemo);
         Objet.add(menuItem);
 

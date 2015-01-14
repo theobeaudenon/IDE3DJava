@@ -14,7 +14,7 @@ public class ProjectFileReader {
         Projet pro = new Projet();
 
 
-        FileInputStream streamIn = null;
+        FileInputStream streamIn ;
         try {
             streamIn = new FileInputStream(path);
             ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
