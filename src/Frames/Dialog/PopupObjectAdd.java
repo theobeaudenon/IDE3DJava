@@ -34,8 +34,10 @@ public class PopupObjectAdd extends JDialog {
     private JLabel z = new JLabel("z");
     private JLabel derouler = new JLabel(">");
     private JButton avanceJbutton = new JButton(">");
-    private JLabel teleporteur = new JLabel("Teleporteur");
+    private JLabel teleporteur = new JLabel("Teleporteur : ");
     private JComboBox teleporteurBox = new JComboBox();
+    private JLabel nameObject = new JLabel("Nom : ");
+    private CustomTextField nameField = new CustomTextField(0);
     int compteur = 0;
     private BoLASoupe bol = null;
 
@@ -146,6 +148,10 @@ public class PopupObjectAdd extends JDialog {
         top.addMouseListener(ml);
         top.addMouseMotionListener(m2);
 
+        objectBox.setBackground(new Color(45, 48, 50));
+        objectBox.setFont(new Font("Courier", Font.ITALIC, 21));
+        objectBox.setBorder(BorderFactory.createEmptyBorder());
+        objectBox.setForeground(new Color(160,160,160));
 
         object.setForeground(Color.WHITE);
         object.setFont(new Font("Courier", Font.ITALIC, 21));
@@ -160,6 +166,9 @@ public class PopupObjectAdd extends JDialog {
         z.setForeground(Color.WHITE);
         z.setFont(new Font("Courier", Font.ITALIC, 21));
 
+        nameObject.setForeground(Color.WHITE);
+        nameObject.setFont(new Font("Courier", Font.ITALIC, 21));
+
         xObject.setPreferredSize(new Dimension(40, 20));
         xObject.setPlaceholder("0");
         xObject.setBackground(new Color(45, 48, 50));
@@ -169,7 +178,6 @@ public class PopupObjectAdd extends JDialog {
         xObject.setFont(new Font("Courier", Font.ITALIC, 21));
         xObject.addActionListener(dsd);
 
-        yObject.setPreferredSize(new Dimension(40,20));
         yObject.setPreferredSize(new Dimension(40, 20));
         yObject.setPlaceholder("0");
         yObject.setBackground(new Color(45, 48, 50));
@@ -180,8 +188,6 @@ public class PopupObjectAdd extends JDialog {
         yObject.addActionListener(dsd);
 
         zObject.setPreferredSize(new Dimension(40,20));
-        zObject.setPreferredSize(new Dimension(40,20));
-        zObject.setPreferredSize(new Dimension(40,20));
         zObject.setPlaceholder("0");
         zObject.setBackground(new Color(45, 48, 50));
         zObject.setHorizontalAlignment(SwingConstants.CENTER);
@@ -189,6 +195,15 @@ public class PopupObjectAdd extends JDialog {
         zObject.setBorder(BorderFactory.createEmptyBorder());
         zObject.setFont(new Font("Courier", Font.ITALIC, 21));
         zObject.addActionListener(dsd);
+
+        nameField.setPreferredSize(new Dimension(100,20));
+        nameField.setPlaceholder("objet");
+        nameField.setBackground(new Color(45, 48, 50));
+        nameField.setHorizontalAlignment(SwingConstants.CENTER);
+        nameField.setCaretColor(Color.WHITE);
+        nameField.setBorder(BorderFactory.createEmptyBorder());
+        nameField.setFont(new Font("Courier", Font.ITALIC, 21));
+        nameField.addActionListener(dsd);
 
         avanceJbutton.setBorderPainted(false);
         avanceJbutton.setSelected(false);
@@ -200,6 +215,8 @@ public class PopupObjectAdd extends JDialog {
         avanceJbutton.setForeground(Color.WHITE);
         teleporteur.setVisible(false);
         teleporteurBox.setVisible(false);
+        nameObject.setVisible(false);
+        nameField.setVisible(false);
         avanceJbutton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -209,15 +226,16 @@ public class PopupObjectAdd extends JDialog {
                     setSize(new Dimension(300, 200));
                     teleporteur.setVisible(false);
                     teleporteurBox.setVisible(false);
-
-
-
+                    nameObject.setVisible(false);
+                    nameField.setVisible(false);
                 }
                 else {
                     avanceJbutton.setText("v     masquer les options");
-                    setSize(new Dimension(300, 250));
+                    setSize(new Dimension(300, 300));
                     teleporteur.setVisible(true);
                     teleporteurBox.setVisible(true);
+                    nameObject.setVisible(true);
+                    nameField.setVisible(true);
                 }
             }
         });
@@ -295,6 +313,20 @@ public class PopupObjectAdd extends JDialog {
         c.gridx = 1;
         c.gridy = 3;
         body.add(teleporteurBox, c);
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(10,10,0,0);
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 4;
+        body.add(nameObject, c);
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(10,0,0,0);
+        c.gridwidth = 5;
+        c.gridx = 1;
+        c.gridy = 4;
+        body.add(nameField, c);
 
        // body.add(name);
        // body.add(ok);
