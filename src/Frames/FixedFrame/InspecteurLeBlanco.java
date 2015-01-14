@@ -1,5 +1,6 @@
 package Frames.FixedFrame;
 
+import Frames.Dialog.PopupObjectAdd;
 import Frames.Dialog.PopupObjectFrame;
 import Frames.InternalFrameDemo;
 import buttons.ColorButton;
@@ -169,8 +170,6 @@ public class InspecteurLeBlanco extends JInternalFrame {
                 int index = list.locationToIndex(e.getPoint());
                 BoLASoupe item = (BoLASoupe) model.getElementAt(index);
                 item.setSelected(true);
-
-
             }
 
             public void mouseReleased(MouseEvent e) {
@@ -179,8 +178,16 @@ public class InspecteurLeBlanco extends JInternalFrame {
                  }
                 if (e.getClickCount() == 2 && !e.isConsumed()) {
                     e.consume();
+                    int index = list.locationToIndex(e.getPoint());
+                    BoLASoupe item = (BoLASoupe) model.getElementAt(index);
 
-                    parent.log("YOLOO");
+                    PopupObjectAdd ef = new PopupObjectAdd(parent , item);
+                    if(ef.getBol() != null){
+                        //d.addForme(ef.getBol());
+                        // parent.log("Ajouté : " + comboBox.getSelectedItem());
+                        //parent.updateInspecteur(d);
+                    }
+//                    parent.log("YOLOO");
                     //handle double click event.
                 }
             }

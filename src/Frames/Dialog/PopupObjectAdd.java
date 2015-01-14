@@ -41,6 +41,21 @@ public class PopupObjectAdd extends JDialog {
     int compteur = 0;
     private BoLASoupe bol = null;
 
+    public PopupObjectAdd(InternalFrameDemo parent, BoLASoupe item) {
+
+        statup(parent);
+
+        xObject.setText(item.getX().toString());
+        yObject.setText(item.getY().toString());
+        zObject.setText(item.getZ().toString());
+        nameField.setName(item.getName());
+        teleporteurBox.setSelectedItem(item.getTeleportTo());
+        objectBox.setSelectedItem(item.getForme());
+
+        setVisible(true);
+
+    }
+
     public BoLASoupe getBol() {
         return bol;
     }
@@ -80,8 +95,6 @@ public class PopupObjectAdd extends JDialog {
     AbstractAction s= new AbstractAction() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
-
             try{
                 Forme selectedItem = (Forme) objectBox.getSelectedItem();
                 Scene selectedItem1 = (Scene) teleporteurBox.getSelectedItem();
@@ -90,7 +103,6 @@ public class PopupObjectAdd extends JDialog {
             }catch (Exception ef){
 
             }
-
 
         }
     };
@@ -101,7 +113,9 @@ public class PopupObjectAdd extends JDialog {
             PopupObjectAdd.this.dispose();
         }
     };
-    public PopupObjectAdd(InternalFrameDemo parent){
+
+
+    public void statup(InternalFrameDemo parent){
 
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for(Forme f : parent.getProjet().getObj()){
@@ -328,13 +342,18 @@ public class PopupObjectAdd extends JDialog {
         c.gridy = 4;
         body.add(nameField, c);
 
-       // body.add(name);
-       // body.add(ok);
+        // body.add(name);
+        // body.add(ok);
+
+
+
+    }
+
+    public PopupObjectAdd(InternalFrameDemo parent){
+
+        statup(parent);
+
         setVisible(true);
-
-
-
-
     }
 
 

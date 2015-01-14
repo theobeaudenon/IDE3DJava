@@ -14,6 +14,8 @@ public class BoLASoupe  implements Serializable {
     Float x;
     Float y;
     Float z;
+
+
     String name;
     Scene teleportTo = null;
     private Boolean selected = false;
@@ -22,9 +24,10 @@ public class BoLASoupe  implements Serializable {
 
         this.forme = forme;
         this.name = name;
-        this.x= Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
-        this.y=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
-        this.z=Float.parseFloat(String.valueOf(RandomUtils.randInt(-10, 10)));
+        this.x=x;
+        this.y=y;
+        this.z=z;
+        this.teleportTo = selectedItem1;
     }
 
     public Boolean getSelected() {
@@ -56,6 +59,13 @@ public class BoLASoupe  implements Serializable {
 
     public void setTeleportTo(Scene teleportTo) {
         this.teleportTo = teleportTo;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

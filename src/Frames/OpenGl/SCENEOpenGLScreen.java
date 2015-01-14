@@ -136,26 +136,18 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         CWGSetupGL();
         this.setVisible(true);
         JButton button2 = new JButton("Ajouter");
-
-
-
-
         addInternalFrameListener(this);
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
                 PopupObjectAdd ef = new PopupObjectAdd(parent);
                 if(ef.getBol() != null){
                     d.addForme(ef.getBol());
-                    // parent.log("Ajouté : " + comboBox.getSelectedItem());
+                    parent.log("Ajouté : " + ef.getBol().getName());
                     parent.updateInspecteur(d);
+
+
                 }
-
-
-
-
             }
         });
         top.add(button2);
@@ -515,7 +507,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
     @Override
     public void internalFrameActivated(InternalFrameEvent e) {
-        parent.log("Focus sur "+d.getName());
         parent.updateInspecteur(d);
     }
 
