@@ -10,15 +10,11 @@ import java.util.ArrayList;
  */
 public abstract class Forme implements Serializable {
 
-    public String name;
+    private String name;
 
     public Forme(String s) {
-
         name = s;
     }
-
-
-
 
     public String getName() {
         return name;

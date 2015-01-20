@@ -249,17 +249,17 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         //Affichage de la grille
         gl.glBegin(GL2.GL_LINES);
         for(int i=-0;i<=10;i++) {
-            if (i==0) { gl.glColor3f(.6f,.3f,.3f); } else { gl.glColor3f(.25f,.25f,.25f); };
+            if (i==0) { gl.glColor3f(.6f,.3f,.3f); } else { gl.glColor3f(.64f,.64f,.64f); };
             gl.glVertex3f(i,0,0);
             gl.glVertex3f(i,0,10);
-            if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.25f,.25f,.25f); };
+            if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.64f,.64f,.64f); };
             gl.glVertex3f(0,0,i);
             gl.glVertex3f(10,0,i);
         };
         gl.glColor3f(.3f,.6f,.3f);
         gl.glVertex3f(0,0,0);
         gl.glVertex3f(0,10,0);
-        gl.glColor3f(.25f,.25f,.25f);
+        gl.glColor3f(.64f,.64f,.64f);
         gl.glEnd();
 
         /* recuperation de lobjet et instantiation */
@@ -294,7 +294,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         // Initialisation de l'utilitaire
         glu = new GLU();
         // Remplissage du contexte avec du NOIR
-        gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        gl.glClearColor(0.29f, 0.29f, 0.29f, 0.0f);
         // Configuration la profondeur au maximum
         gl.glClearDepth(1.0f);
         // Autorisation de faire un rendu avec une perspective
