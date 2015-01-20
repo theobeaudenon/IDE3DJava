@@ -507,6 +507,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
     @Override
     public void internalFrameActivated(InternalFrameEvent e) {
+        parent.log("Focus sur "+d.getName());
         parent.updateInspecteur(d);
     }
 
