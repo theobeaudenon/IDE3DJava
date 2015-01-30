@@ -1,12 +1,13 @@
 package utils.Menu;
 
 import Frames.InternalFrameDemo;
+import classe.Scene;
 
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
+
+import java.awt.datatransfer.Transferable;
 
 /**
  * utils.Menu
@@ -17,18 +18,19 @@ public class DropListener {
         inte.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent event) {
                 try {
-                    Transferable tr=event.getTransferable();
-                    //Forme obj=(Forme)tr.getTransferData();
-
-                    event.acceptDrop(DnDConstants.ACTION_COPY);
-
-                    event.dropComplete(true);
-                    inte.log(tr.getTransferData(DataFlavor.javaFileListFlavor).toString());
+                    Transferable tr = event.getTransferable();
+                    Scene color = (Scene) tr.getTransferData(TransferableDP.TransferableScene.colorFlavor);
+                    if (event.isDataFlavorSupported(TransferableDP.TransferableScene.colorFlavor)) {
+                        event.acceptDrop(DnDConstants.ACTION_COPY);
+                        //this.panel.setBackground(color);
+                        event.dropComplete(true);
+                        return;
+                    }
                 }
-                catch (  Exception e) {
-                    e.printStackTrace();
+                catch (  Exception de) {
+                    de.printStackTrace();
                     event.rejectDrop();
-                    inte.log("Erreur de drop :  "+e.getMessage());
+                    inte.log("Erreur de drop :  "+de.getMessage());
                 }
 
             }
