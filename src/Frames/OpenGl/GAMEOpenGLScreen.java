@@ -258,7 +258,7 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         // Remplissage du contexte avec du NOIR
         gl.glClearColor(0.29f, 0.29f, 0.29f, 0.0f);
         // Configuration la profondeur au maximum
-        gl.glClearDepth(1.0f);
+        gl.glClearDepth(100.0f);
         // Autorisation de faire un rendu avec une perspective
         gl.glEnable(GL2.GL_DEPTH_TEST);
         // Restriction de l'affichage aux éléments(Z<=Max)

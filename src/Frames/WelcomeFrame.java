@@ -141,6 +141,9 @@ public class WelcomeFrame extends JFrame implements ActionListener {
                     Cone cone = new Cone("Cone", new ColorRVB(1f, 1f, 0.9f), new ColorRVB(0.9f, 0.9f, 0.1f),  1f,5f,5f);
                     o.add(cone);
 
+                    Terrain terr = new Terrain("Terrain", 10f,10f,10f,10f, new ColorRVB(0f, 0.153f, 0f));
+                    o.add(terr);
+
                     p.setObj(o);
                     p.setScene(s);
                     p.setPath(null);
