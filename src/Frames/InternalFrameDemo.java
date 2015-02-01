@@ -2,6 +2,7 @@ package Frames;
 
 import Frames.FixedFrame.InspecteurLeBlanco;
 import Frames.FixedFrame.TreeFrame;
+import Frames.OpenGl.GAMEOpenGLScreen;
 import Frames.OpenGl.OBJOpenGLScreen;
 import Frames.OpenGl.SCENEOpenGLScreen;
 import classe.Forme;
@@ -157,6 +158,17 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     }
 
 
+    public void playgame(Scene userObject){
+
+        this.log("Ouverture du jeu : " + userObject.getName());
+        GAMEOpenGLScreen frame = new GAMEOpenGLScreen(userObject , this);
+        frame.setVisible(true); //necessary as of 1.3
+        desktop.add(frame);
+        try {
+            frame.setSelected(true);
+        } catch (java.beans.PropertyVetoException ce) {}
+
+    }
 
     public void removeOBJ(Object o){
        for( Scene scenee : projet.getScene()){

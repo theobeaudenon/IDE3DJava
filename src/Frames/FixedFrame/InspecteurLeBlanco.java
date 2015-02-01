@@ -194,6 +194,17 @@ public class InspecteurLeBlanco extends JInternalFrame {
         });
         top.add(list);
         top.add(Box.createHorizontalStrut(10));
+
+        JButton bt = new JButton("PLAY");
+        bt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.playgame(module);
+            }
+        });
+
+        top.add(bt);
+
     }
 
 

@@ -76,6 +76,12 @@ public class MenuAction {
             thiss.refreshTree();
             thiss.creatFrameOPGL(cone);
 
+        }  else if ("terrain".equals(e.getActionCommand())) { //new
+            Terrain terr = new Terrain(name(), 10f,10f,10f,10f, new ColorRVB(0f, 0.153f, 0f));
+            thiss.addOBJ(terr);
+            thiss.refreshTree();
+            thiss.creatFrameOPGL(terr);
+
         } else { //quit
             thiss.log("Action non prise en compte");
         }

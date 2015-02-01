@@ -41,6 +41,18 @@ public class BoLASoupe  implements Serializable {
         return forme;
     }
 
+    public void setZ(Float z) {
+        this.z = z;
+    }
+
+    public void setX(Float x) {
+        this.x = x;
+    }
+
+    public void setY(Float y) {
+        this.y = y;
+    }
+
     public Float getX() {
         return x;
     }
