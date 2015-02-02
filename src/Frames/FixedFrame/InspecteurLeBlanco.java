@@ -122,7 +122,7 @@ public class InspecteurLeBlanco extends JInternalFrame {
     }
 
     public void setModule(final Scene module) {
-        top.setLayout(new GridLayout(2, 2, 10, 10));
+        top.setLayout(new GridLayout(1, 2, 10, 10));
         top.removeAll();
         top.repaint();
         top.setPreferredSize(this.getSize());
@@ -193,7 +193,6 @@ public class InspecteurLeBlanco extends JInternalFrame {
             }
         });
         top.add(list);
-        top.add(Box.createHorizontalStrut(10));
 
         JButton bt = new JButton("PLAY");
         bt.addActionListener(new ActionListener() {

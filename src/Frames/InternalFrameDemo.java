@@ -5,6 +5,8 @@ import Frames.FixedFrame.TreeFrame;
 import Frames.OpenGl.GAMEOpenGLScreen;
 import Frames.OpenGl.OBJOpenGLScreen;
 import Frames.OpenGl.SCENEOpenGLScreen;
+import Shapes.Terrain;
+import classe.BoLASoupe;
 import classe.Forme;
 import classe.Projet;
 import classe.Scene;
@@ -13,17 +15,20 @@ import utils.ProjectExport.ProjectFileSaver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import java.awt.event.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 
 public class InternalFrameDemo extends JFrame implements ActionListener {
     private final Projet projet;
     JDesktopPane desktop;
-    private JMenuItem menuItemelog ;
+    private JMenuItem menuItemelog;
     private JMenuBar menuBar;
     private TreeFrame frame;
     private InspecteurLeBlanco inspeframe;
@@ -43,9 +48,9 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         }
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int gameHeight = (int) (Math.round(screenSize.width * 0.95));
-        int gameWidth = (int) (Math.round( screenSize.height * 0.85));
+        int gameWidth = (int) (Math.round(screenSize.height * 0.85));
         int inset = 50;
-        setBounds(inset, inset, gameHeight ,gameWidth );
+        setBounds(inset, inset, gameHeight, gameWidth);
 
         /**
          *  Set up the GUI.
@@ -77,20 +82,20 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
          */
         createInspecteur();
         createTreeFrame();
-       // creatFrameOPGL(obj.getUserObject());
+        // creatFrameOPGL(obj.getUserObject());
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-            //    JDialog.setDefaultLookAndFeelDecorated(true);
+                //    JDialog.setDefaultLookAndFeelDecorated(true);
                 int response = JOptionPane.showConfirmDialog(null, "Voulez vous sauvegarder le projet ? ", "Oui",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (response == JOptionPane.NO_OPTION) {
                     System.exit(10);
                 } else if (response == JOptionPane.YES_OPTION) {
-                    ProjectFileSaver.save(projet,null, 1);
+                    ProjectFileSaver.save(projet, null, 1);
                     System.exit(20);
                 } else if (response == JOptionPane.CLOSED_OPTION) {
                     System.out.println("JOptionPane closed");
@@ -105,10 +110,10 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     }
 
 
-    public void log(String log){
+    public void log(String log) {
         System.out.println(log);
-        menuItemelog.setText("                                                                                                Informations : "+log);
-         //menuItemelog.setEnabled(false);
+        menuItemelog.setText("                                                                                                Informations : " + log);
+        //menuItemelog.setEnabled(false);
         menuItemelog.setBackground(new Color(68, 68, 68));
         menuItemelog.setForeground(new Color(255, 163, 79));
         menuItemelog.addActionListener(new ActionListener() {
@@ -119,7 +124,6 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         });
         menuBar.updateUI();
     }
-
 
 
     //React to menu selections.
@@ -133,54 +137,72 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     }
 
 
-    public void creatFrameOPGL(Object userObject){
+    public void creatFrameOPGL(Object userObject) {
         try {
-            Forme f = (Forme)userObject;
+            Forme f = (Forme) userObject;
             this.log("Ouverture d'une Frame OpenGL : " + f.getName());
-            OBJOpenGLScreen frame = new OBJOpenGLScreen(f , this);
+            OBJOpenGLScreen frame = new OBJOpenGLScreen(f, this);
 
             frame.setVisible(true); //necessary as of 1.3
             desktop.add(frame);
             try {
                 frame.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {}
+            } catch (java.beans.PropertyVetoException e) {
+            }
 
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             Scene f = (Scene) userObject;
             this.log("Ouverture d'une Scene OpenGL : " + f.getName());
-            SCENEOpenGLScreen frame = new SCENEOpenGLScreen(f , this);
+            SCENEOpenGLScreen frame = new SCENEOpenGLScreen(f, this);
             frame.setVisible(true); //necessary as of 1.3
             desktop.add(frame);
             try {
                 frame.setSelected(true);
-            } catch (java.beans.PropertyVetoException ce) {}
+            } catch (java.beans.PropertyVetoException ce) {
+            }
         }
     }
 
 
-    public void playgame(Scene userObject){
+    public void playgame(Scene userObject) {
+        boolean ter = false;
 
-        this.log("Ouverture du jeu : " + userObject.getName());
-        GAMEOpenGLScreen frame = new GAMEOpenGLScreen(userObject , this);
-        frame.setVisible(true); //necessary as of 1.3
-        desktop.add(frame);
-        try {
-            frame.setSelected(true);
-        } catch (java.beans.PropertyVetoException ce) {}
+        for (BoLASoupe bl : userObject.getFormes()) {
+            try {
+                Terrain t = (Terrain) bl.getForme();
+                ter = true;
 
+            } catch (ClassCastException e) {
+
+            }
+        }
+        if (ter) {
+            this.log("Ouverture du jeu : " + userObject.getName());
+            GAMEOpenGLScreen frame = new GAMEOpenGLScreen(userObject, this);
+            frame.setVisible(true); //necessary as of 1.3
+            desktop.add(frame);
+            try {
+                frame.setSelected(true);
+            } catch (java.beans.PropertyVetoException ce) {
+            }
+        }else {
+
+            JOptionPane.showMessageDialog(desktop, "Aucun terrain dans cette scene");
+        }
     }
 
-    public void removeOBJ(Object o){
-       for( Scene scenee : projet.getScene()){
-           for (int i=0;i<scenee.getFormes().size();i++){
-               if(o.equals(scenee.getFormes().get(i).getForme())){
-                   scenee.getFormes().remove(i);
-               }
-           }
-       }
+    public void removeOBJ(Object o) {
+        for (Scene scenee : projet.getScene()) {
+            for (int i = 0; i < scenee.getFormes().size(); i++) {
+                if (o.equals(scenee.getFormes().get(i).getForme())) {
+                    scenee.getFormes().remove(i);
+                }
+            }
+        }
         projet.getObj().remove(o);
     }
-    public void addOBJ(Forme o){
+
+    public void addOBJ(Forme o) {
         projet.getObj().add(o);
     }
 
@@ -190,13 +212,15 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         desktop.add(frame);
         try {
             frame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
+        } catch (java.beans.PropertyVetoException e) {
+        }
     }
 
 
-    public void refreshTree(){
+    public void refreshTree() {
         frame.refresh();
     }
+
     //Quit the application.
     public void quit() {
         System.exit(5);
@@ -206,6 +230,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     public void addSCN(Scene sc) {
         projet.getScene().add(sc);
     }
+
     public Projet getProjet() {
         return projet;
     }
@@ -216,21 +241,25 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         desktop.add(propos);
         try {
             propos.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
+        } catch (java.beans.PropertyVetoException e) {
+        }
     }
 
-    public void createInspecteur(){
+    public void createInspecteur() {
         inspeframe = new InspecteurLeBlanco(this);
         inspeframe.setVisible(true); //necessary as of 1.3
         desktop.add(inspeframe);
         try {
             inspeframe.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {}
+        } catch (java.beans.PropertyVetoException e) {
+        }
     }
-    public void updateInspecteur(Forme forme){
+
+    public void updateInspecteur(Forme forme) {
         inspeframe.setModule(forme);
     }
-    public void updateInspecteur(Scene forme){
+
+    public void updateInspecteur(Scene forme) {
         inspeframe.setModule(forme);
     }
 
