@@ -146,6 +146,17 @@ public class MenuBar {
         menuItem.addActionListener(internalFrameDemo);
         creer.add(menuItem);
 
+        menuItem = new JMenuItem("Scene Generated");
+        menuItem.setBackground(new Color(45,48,50));
+        menuItem.setBorder(BorderFactory.createEmptyBorder());
+        menuItem.setForeground(new Color(178, 178, 178));
+        menuItem.setMnemonic(KeyEvent.VK_N);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_1, ActionEvent.CTRL_MASK));
+        menuItem.setActionCommand("sceneg");
+        menuItem.addActionListener(internalFrameDemo);
+        creer.add(menuItem);
+
 
         menuItem = new JMenuItem("Triangle");
         menuItem.setBackground(new Color(45,48,50));

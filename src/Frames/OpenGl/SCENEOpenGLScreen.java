@@ -6,7 +6,6 @@ import buttons.CloseButton;
 import buttons.RevertPlaceButton;
 import buttons.RotateButton;
 import classe.BoLASoupe;
-import classe.Forme;
 import classe.Scene;
 import com.jogamp.opengl.util.FPSAnimator;
 import utils.RandomUtils;
@@ -28,14 +27,14 @@ import java.awt.event.*;
  * Frames
  * Created by Theo on 05/01/2015 for Ide3DProject.
  */
-public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener , InternalFrameListener {
+public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener, KeyListener, InternalFrameListener {
 
-    private boolean automoving= false;
+    private boolean automoving = false;
     private boolean up = false;
-    private boolean down= false;
-    private boolean right= false;
-    private boolean left= false;
-    private boolean first= true;
+    private boolean down = false;
+    private boolean right = false;
+    private boolean left = false;
+    private boolean first = true;
     private int openglX = 0;
     private int openglY = 0;
     Robot robot;
@@ -54,24 +53,24 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
     }
 
     private JPanel top = new JPanel();
-    private static final   String TAG = "CWGOpenGLScreen";
+    private static final String TAG = "CWGOpenGLScreen";
     private GLCanvas mCanvas = new GLCanvas();
     private long fpsLast = System.currentTimeMillis();
     private FPSAnimator animator;
     private RevertPlaceButton revertPlaceButton = new RevertPlaceButton("");
     private CloseButton closeButton = new CloseButton("");
     private RotateButton rotateButton = new RotateButton("");
-    int posX ;
-    int posY ;
+    int posX;
+    int posY;
     // Utilitaire donnant accès aux commandes bas niveau d'OpenGL
     private GLU glu;
     // Angle courant de rotation sur l'axe X
-    public float alphaX=0f;
+    public float alphaX = 0f;
     // Angle courant de rotation sur l'axe Y
-    public float alphaY=0f;
+    public float alphaY = 0f;
     // Angle courant de rotation sur l'axe Z
-    public float alphaZ=0f;
-    public Scene d ;
+    public float alphaZ = 0f;
+    public Scene d;
 
     // Listener pin not pin
 
@@ -96,7 +95,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         }
     };
 
-    public SCENEOpenGLScreen(Scene userObject, InternalFrameDemo internalFrameDemo){
+    public SCENEOpenGLScreen(Scene userObject, InternalFrameDemo internalFrameDemo) {
 
         super("Project",
                 true, //resizable
@@ -105,10 +104,10 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                 true);//iconifiable
         parent = internalFrameDemo;
 
-        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
         this.setLayout(new BorderLayout());
-        d =  userObject;
+        d = userObject;
 
 
         setDragable(true);
@@ -141,7 +140,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             @Override
             public void actionPerformed(ActionEvent e) {
                 PopupObjectAdd ef = new PopupObjectAdd(parent);
-                if(ef.getBol() != null){
+                if (ef.getBol() != null) {
                     d.addForme(ef.getBol());
                     parent.log("Ajouté : " + ef.getBol().getName());
                     parent.updateInspecteur(d);
@@ -171,31 +170,34 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                     open.dispose();
                     animator.stop();
                     mCanvas.getAnimator().stop();
-                }catch (Exception ee){}
+                } catch (Exception ee) {
+                }
             }
         });
 
         //    CWGDebug.info(TAG, "Window created!");
-        animator = null;
+        //animator = null;
     }
-    private void CWGSetupGL(){
+
+    private void CWGSetupGL() {
         GLCapabilities mCaps = new GLCapabilities(null);
         mCaps.setHardwareAccelerated(true);
         mCaps.setDoubleBuffered(true);
         mCanvas = new GLCanvas(mCaps);
         mCanvas.addGLEventListener(this);
         mCanvas.addKeyListener(this);
+        mCanvas.setAutoSwapBufferMode(true);
 
         this.add(mCanvas, BorderLayout.CENTER);
-        animator = new FPSAnimator(mCanvas,60,true);
+        animator = new FPSAnimator(mCanvas, 60, true);
 
         animator.start();
 
     }
 
-    public void CWGDrawScene(GLAutoDrawable drawable)
-    {
+    public void CWGDrawScene(GLAutoDrawable drawable) {
         // Récupération du contexte en GL2
+       // parent.log(String.valueOf(animator.getFPS()));
         GL2 gl = drawable.getGL().getGL2();
         // Réinitialisation de la scène (effacement des tampons)
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
@@ -225,15 +227,25 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         gl.glRotatef(alphaZ,
                 0f, 0f, 1f
         );
-        if(automoving){
+        if (automoving) {
             alphaY += 0.5;
             alphaX += 0.2;
         }
-        if(up){alphaX -= 1.9;}
-        if(down){alphaX += 1.9;}
-        if(down){alphaX += 1.9;}
-        if(right){alphaY += 1.9;}
-        if(left){alphaY -= 1.9;}
+        if (up) {
+            alphaX -= 1.9;
+        }
+        if (down) {
+            alphaX += 1.9;
+        }
+        if (down) {
+            alphaX += 1.9;
+        }
+        if (right) {
+            alphaY += 1.9;
+        }
+        if (left) {
+            alphaY -= 1.9;
+        }
         /**
 
          gl.glColor3f(.3f,.3f,.3f);
@@ -248,39 +260,53 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
         //Affichage de la grille
         gl.glBegin(GL2.GL_LINES);
-        for(int i=-0;i<=10;i++) {
-            if (i==0) { gl.glColor3f(.6f,.3f,.3f); } else { gl.glColor3f(.64f,.64f,.64f); };
-            gl.glVertex3f(i,0,0);
-            gl.glVertex3f(i,0,10);
-            if (i==0) { gl.glColor3f(.3f,.3f,.6f); } else { gl.glColor3f(.64f,.64f,.64f); };
-            gl.glVertex3f(0,0,i);
-            gl.glVertex3f(10,0,i);
-        };
-        gl.glColor3f(.3f,.6f,.3f);
-        gl.glVertex3f(0,0,0);
-        gl.glVertex3f(0,10,0);
-        gl.glColor3f(.64f,.64f,.64f);
+        for (int i = -0; i <= 10; i++) {
+            if (i == 0) {
+                gl.glColor3f(.6f, .3f, .3f);
+            } else {
+                gl.glColor3f(.64f, .64f, .64f);
+            }
+            ;
+            gl.glVertex3f(i, 0, 0);
+            gl.glVertex3f(i, 0, 10);
+            if (i == 0) {
+                gl.glColor3f(.3f, .3f, .6f);
+            } else {
+                gl.glColor3f(.64f, .64f, .64f);
+            }
+            ;
+            gl.glVertex3f(0, 0, i);
+            gl.glVertex3f(10, 0, i);
+        }
+        ;
+        gl.glColor3f(.3f, .6f, .3f);
+        gl.glVertex3f(0, 0, 0);
+        gl.glVertex3f(0, 10, 0);
+        gl.glColor3f(.64f, .64f, .64f);
         gl.glEnd();
 
         /* recuperation de lobjet et instantiation */
-        for (BoLASoupe var : d.getFormes()){
-           // System.out.println(d.getFormes());
-            if(var.getSelected()){
-                float x = RandomUtils.randFloat(-0.1f, 0.1f);
-                float y = RandomUtils.randFloat(-0.1f, 0.1f);
-                float z = RandomUtils.randFloat(-0.1f, 0.1f);
-                gl.glTranslatef(var.getX()+x,var.getY()+y,var.getZ()+z);
-                var.getForme().draw(gl);
-                gl.glTranslatef(-var.getX()-x,-var.getY()-y,-var.getZ()-z);
-            }else {
-                gl.glTranslatef(var.getX(),var.getY(),var.getZ());
-                var.getForme().draw(gl);
-                gl.glTranslatef(-var.getX(),-var.getY(),-var.getZ());
-            }
+        for (BoLASoupe var : d.getFormes()) {
+            // System.out.println(d.getFormes());
+            //if (cameraX > var.getX() && cameraY > var.getY() && cameraZ > var.getZ()) {
+
+
+                if (var.getSelected()) {
+                    float x = RandomUtils.randFloat(-0.1f, 0.1f);
+                    float y = RandomUtils.randFloat(-0.1f, 0.1f);
+                    float z = RandomUtils.randFloat(-0.1f, 0.1f);
+                    gl.glTranslatef(var.getX() + x, var.getY() + y, var.getZ() + z);
+                    var.getForme().draw(gl);
+                    gl.glTranslatef(-var.getX() - x, -var.getY() - y, -var.getZ() - z);
+                } else {
+                    gl.glTranslatef(var.getX(), var.getY(), var.getZ());
+                    var.getForme().draw(gl);
+                    gl.glTranslatef(-var.getX(), -var.getY(), -var.getZ());
+                }
+          //  }
+
 
         }
-
-
 
 
         // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
@@ -288,7 +314,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
     }
 
-    public void init(GLAutoDrawable drawable){
+    public void init(GLAutoDrawable drawable) {
         // Récupération du contexte en GL2
         GL2 gl = drawable.getGL().getGL2();
         // Initialisation de l'utilitaire
@@ -313,18 +339,19 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             int i = 0;
 
             final float sensi = 0.0501f;
+
             public void mouseDragged(MouseEvent e) {
 
-                if (e.getX() >= SCENEOpenGLScreen.this.getWidth()){
-                    robot.mouseMove(SCENEOpenGLScreen.this.getX()+ parent.getX()+10,(e.getY()+parent.getY())+(SCENEOpenGLScreen.this.getY()+SCENEOpenGLScreen.this.top.getHeight()+40));
+                if (e.getX() >= SCENEOpenGLScreen.this.getWidth()) {
+                    robot.mouseMove(SCENEOpenGLScreen.this.getX() + parent.getX() + 10, (e.getY() + parent.getY()) + (SCENEOpenGLScreen.this.getY() + SCENEOpenGLScreen.this.top.getHeight() + 40));
                 }
 
-                if (e.getX() <= 0){
-                    robot.mouseMove((SCENEOpenGLScreen.this.getX()+ parent.getX())+SCENEOpenGLScreen.this.getWidth(),(e.getY()+parent.getY())+(SCENEOpenGLScreen.this.getY()+SCENEOpenGLScreen.this.top.getHeight()+40));
+                if (e.getX() <= 0) {
+                    robot.mouseMove((SCENEOpenGLScreen.this.getX() + parent.getX()) + SCENEOpenGLScreen.this.getWidth(), (e.getY() + parent.getY()) + (SCENEOpenGLScreen.this.getY() + SCENEOpenGLScreen.this.top.getHeight() + 40));
                 }
 
-                if (e.getY() >= SCENEOpenGLScreen.this.getHeight()){
-                    robot.mouseMove(e.getX(),SCENEOpenGLScreen.this.getY());
+                if (e.getY() >= SCENEOpenGLScreen.this.getHeight()) {
+                    robot.mouseMove(e.getX(), SCENEOpenGLScreen.this.getY());
                 }
                 if (SwingUtilities.isRightMouseButton(e)) {
                     if (first) {
@@ -335,7 +362,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                     i++;
 
                     if (e.getX() < openglX) {
-                        rotationcameraX -=sensi;
+                        rotationcameraX -= sensi;
                         first = true;
                     }
                     if (e.getX() > openglX) {
@@ -377,11 +404,11 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         mCanvas.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                if (e.getPreciseWheelRotation() > 0){
+                if (e.getPreciseWheelRotation() > 0) {
                     cameraX += -Math.sin(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
                     cameraZ += Math.cos(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
                     cameraY -= -Math.sin(Math.toRadians(rotationcameraX)) * 5;
-                }else {
+                } else {
                     cameraX -= -Math.sin(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
                     cameraZ -= Math.cos(Math.toRadians(rotationcameraY)) * Math.cos(Math.toRadians(rotationcameraX)) * 1;
                     cameraY += -Math.sin(Math.toRadians(rotationcameraX)) * 1;
@@ -389,7 +416,8 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
             }
         });
     }
-    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height){
+
+    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 
         GL2 gl = drawable.getGL().getGL2();
 
@@ -405,26 +433,29 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         // Reinitialisation de la matrice courante
         gl.glLoadIdentity();
         // Angle d'observation en degrés, echelle entre largeur et hauteur, intervalle de projection
-        glu.gluPerspective(45.0, (float)width/height, 0.1, 100.0);
+        glu.gluPerspective(45.0, (float) width / height, 0.1, 100.0);
 
         // Selection de la transformation point de vue
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         // Reinitialisation de la matrice courante
         gl.glLoadIdentity();
     }
+
     //public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged){}
-    public void display(GLAutoDrawable drawable){ CWGDrawScene(drawable); }
-    public void dispose(GLAutoDrawable drawable){
+    public void display(GLAutoDrawable drawable) {
+        CWGDrawScene(drawable);
+    }
+
+    public void dispose(GLAutoDrawable drawable) {
         animator.stop();
         mCanvas.getAnimator().stop();
     }
 
-    public void setDragable(boolean test){
-        if (test){
+    public void setDragable(boolean test) {
+        if (test) {
             top.addMouseListener(ml);
             top.addMouseMotionListener(m2);
-        }
-        else {
+        } else {
             top.removeMouseListener(ml);
             top.removeMouseMotionListener(m2);
         }
@@ -507,7 +538,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
     @Override
     public void internalFrameActivated(InternalFrameEvent e) {
-        parent.log("Focus sur "+d.getName());
+        parent.log("Focus sur " + d.getName());
         parent.updateInspecteur(d);
     }
 

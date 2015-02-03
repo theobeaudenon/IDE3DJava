@@ -2,8 +2,15 @@ package Frames.OpenGl;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
 
+import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
@@ -16,10 +23,13 @@ import javax.swing.event.*;
 
 import Frames.InternalFrameDemo;
 import buttons.CloseButton;
+import classe.BufferUtils;
 import classe.Forme;
 import buttons.RevertPlaceButton;
 import buttons.RotateButton;
 import com.jogamp.opengl.util.FPSAnimator;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import com.sun.scenario.effect.ImageData;
 
 public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,KeyListener, InternalFrameListener {
 
@@ -271,6 +281,50 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
         // Joli mélange de couleur, et lissage des textures
         gl.glShadeModel(GL2.GL_SMOOTH);
+
+
+
+        BufferedImage image = new BufferedImage(10,10,1);
+        int[] pixels = new int[image.getWidth() * image.getHeight()];
+        image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
+
+        ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() *  4); //4 for RGBA, 3 for RGB
+
+        for(int y = 0; y < image.getHeight(); y++){
+            for(int x = 0; x < image.getWidth(); x++){
+                int pixel = pixels[y * image.getWidth() + x];
+                buffer.put((byte) ((pixel >> 16) & 0xFF));     // Red component
+                buffer.put((byte) ((pixel >> 8) & 0xFF));      // Green component
+                buffer.put((byte) (pixel & 0xFF));               // Blue component
+                buffer.put((byte) ((pixel >> 24) & 0xFF));    // Alpha component. Only for RGBA
+            }
+        }
+
+        buffer.flip(); //FOR THE LOVE OF GOD DO NOT FORGET THIS
+
+        // You now have a ByteBuffer filled with the color data of each pixel.
+        // Now just create a texture ID and bind it. Then you can load it using
+        // whatever OpenGL method you want, for example:
+
+        int textureID =1; //Generate texture ID
+        gl.glBindTexture(GL2.GL_TEXTURE_2D, textureID); //Bind texture ID
+
+        //Setup wrap mode
+        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_S, GL2.GL_CLAMP_TO_EDGE);
+        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_CLAMP_TO_EDGE);
+
+        //Setup texture scaling filtering
+        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_NEAREST);
+        gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_NEAREST);
+
+        //Send texel data to OpenGL
+        gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE, buffer);
+
+
+
+
+
+
 
 
         mCanvas.addMouseWheelListener(new MouseWheelListener() {

@@ -37,6 +37,12 @@ public class MenuAction {
             thiss.addSCN(sc);
             thiss.refreshTree();
             thiss.creatFrameOPGL(sc);
+        } else if ("sceneg".equals(e.getActionCommand())) { //new
+            Scene sc = new Scene("Generated");
+
+            thiss.addSCN(sc);
+            thiss.refreshTree();
+            thiss.creatFrameOPGL(sc);
         } else if ("sphere".equals(e.getActionCommand())) { //new
 
              /* Mise en place de la forme sauvegardé pour exemple */

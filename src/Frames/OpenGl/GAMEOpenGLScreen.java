@@ -26,6 +26,9 @@ import javax.swing.event.InternalFrameListener;
 import java.awt.*;
 import java.awt.event.*;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 /**
  * Frames
  * Created by Theo on 05/01/2015 for Ide3DProject.
@@ -41,6 +44,7 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
     private int openglX = 0;
     private int openglY = 0;
     Robot robot;
+    public float distance = 3f;
     private final InternalFrameDemo parent;
     // Caméra rotation variable
     private float cameraX = 4f;
@@ -124,14 +128,14 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         top.add(closeButton);
         this.add(top, BorderLayout.NORTH);
         this.setTitle(d.getName());
-        this.setSize(600, 475);
+        this.setSize(800, 675);
         this.setLocation(310, 5);
         this.addKeyListener(this);
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setBorder(BorderFactory.createLineBorder(Color.black));
         CWGSetupGL();
         this.setVisible(true);
-        Cone forme = new Cone("player", new ColorRVB(1f, 1f, 0.9f), new ColorRVB(0.9f, 0.9f, 0.1f), 1f, 5f, 5f);
+        Cone forme = new Cone("player", new ColorRVB(0.2f, 1f, 0.9f), new ColorRVB(0.3f, 0.9f, 0.5f), 1f,1f, 1f);
         player = new BoLASoupe( forme,0f,0f,0f, null,"player");
 
 
@@ -180,12 +184,25 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         /* (Alt aux translations) Placement de la caméra au point (4,0,12)
         Direction vers l'origine de la scène (0,0,0)
         Inclinaison nulle car la vue suit l'axe vertical (y) */
-        glu.gluLookAt(cameraX, cameraY, cameraZ,
+        float yRadians = player.getY() / 180f * 3.14159f;
+        glu.gluLookAt( player.getX() - (sin(yRadians)),
+            -distance,
+            player.getZ()+ (cos(yRadians)),
+
+            player.getX(),
+            player.getY(),
+            player.getZ(),
+            0.0f, 1.0f, 0.0f);
+
+        /**
+         *
+         *
+         glu.gluLookAt(cameraX, cameraY, cameraZ,
                 player.getX(),player.getY(),player.getZ(),
                 0f, 1f, 0f
         );
 
-        /**
+
 
          gl.glColor3f(.3f,.3f,.3f);
          gl.glBegin(GL2.GL_QUADS);
@@ -267,6 +284,18 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
         // Joli mélange de couleur, et lissage des textures
         gl.glShadeModel(GL2.GL_SMOOTH);
+        mCanvas.addMouseWheelListener(new MouseWheelListener() {
+
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                if (e.getPreciseWheelRotation() > 0){
+                    distance +=0.2f;
+                }else {
+                    distance -=0.2f;
+                }
+            }
+        });
 
     }
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height){
