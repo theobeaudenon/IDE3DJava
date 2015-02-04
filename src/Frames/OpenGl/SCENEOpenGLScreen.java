@@ -8,6 +8,7 @@ import buttons.RotateButton;
 import classe.BoLASoupe;
 import classe.Scene;
 import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.awt.TextRenderer;
 import utils.RandomUtils;
 
 import javax.media.opengl.GL2;
@@ -180,6 +181,7 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
     }
 
     private void CWGSetupGL() {
+
         GLCapabilities mCaps = new GLCapabilities(null);
         mCaps.setHardwareAccelerated(true);
         mCaps.setDoubleBuffered(true);
@@ -257,6 +259,16 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
          gl.glEnd();
 
          */
+        TextRenderer renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 36));
+
+        renderer.beginRendering(mCanvas.getWidth(), mCanvas.getHeight());
+        // optionally set the color
+        renderer.setColor(1.0f, 0.2f, 0.2f, 0.8f);
+        renderer.draw(String.valueOf(animator.getUpdateFPSFrames()), 10, 10);
+        // ... more draw commands, color changes, etc.
+        renderer.endRendering();
+
+
 
         //Affichage de la grille
         gl.glBegin(GL2.GL_LINES);

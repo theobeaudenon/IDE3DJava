@@ -15,7 +15,7 @@ public class Scene implements Serializable {
     String name;
     public static final int WIDTH = 64;
     public static final int HEIGHT = 64;
-    public static final int BIG_NUMBER = (int) Math.pow(2, 18);
+    public static final int BIG_NUMBER = (int) Math.pow(2, 8);
     ArrayList<BoLASoupe> formes = new ArrayList<>();
     public Scene() {}
     public Scene(String name) {
@@ -33,6 +33,7 @@ public class Scene implements Serializable {
                         formes.add(new BoLASoupe(new Cube("yoolo",0.5f,0,0,0, new ColorRVB(0.9f, 0.9f, 0.9f), new ColorRVB(0.9f, 0.42f, 0.1f), new ColorRVB(0.1f, 0f, 1f), new ColorRVB(0.4f, 1f, 0.7f), new ColorRVB(0f, 0f, 0.5f), new ColorRVB(0.6f, 0.5f, 0.1f)),j,k,i,null,"cube"));
                        // this.blocks[i][j][k] = new Solid(new Vector3f(x, (float) k, z), 1.0f, this.colorist);
                     } else {
+                       // formes.add(new BoLASoupe(new Cube("yoolo",0.5f,0,0,0, new ColorRVB(0.9f, 0.9f, 0.9f), new ColorRVB(0.9f, 0.42f, 0.1f), new ColorRVB(0.1f, 0f, 1f), new ColorRVB(0.4f, 1f, 0.7f), new ColorRVB(0f, 0f, 0.5f), new ColorRVB(0.6f, 0.5f, 0.1f)),j,k,i,null,"cube"));
                         //this.blocks[i][j][k] = new Air(new Vector3f(x, (float) k, z), 1.0f);
                     }
                 }
