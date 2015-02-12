@@ -1,5 +1,6 @@
 package utils.Menu;
 
+import Frames.Dialog.PopupColorChooser;
 import Frames.Dialog.PopupObjectFrame;
 import Frames.InternalFrameDemo;
 import Shapes.*;

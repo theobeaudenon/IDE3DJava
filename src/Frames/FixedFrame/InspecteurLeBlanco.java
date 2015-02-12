@@ -1,5 +1,6 @@
 package Frames.FixedFrame;
 
+import Frames.Dialog.PopupColorChooser;
 import Frames.Dialog.PopupObjectAdd;
 import Frames.Dialog.PopupObjectFrame;
 import Frames.InternalFrameDemo;
@@ -11,8 +12,6 @@ import utils.Menu.RightClicMenu;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -102,13 +101,15 @@ public class InspecteurLeBlanco extends JInternalFrame {
             chooseButton.setForeground(color.color());
             chooseButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    Color backgroundColor = JColorChooser.showDialog(parent,
+
+                    new PopupColorChooser();
+                   /* Color backgroundColor = JColorChooser.showDialog(parent,
                             "Choisir votre couleur", color.color());
                     if (backgroundColor != null) {
                         parent.log(backgroundColor.toString());
                         color.setColor(backgroundColor);
                         chooseButton.setForeground(backgroundColor);
-                    }
+                    }*/
                 }
             });
             top.add(chooseButton);
