@@ -117,6 +117,12 @@ public class InspecteurLeBlanco extends JInternalFrame {
 
         for (final DataConf color : module.conf()) {
             JButton chooseButton = new JButton(color.getEmplacement());
+            chooseButton.setForeground(Color.WHITE);
+            chooseButton.setFocusPainted(false);
+            chooseButton.setBorder(BorderFactory.createBevelBorder(1,Color.black,Color.cyan));
+            chooseButton.setForeground(Color.WHITE);
+            chooseButton.setBackground(new Color(46,46,46));
+            chooseButton.setSelected(false);
             chooseButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     PopupObjectFrame popupObjectFrame = new PopupObjectFrame(String.valueOf(color.getValue()));
@@ -358,6 +364,7 @@ public class InspecteurLeBlanco extends JInternalFrame {
 
         JButton bt = new JButton("PLAY");
         bt.setPreferredSize(new Dimension(100,35));
+        bt.setFocusPainted(false);
         bt.setBorder(BorderFactory.createBevelBorder(1,Color.black,Color.cyan));
         bt.setForeground(Color.WHITE);
         bt.setBackground(new Color(46,46,46));
