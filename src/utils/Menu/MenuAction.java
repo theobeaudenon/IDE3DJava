@@ -54,7 +54,7 @@ public class MenuAction {
         } else if ("carre".equals(e.getActionCommand())) { //new
 
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Cube g = new Cube(name(), 1.0f, 0, 0, 0, new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f));
+            Cube g = new Cube(name(), 1.0f, new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f));
             thiss.addOBJ(g);
             thiss.refreshTree();
             thiss.creatFrameOPGL(g);

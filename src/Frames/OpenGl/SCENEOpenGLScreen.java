@@ -9,6 +9,7 @@ import classe.BoLASoupe;
 import classe.Scene;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.awt.TextRenderer;
+import jogamp.opengl.GLDrawableHelper;
 import utils.RandomUtils;
 
 import javax.media.opengl.GL2;
@@ -97,7 +98,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
     };
 
     public SCENEOpenGLScreen(Scene userObject, InternalFrameDemo internalFrameDemo) {
-
         super("Project",
                 true, //resizable
                 true, //closable
@@ -109,7 +109,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
         this.setLayout(new BorderLayout());
         d = userObject;
-
 
         setDragable(true);
         top.setBackground(new Color(45, 48, 50));
@@ -192,7 +191,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
 
         this.add(mCanvas, BorderLayout.CENTER);
         animator = new FPSAnimator(mCanvas, 60, true);
-
         animator.start();
 
     }
@@ -259,15 +257,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
          gl.glEnd();
 
          */
-        TextRenderer renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 36));
-
-        renderer.beginRendering(mCanvas.getWidth(), mCanvas.getHeight());
-        // optionally set the color
-        renderer.setColor(1.0f, 0.2f, 0.2f, 0.8f);
-        renderer.draw(String.valueOf(animator.getUpdateFPSFrames()), 10, 10);
-        // ... more draw commands, color changes, etc.
-        renderer.endRendering();
-
 
 
         //Affichage de la grille
@@ -301,8 +290,6 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         for (BoLASoupe var : d.getFormes()) {
             // System.out.println(d.getFormes());
             //if (cameraX > var.getX() && cameraY > var.getY() && cameraZ > var.getZ()) {
-
-
                 if (var.getSelected()) {
                     float x = RandomUtils.randFloat(-0.1f, 0.1f);
                     float y = RandomUtils.randFloat(-0.1f, 0.1f);
@@ -315,13 +302,8 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
                     var.getForme().draw(gl);
                     gl.glTranslatef(-var.getX(), -var.getY(), -var.getZ());
                 }
-          //  }
-
-
         }
 
-
-        // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
 
 
     }

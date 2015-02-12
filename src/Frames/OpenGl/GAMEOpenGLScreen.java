@@ -11,6 +11,7 @@ import classe.ColorRVB;
 import classe.Forme;
 import classe.Scene;
 import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.awt.TextRenderer;
 import utils.RandomUtils;
 
 import javax.media.opengl.GL2;
@@ -54,6 +55,12 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
     private float rotationcameraX = 0f;
     private float rotationcameraY = 0f;
     private float rotationcameraZ = 0f;
+
+    private float velocityX = 4.0f;
+    private float velocityY = 0.0f;
+    private double gravity = 0.1;
+    private boolean onGround = false;
+    private boolean space = false;
 
     public static void main(String[] args) {
         //new CWGOpenGLScreen(userObject).setVisible(true);
@@ -100,7 +107,7 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         }
     };
 
-    public GAMEOpenGLScreen(Scene userObject, InternalFrameDemo internalFrameDemo){
+    public GAMEOpenGLScreen(Scene userObject, InternalFrameDemo internalFrameDemo, float spawnx, float spawny, float spawnz){
 
         super("Project",
                 true, //resizable
@@ -135,8 +142,11 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         setBorder(BorderFactory.createLineBorder(Color.black));
         CWGSetupGL();
         this.setVisible(true);
+
+
+
         Cone forme = new Cone("player", new ColorRVB(0.2f, 1f, 0.9f), new ColorRVB(0.3f, 0.9f, 0.5f), 1f,1f, 1f);
-        player = new BoLASoupe( forme,0f,0f,0f, null,"player");
+        player = new BoLASoupe( forme,spawnx,spawny,spawnz, null,"player");
 
 
 
@@ -231,6 +241,32 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
          */
 
         //on ajoute lelement bougable
+        velocityY -= gravity;
+        player.setY(player.getY() + velocityY);
+      //  player.setX(player.getX() + velocityX);
+
+        if(space){
+            if(onGround)
+            {
+                velocityY = 2.0f;
+                onGround = false;
+            }
+            space = false;
+        }else {
+
+            if(player.getY() <= 0f)
+            {
+                player.setY(0f);
+                velocityY = 0.0f;
+                onGround = true;
+            }
+        }
+
+
+        if(player.getX() < 10 || player.getX() > 190)
+            velocityX *= -1;
+
+
         gl.glTranslatef(player.getX(),player.getY(),player.getZ());
         player.getForme().draw(gl);
         gl.glTranslatef(-player.getX(),-player.getY(),-player.getZ());
@@ -261,6 +297,20 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
 
 
 
+        // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
+        TextRenderer renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 16));
+
+        renderer.beginRendering(mCanvas.getWidth(), mCanvas.getHeight());
+        // optionally set the color
+        renderer.setColor(1.0f, 1.0f, 1.0f, 0.9f);
+
+        renderer.draw(String.valueOf(drawable.getAnimator().getLastFPS()), 10, 10);
+        renderer.draw(String.valueOf("X : "+player.getX() +"   Y : " + player.getY() +"   Z : " +player.getZ()), 10, 26);
+        renderer.draw(String.valueOf("Pitch : "+ distance), 10, 42);
+        // ... more draw commands, color changes, etc.
+        renderer.endRendering();
+
+
 
         // Tous les dessins utltérieurs subiront la transformation : Dessin d'un cube
 
@@ -278,6 +328,7 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         gl.glClearDepth(100.0f);
         // Autorisation de faire un rendu avec une perspective
         gl.glEnable(GL2.GL_DEPTH_TEST);
+        drawable.getAnimator().setUpdateFPSFrames(3, null);
         // Restriction de l'affichage aux éléments(Z<=Max)
         gl.glDepthFunc(GL2.GL_LEQUAL);
         // Correction pour la meilleure perspective
@@ -349,7 +400,6 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-
                 up = true;
                 break;
             case KeyEvent.VK_DOWN:
@@ -360,6 +410,9 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
                 break;
             case KeyEvent.VK_LEFT:
                 left = true;
+                break;
+            case KeyEvent.VK_SPACE:
+                space = true;
                 break;
         }
     }
@@ -378,6 +431,9 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
                 break;
             case KeyEvent.VK_LEFT:
                 left = false;
+                break;
+            case KeyEvent.VK_SPACE:
+                space = false;
                 break;
         }
     }

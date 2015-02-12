@@ -178,7 +178,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         }
         if (ter) {
             this.log("Ouverture du jeu : " + userObject.getName());
-            GAMEOpenGLScreen frame = new GAMEOpenGLScreen(userObject, this);
+            GAMEOpenGLScreen frame = new GAMEOpenGLScreen(userObject, this, userObject.getSpawnX(), userObject.getSpawnY(), userObject.getSpawnZ());
             frame.setVisible(true); //necessary as of 1.3
             desktop.add(frame);
             try {
