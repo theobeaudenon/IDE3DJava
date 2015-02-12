@@ -169,6 +169,7 @@ public class InspecteurLeBlanco extends JInternalFrame {
 
         c.gridx = 0;
         c.gridy = 0;
+        c.insets = new Insets(0,0,45,0);
         c.gridwidth = GridBagConstraints.REMAINDER;
         top.add(name,c);
         final DefaultListModel model = new DefaultListModel();
@@ -319,6 +320,7 @@ public class InspecteurLeBlanco extends JInternalFrame {
 
         c.gridx = 0;
         c.gridy = 1;
+        c.insets = new Insets(0,0,0,0);
         c.gridwidth = GridBagConstraints.REMAINDER;
         top.add(jScrollPane, c);
         jScrollPane.repaint();
