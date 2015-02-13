@@ -1,23 +1,26 @@
 package Frames;
 
+import Frames.Dialog.PopupObjectAdd;
 import Shapes.*;
-import classe.ColorRVB;
-import classe.Forme;
-import classe.Projet;
-import classe.Scene;
+import classe.*;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+import utils.CustomTextField;
 import utils.ProjectExport.ProjectFileReader;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 /**
@@ -29,16 +32,16 @@ public class WelcomeFrame extends JFrame implements ActionListener {
     private JButton ImportProject = new JButton("Importer un projet");
 
     public WelcomeFrame() {
-        setSize(new Dimension(300, 100));
+        setSize(new Dimension(300, 390));
         setLocationRelativeTo(this);
-        setVisible(true);
         setResizable(false);
+
         NewProject.setPreferredSize(new Dimension(147, 100));
         NewProject.addActionListener(this);
         add(NewProject, BorderLayout.WEST);
         ImportProject.setPreferredSize(new Dimension(147, 100));
         ImportProject.addActionListener(this);
-        add(ImportProject, BorderLayout.EAST);
+       add(ImportProject, BorderLayout.EAST);
         try {
             BufferedImage img = ImageIO.read(new File("res\\icon\\main.png"));
             this.setIconImage(img);
@@ -55,7 +58,90 @@ public class WelcomeFrame extends JFrame implements ActionListener {
             }
         });
 
+
+        final DefaultListModel model = new DefaultListModel();
+
+        try {
+            String content = FileUtils.readFileToString(new File("Config/Recent.txt"));
+            for (  String fileEntrystr : content.split(":::")) {
+                if(!fileEntrystr.equals("")) {
+                    File fileEntry = new File(fileEntrystr);
+                    if (fileEntry.isDirectory()) {
+                        // listFilesForFolder(fileEntry);
+                    } else {
+                        if (FilenameUtils.getExtension(fileEntry.getName()).equals("eb")) {
+                            System.out.println(fileEntry.getName());
+                            model.addElement(fileEntry);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+        final JList list = new JList(model);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //list.setAutoscrolls(true);
+        list.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        list.setBackground(new Color(60, 63, 65));
+        list.setForeground(new Color(205, 198, 183));
+        list.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                int index = list.locationToIndex(e.getPoint());
+                File item = (File) model.getElementAt(index);
+
+            }
+
+            public void mouseReleased(MouseEvent e) {
+
+                if (e.getClickCount() == 2 && !e.isConsumed()) {
+                    e.consume();
+                    int index = list.locationToIndex(e.getPoint());
+                    File item = (File) model.getElementAt(index);
+                    Projet pro = null;
+
+                     pro = ProjectFileReader.read(item.getName(), item.getAbsolutePath());
+                    if(pro != null){
+
+                        startpro(pro);
+                    }
+
+
+                }
+            }
+        });
+
+        add(list, BorderLayout.SOUTH);
+        setVisible(true);
+  }
+
+    private void startpro(Projet pro) {
+
+        WelcomeFrame.this.dispose();
+
+        final Projet finalPro = pro;
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                JFrame.setDefaultLookAndFeelDecorated(true);
+
+                //Create and set up the window.
+                InternalFrameDemo frame = new InternalFrameDemo(finalPro);
+                frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+                //Display the window.
+                frame.setVisible(true);
+
+
+            }
+
+        });
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -75,25 +161,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
                 } while (pro == null);
 
-
-                WelcomeFrame.this.dispose();
-
-                final Projet finalPro = pro;
-                javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JFrame.setDefaultLookAndFeelDecorated(true);
-
-                        //Create and set up the window.
-                        InternalFrameDemo frame = new InternalFrameDemo(finalPro);
-                        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-                        //Display the window.
-                        frame.setVisible(true);
-
-
-                    }
-
-                });
+                startpro(pro);
             } else {
 
 

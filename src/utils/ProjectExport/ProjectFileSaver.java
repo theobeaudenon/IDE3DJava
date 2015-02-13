@@ -2,11 +2,10 @@ package utils.ProjectExport;
 
 import Frames.InternalFrameDemo;
 import classe.Projet;
+import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 /**
  * utils.ProjectExport
@@ -27,6 +26,13 @@ public class ProjectFileSaver {
                     projet.setPath(chooser.getSelectedFile().getAbsolutePath());
                     if (thiss != null) {
                         thiss.log("fichier enregistré sous : " + chooser.getSelectedFile());
+                        String content = FileUtils.readFileToString(new File("Config/Recent.txt"));
+                        File f = new  File("Config/Recent.txt");
+                        FileWriter fw = new FileWriter(f.getAbsoluteFile());
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        bw.write(content+projet.getPath()+":::");
+                        bw.close();
+                        fw.close();
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -40,6 +46,7 @@ public class ProjectFileSaver {
                 oos.close();
                 if (thiss != null) {
                     thiss.log("fichier enregistré sous : " + projet.getPath());
+
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

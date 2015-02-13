@@ -6,10 +6,7 @@ import Shapes.Cone;
 import buttons.CloseButton;
 import buttons.RevertPlaceButton;
 import buttons.RotateButton;
-import classe.BoLASoupe;
-import classe.ColorRVB;
-import classe.Forme;
-import classe.Scene;
+import classe.*;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.awt.TextRenderer;
 import utils.RandomUtils;
@@ -41,26 +38,17 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
     private boolean down= false;
     private boolean right= false;
     private boolean left= false;
-    private boolean first= true;
-    private int openglX = 0;
-    private int openglY = 0;
     Robot robot;
     public float distance = 3f;
     private final InternalFrameDemo parent;
-    // Caméra rotation variable
-    private float cameraX = 4f;
-    private float cameraY = 6f;
-    private float cameraZ = 20f;
 
-    private float rotationcameraX = 0f;
-    private float rotationcameraY = 0f;
-    private float rotationcameraZ = 0f;
-
-    private float velocityX = 4.0f;
     private float velocityY = 0.0f;
     private double gravity = 0.1;
     private boolean onGround = false;
     private boolean space = false;
+    private FPSMouseControler fpsMouseController;
+    private double rotationyx = 0;
+    private double rotationy = 0;
 
     public static void main(String[] args) {
         //new CWGOpenGLScreen(userObject).setVisible(true);
@@ -144,8 +132,7 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         this.setVisible(true);
 
 
-
-        Cone forme = new Cone("player", new ColorRVB(0.2f, 1f, 0.9f), new ColorRVB(0.3f, 0.9f, 0.5f), 1f,1f, 1f);
+        Cone forme = new Cone("player", new ColorRVB(0.2f, 1f, 0.9f), new ColorRVB(0.3f, 0.9f, 0.5f), 1.0f,1.0f, 1.0f);
         player = new BoLASoupe( forme,spawnx,spawny,spawnz, null,"player");
 
 
@@ -166,6 +153,7 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         //    CWGDebug.info(TAG, "Window created!");
         animator = null;
     }
+
     private void CWGSetupGL(){
         GLCapabilities mCaps = new GLCapabilities(null);
         mCaps.setHardwareAccelerated(true);
@@ -173,7 +161,12 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         mCanvas = new GLCanvas(mCaps);
         mCanvas.addGLEventListener(this);
         mCanvas.addKeyListener(this);
-
+        try {
+            fpsMouseController = new FPSMouseControler();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        fpsMouseController.setCanvas(mCanvas);
         this.add(mCanvas, BorderLayout.CENTER);
         animator = new FPSAnimator(mCanvas,60,true);
 
@@ -194,15 +187,30 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         /* (Alt aux translations) Placement de la caméra au point (4,0,12)
         Direction vers l'origine de la scène (0,0,0)
         Inclinaison nulle car la vue suit l'axe vertical (y) */
-        float yRadians = player.getY() / 180f * 3.14159f;
-        glu.gluLookAt( player.getX() - (sin(yRadians)),
-            -distance,
-            player.getZ()+ (cos(yRadians)),
+           rotationy+=fpsMouseController.getDmy()*0.11 ;
+            rotationyx+=fpsMouseController.getDmx()*0.11 ;
+        fpsMouseController.setDmx(0);
+        fpsMouseController.setDmy(0);
 
+        float yRadians = player.getY() / 180f / 3.14159f;
+
+
+        float camerax = (float) (-distance * cos(rotationyx)  + player.getX());
+        float cameraz = (float) (-distance * sin(rotationyx) + player.getZ());
+
+
+        glu.gluLookAt(cameraz ,
+                camerax  ,
+                -distance     ,
             player.getX(),
             player.getY(),
             player.getZ(),
-            0.0f, 1.0f, 0.0f);
+                0    ,  0 , 1 );
+
+
+
+        // Rotation de la matrice courante de l'angle alpha autour de l'axe x (0,0,1)
+
 
         /**
          *
@@ -263,8 +271,6 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
         }
 
 
-        if(player.getX() < 10 || player.getX() > 190)
-            velocityX *= -1;
 
 
         gl.glTranslatef(player.getX(),player.getY(),player.getZ());
@@ -291,6 +297,7 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
                 gl.glTranslatef(var.getX(),var.getY(),var.getZ());
                 var.getForme().draw(gl);
                 gl.glTranslatef(-var.getX(),-var.getY(),-var.getZ());
+
             }
 
         }
@@ -306,7 +313,7 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
 
         renderer.draw(String.valueOf(drawable.getAnimator().getLastFPS()), 10, 10);
         renderer.draw(String.valueOf("X : "+player.getX() +"   Y : " + player.getY() +"   Z : " +player.getZ()), 10, 26);
-        renderer.draw(String.valueOf("Pitch : "+ distance), 10, 42);
+        renderer.draw(String.valueOf("Pitch : "+ distance + "  Entry : "+ d.getFormes().size()+"   RotateX : " +camerax+"   ratateZ : " +cameraz), 10, 42);
         // ... more draw commands, color changes, etc.
         renderer.endRendering();
 
@@ -414,6 +421,9 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
             case KeyEvent.VK_SPACE:
                 space = true;
                 break;
+            case KeyEvent.VK_ESCAPE:
+                fpsMouseController.removeCanvas(mCanvas);
+                break;
         }
     }
 
@@ -467,6 +477,8 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
     public void internalFrameActivated(InternalFrameEvent e) {
         parent.log("Focus sur "+d.getName());
         parent.updateInspecteur(d);
+
+        fpsMouseController.setCanvas(mCanvas);
     }
 
     @Override
