@@ -20,24 +20,22 @@ public class FPSMouseControler implements MouseMotionListener
     public int getDmx() {
         return dmx;
     }
-
     public void setDmx(int dmx) {
         this.dmx = dmx;
     }
-
     public int getDmy() {
         return dmy;
     }
-
     public void setDmy(int dmy) {
         this.dmy = dmy;
     }
 
     public int dmx=0;
     public int dmy=0;
-    Canvas c;
 
+    Canvas c;
     Robot robot;
+
 
     public FPSMouseControler() throws Exception
     {

@@ -313,6 +313,8 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         GL2 gl = drawable.getGL().getGL2();
         // Initialisation de l'utilitaire
         glu = new GLU();
+
+        gl.glMatrixMode(GL2.GL_PROJECTION);
         // Remplissage du contexte avec du NOIR
         gl.glClearColor(0.29f, 0.29f, 0.29f, 0.0f);
         // Configuration la profondeur au maximum
@@ -323,6 +325,9 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         gl.glDepthFunc(GL2.GL_LEQUAL);
         // Correction pour la meilleure perspective
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
+        glu.gluPerspective(45.0, drawable.getSurfaceWidth() / drawable.getSurfaceHeight(), 0.1, 500.0);
+
+
         // Joli mélange de couleur, et lissage des textures
         gl.glShadeModel(GL2.GL_SMOOTH);
         mCanvas.addMouseMotionListener(new MouseMotionListener() {
