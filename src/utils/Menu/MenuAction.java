@@ -47,7 +47,8 @@ public class MenuAction {
         } else if ("sphere".equals(e.getActionCommand())) { //new
 
              /* Mise en place de la forme sauvegardé pour exemple */
-            Sphere ed = new Sphere(name(), 1f, 0, 0, 0, new ColorRVB(0.8f, 0.8f, 0.8f), 30);
+            Sphere ed = Sphere.newSphere();
+            ed.setName(name());
             thiss.addOBJ(ed);
             thiss.refreshTree();
             thiss.creatFrameOPGL(ed);
@@ -55,7 +56,8 @@ public class MenuAction {
         } else if ("carre".equals(e.getActionCommand())) { //new
 
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Cube g = new Cube(name(), 1.0f, new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f), new ColorRVB(1.0f, 1.0f, 1.0f));
+            Cube g =  Cube.newCube();
+            g.setName(name());
             thiss.addOBJ(g);
             thiss.refreshTree();
             thiss.creatFrameOPGL(g);
@@ -63,28 +65,31 @@ public class MenuAction {
         } else if ("triangle".equals(e.getActionCommand())) { //new
 
                        /* Mise en place de la forme sauvegardé pour exemple */
-            Triangle tri = new Triangle(name(), 2.0f, 0, 0, 0, new ColorRVB(1f, 1f, 0.9f), new ColorRVB(0.5f, 0f, 0.4f), new ColorRVB(0.9f, 0.9f, 0.1f), new ColorRVB(0.9f, 0f, 1f), new ColorRVB(0.2f, 0.5f, 0.35f));
+            Triangle tri = Triangle.newTriangle();
+            tri.setName(name());
             thiss.addOBJ(tri);
             thiss.refreshTree();
             thiss.creatFrameOPGL(tri);
 
         } else if ("cylindre".equals(e.getActionCommand())) { //new
 
-
-            Cylindre sy = new Cylindre(name(), 1f, 1f, 1f, 1f, 1f, new ColorRVB(1f, 1f, 0.9f), new ColorRVB(1f, 1f, 0.9f), new ColorRVB(1f, 1f, 0.9f), new ColorRVB(1f, 1f, 0.9f));
+            Cylindre sy =Cylindre.newCylindre();
+            sy.setName(name());
             thiss.addOBJ(sy);
             thiss.refreshTree();
             thiss.creatFrameOPGL(sy);
         } else if ("cone".equals(e.getActionCommand())) { //new
 
 
-            Cone cone = new Cone(name(), new ColorRVB(1f, 1f, 0.9f), new ColorRVB(0.9f, 0.9f, 0.1f), 1f, 5f, 5f);
+            Cone cone = Cone.newCone();
+            cone.setName(name());
             thiss.addOBJ(cone);
             thiss.refreshTree();
             thiss.creatFrameOPGL(cone);
 
         }  else if ("terrain".equals(e.getActionCommand())) { //new
-            Terrain terr = new Terrain(name(), 10f,10f,10f,10f, new ColorRVB(0f, 0.153f, 0f));
+            Terrain terr = Terrain.newTerrain();
+            terr.setName(name());
             thiss.addOBJ(terr);
             thiss.refreshTree();
             thiss.creatFrameOPGL(terr);
