@@ -220,6 +220,10 @@ public class WelcomeFrame extends JFrame implements ActionListener {
             }
         });
 
+        list.setForeground(Color.WHITE);
+        list.setFont(new Font("Courier", Font.ITALIC, 11));
+        list.setFixedCellHeight(30);
+        list.setFixedCellWidth(190);
         recentPan2.add(list);
     }
 
