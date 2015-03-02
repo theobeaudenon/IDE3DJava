@@ -29,6 +29,10 @@ public class Cube extends Forme implements Serializable {
 
     }
 
+    public static Cube newCube() {
+       return new Cube("cube", 1.0f, new ColorRVB(0.9f, 0.9f, 0.9f), new ColorRVB(0.9f, 0.42f, 0.1f), new ColorRVB(0.1f, 0f, 1f), new ColorRVB(0.4f, 1f, 0.7f), new ColorRVB(0f, 0f, 0.5f), new ColorRVB(0.6f, 0.5f, 0.1f));
+    }
+
 
     @Override
     public void draw(GL2 gl){

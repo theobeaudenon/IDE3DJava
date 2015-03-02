@@ -47,7 +47,9 @@ public class Cylindre extends Forme {
         data.add(new DataConf("longeur", rayon2));
 
     }
-
+    public static Cylindre newCylindre() {
+        return  new Cylindre("Cylindre",1f,1f,1f,1f,1f,new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f),new ColorRVB(1f, 1f, 0.9f));
+    }
 
     @Override
     public void draw(GL2 gl) {
@@ -104,4 +106,6 @@ public class Cylindre extends Forme {
     public ArrayList<DataConf> conf() {
         return data;
     }
+
+
 }

@@ -32,6 +32,10 @@ public class Cone extends Forme implements Serializable {
 
     }
 
+    public static Cone newCone() {
+        return  new Cone("Cone", new ColorRVB(1f, 1f, 0.9f), new ColorRVB(0.9f, 0.9f, 0.1f),  1f,5f,5f);
+
+    }
 
     @Override
     public void draw(GL2 gl) {
@@ -72,4 +76,5 @@ public class Cone extends Forme implements Serializable {
     public ArrayList<DataConf> conf() {
         return data;
     }
+
 }

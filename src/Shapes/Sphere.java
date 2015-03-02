@@ -29,7 +29,9 @@ public class Sphere extends Forme implements Serializable {
         position[2] = z;
     }
 
-
+    public static Sphere newSphere() {
+        return new Sphere("Sphere ", 3.2f, 0, 0, 0, new ColorRVB(0.2f, 0.2f, 0.9f), 30);
+    }
 
     public void draw(GL2 gl){
         gl.glColor3fv(couleurs.get(0).buffer());
@@ -72,5 +74,6 @@ public class Sphere extends Forme implements Serializable {
     public ArrayList<DataConf> conf() {
         return data;
     }
+
 
 }

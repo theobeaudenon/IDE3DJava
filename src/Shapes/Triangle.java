@@ -35,7 +35,10 @@ public class Triangle extends Forme implements Serializable {
             position[2] = z;
 
         }
+    public static Triangle newTriangle() {
+        return new Triangle("Triangle", 2.0f, 0, 0, 0, new ColorRVB(1f, 1f, 0.9f), new ColorRVB(0.9f, 0.9f, 0.1f), new ColorRVB(0.9f, 0f, 1f), new ColorRVB(0.2f, 0.5f, 0.35f), new ColorRVB(0.5f, 0f, 0.4f));
 
+    }
 
 
         public void draw(GL2 gl){
@@ -85,4 +88,6 @@ public class Triangle extends Forme implements Serializable {
     public ArrayList<DataConf> conf() {
         return data;
     }
+
+
 }

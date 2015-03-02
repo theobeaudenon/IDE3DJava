@@ -31,6 +31,10 @@ public class Terrain  extends Forme implements Serializable {
 
     }
 
+    public static Terrain newTerrain() {
+        return new Terrain("Terrain", 10f,10f,10f,10f, new ColorRVB(0));
+
+    }
     @Override
     public void draw(GL2 gl) {
 
@@ -64,5 +68,6 @@ public class Terrain  extends Forme implements Serializable {
     public ArrayList<DataConf> conf() {
         return data;
     }
+
 
 }
