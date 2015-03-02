@@ -5,6 +5,8 @@ import classe.ColorRVB;
 import classe.Forme;
 import classe.Projet;
 import classe.Scene;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import utils.ProjectExport.ProjectFileReader;
 
 import javax.swing.*;
@@ -12,6 +14,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +33,11 @@ public class WelcomeFrame extends JFrame implements ActionListener {
     private JPanel recentPan2 = new JPanel();
     private JPanel start = new JPanel();
     private JPanel start2 = new JPanel(new GridLayout(4,1));
+
+    private JLabel startup = new JLabel("Welcome to IDEA3D");
+
+    private ImageIcon icone = new ImageIcon("res\\img\\close.gif");
+    private JLabel icon = new JLabel(icone);
 
     private ImageIcon projectjButtonIcone = new ImageIcon("res\\img\\close.gif");
     private JButton newProjectjButton = new JButton("Create New Project",projectjButtonIcone);
@@ -144,9 +155,75 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         confjButton.setHorizontalAlignment(SwingConstants.LEFT);
         start2.add(confjButton);
 
+        icon.setPreferredSize(new Dimension(100, 100));
+        top.add(icon);
+
+        startup.setForeground(Color.WHITE);
+        startup.setFont(new Font("Courier", Font.ITALIC, 30));
+        top.add(startup);
+
+        JLabel sizerTest = new JLabel();
+        sizerTest.setPreferredSize(new Dimension(400,100));
+        top.add(sizerTest);
         setVisible(true);
 
+        final DefaultListModel model = new DefaultListModel();
+
+        try {
+            String content = FileUtils.readFileToString(new File("Config/Recent.txt"));
+            for (  String fileEntrystr : content.split(":::")) {
+                if(!fileEntrystr.equals("")) {
+                    File fileEntry = new File(fileEntrystr);
+                    if (fileEntry.isDirectory()) {
+                        // listFilesForFolder(fileEntry);
+                    } else {
+                        if (FilenameUtils.getExtension(fileEntry.getName()).equals("eb")) {
+                            System.out.println(fileEntry.getName());
+                            model.addElement(fileEntry);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        final JList list = new JList(model);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //list.setAutoscrolls(true);
+        list.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        list.setBackground(new Color(60, 63, 65));
+        list.setForeground(new Color(205, 198, 183));
+        list.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                int index = list.locationToIndex(e.getPoint());
+                File item = (File) model.getElementAt(index);
+
+            }
+
+            public void mouseReleased(MouseEvent e) {
+
+                if (e.getClickCount() == 2 && !e.isConsumed()) {
+                    e.consume();
+                    int index = list.locationToIndex(e.getPoint());
+                    File item = (File) model.getElementAt(index);
+                    Projet pro = null;
+
+                    pro = ProjectFileReader.read(item.getName(), item.getAbsolutePath());
+                    if(pro != null){
+
+                        startpro(pro);
+                    }
+
+
+                }
+            }
+        });
+
+        recentPan2.add(list);
     }
+
+
 
     private void startpro(Projet pro) {
 
