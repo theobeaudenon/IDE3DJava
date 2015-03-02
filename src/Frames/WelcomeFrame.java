@@ -55,6 +55,8 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
         GridBagConstraints c = new GridBagConstraints();
 
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("IDEA3D");
         setResizable(false);
         setSize(new Dimension(800, 600));
         body.setBackground(new Color(60, 63, 65));

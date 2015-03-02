@@ -135,6 +135,11 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
         CWGSetupGL();
         this.setVisible(true);
         JButton button2 = new JButton("Ajouter");
+        button2.setForeground(Color.WHITE);
+        button2.setFocusPainted(false);
+        button2.setBorder(BorderFactory.createBevelBorder(1,Color.black,Color.cyan));
+        button2.setBackground(new Color(46,46,46));
+        button2.setSelected(false);
         addInternalFrameListener(this);
         button2.addActionListener(new ActionListener() {
             @Override
