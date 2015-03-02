@@ -202,6 +202,7 @@ public class WelcomeFrame2 extends JFrame implements ActionListener {
                     Cone cone = Cone.newCone();
                     o.add(cone);
 
+
                     Terrain terr = Terrain.newTerrain();
                     o.add(terr);
 
