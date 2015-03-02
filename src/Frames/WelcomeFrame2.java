@@ -194,7 +194,6 @@ public class WelcomeFrame2 extends JFrame implements ActionListener {
 
                        /* Mise en place de la forme sauvegardé pour exemple */
                     Sphere ed = Sphere.newSphere();
-
                     o.add(ed);
 
                     Cylindre sy = Cylindre.newCylindre();
