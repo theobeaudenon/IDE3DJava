@@ -36,6 +36,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     public InternalFrameDemo(Projet finalPro) {
         super("Editeur 3D SUPINFO");
         this.projet = finalPro;
+        this.setResizable(false);
         //setUndecorated(true);
         //Make the big window be indented 50 pixels from each edge
         //of the screen.
@@ -105,6 +106,26 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
             }
         });
 
+          JPanel top = new JPanel();
+        JInternalFrame task = new JInternalFrame("", false,false,false);
+
+        task.setVisible(true);
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) task.getUI()).setNorthPane(null);
+
+        task.setBorder(BorderFactory.createLineBorder(Color.black));
+        task.setOpaque(false);
+        task.getContentPane().setBackground(new Color(60, 63, 65));
+        task.setSize(1500, 50);
+        task.setLocation( 300,815);
+        top.setBackground(new Color(60, 63, 65));
+        task.add(top);
+        top.setLayout(new GridLayout(10, 1, 1, 3));
+        top.removeAll();
+        top.repaint();
+        top.setPreferredSize(this.getSize());
+
+
+        this.add(task);
         //Make dragging a little faster but perhaps uglier.
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
     }
@@ -142,7 +163,10 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
             Forme f = (Forme) userObject;
             this.log("Ouverture d'une Frame OpenGL : " + f.getName());
             OBJOpenGLScreen frame = new OBJOpenGLScreen(f, this);
-
+            Dimension desktopSize = this.getSize();
+            Dimension jInternalFrameSize = frame.getSize();
+            frame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
+                    (desktopSize.height- jInternalFrameSize.height)/2);
             frame.setVisible(true); //necessary as of 1.3
             desktop.add(frame);
             try {

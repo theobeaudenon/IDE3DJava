@@ -1,5 +1,4 @@
 import Frames.WelcomeFrame;
-import Frames.WelcomeFrame2;
 
 /**
  * Created by Boufle on 16/12/14.

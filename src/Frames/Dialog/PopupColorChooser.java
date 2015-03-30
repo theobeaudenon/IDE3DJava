@@ -21,6 +21,11 @@ public class PopupColorChooser extends JDialog {
     private JPanel top = new JPanel();
     private JPanel body = new JPanel(new GridBagLayout());
     private CloseButton closeButton = new CloseButton("");
+
+    public JColorChooser getColorChooser() {
+        return colorChooser;
+    }
+
     private JColorChooser colorChooser = new JColorChooser();
     private JButton ok = new JButton("OK");
     int posX ;

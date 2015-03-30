@@ -10,12 +10,10 @@ import org.apache.commons.io.FilenameUtils;
 import utils.ProjectExport.ProjectFileReader;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -121,7 +119,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         c.weighty = 1;
         body.add(start2, c);
 
-        newProjectjButton.setBorderPainted(false);
+        newProjectjButton.setBorderPainted(true);
         newProjectjButton.setFocusPainted(false);
         newProjectjButton.setForeground(Color.WHITE);
         newProjectjButton.setContentAreaFilled(false);
@@ -130,7 +128,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         newProjectjButton.addActionListener(this);
         start2.add(newProjectjButton);
 
-        importProjectjButton.setBorderPainted(false);
+        importProjectjButton.setBorderPainted(true);
         importProjectjButton.setFocusPainted(false);
         importProjectjButton.setForeground(Color.WHITE);
         importProjectjButton.setContentAreaFilled(false);
@@ -139,7 +137,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         importProjectjButton.addActionListener(this);
         start2.add(importProjectjButton);
 
-        openProjectjButton.setBorderPainted(false);
+        openProjectjButton.setBorderPainted(true);
         openProjectjButton.setFocusPainted(false);
         openProjectjButton.setForeground(Color.WHITE);
         openProjectjButton.setContentAreaFilled(false);
@@ -148,7 +146,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         openProjectjButton.setHorizontalAlignment(SwingConstants.LEFT);
         start2.add(openProjectjButton);
 
-        confjButton.setBorderPainted(false);
+        confjButton.setBorderPainted(true);
         confjButton.setFocusPainted(false);
         confjButton.setForeground(Color.WHITE);
         confjButton.setContentAreaFilled(false);
@@ -181,7 +179,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
                     } else {
                         if (FilenameUtils.getExtension(fileEntry.getName()).equals("eb")) {
                             System.out.println(fileEntry.getName());
-                            model.addElement(fileEntry);
+                            model.insertElementAt(fileEntry,0);
                         }
                     }
                 }
@@ -196,15 +194,23 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         list.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         list.setBackground(new Color(60, 63, 65));
         list.setForeground(new Color(205, 198, 183));
+        list.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                JList l = (JList)e.getSource();
+                ListModel m = l.getModel();
+                int index = l.locationToIndex(e.getPoint());
+                if( index>-1 ) {
+                    l.setToolTipText(m.getElementAt(index).toString());
+                }
+            }
+        });
         list.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                int index = list.locationToIndex(e.getPoint());
-                File item = (File) model.getElementAt(index);
 
             }
 
             public void mouseReleased(MouseEvent e) {
-
                 if (e.getClickCount() == 2 && !e.isConsumed()) {
                     e.consume();
                     int index = list.locationToIndex(e.getPoint());
@@ -216,8 +222,6 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
                         startpro(pro);
                     }
-
-
                 }
             }
         });
@@ -254,7 +258,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(projectImportjButtonIcone)) {
+        if (e.getSource().equals(openProjectjButton) || e.getSource().equals(importProjectjButton) ) {
 
             JFileChooser chooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -333,6 +337,12 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
             });
 
+        }else{
+
+            System.out.print(e.getSource());
+
         }
     }
+
+
 }

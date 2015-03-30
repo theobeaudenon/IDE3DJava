@@ -38,14 +38,9 @@ public class Terrain  extends Forme implements Serializable {
     @Override
     public void draw(GL2 gl) {
 
-        if (couleurs.get(0).isTexture()){
 
-            //gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT);
-
-            gl.glBindTexture(GL2.GL_TEXTURE_2D, 1);
-        }else {
             gl.glColor3fv(couleurs.get(0).buffer());
-        }
+
         gl.glBegin(GL2.GL_QUADS);
         gl.glVertex3f(-data.get(3).getValue(),-0.001f,-data.get(1).getValue());
         gl.glVertex3f( -data.get(3).getValue(),-0.001f,data.get(0).getValue());
@@ -53,10 +48,7 @@ public class Terrain  extends Forme implements Serializable {
         gl.glVertex3f(data.get(2).getValue(),-0.001f, -data.get(1).getValue());
 
         gl.glEnd();
-        if (couleurs.get(0).isTexture()) {
 
-            gl.glDisable(GL2.GL_TEXTURE_2D);
-        }
     }
 
     @Override
