@@ -16,13 +16,12 @@ import utils.ProjectExport.ProjectFileSaver;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class InternalFrameDemo extends JFrame implements ActionListener {
@@ -32,7 +31,9 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     private JMenuBar menuBar;
     private TreeFrame frame;
     private InspecteurLeBlanco inspeframe;
-
+    private JInternalFrame task = new JInternalFrame("", false,false,false);
+    private  JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    private ArrayList<JInternalFrame> taskcurrent = new ArrayList<>();
     public InternalFrameDemo(Projet finalPro) {
         super("Editeur 3D SUPINFO");
         this.projet = finalPro;
@@ -106,8 +107,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
             }
         });
 
-          JPanel top = new JPanel();
-        JInternalFrame task = new JInternalFrame("", false,false,false);
+
 
         task.setVisible(true);
         ((javax.swing.plaf.basic.BasicInternalFrameUI) task.getUI()).setNorthPane(null);
@@ -117,19 +117,52 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         task.getContentPane().setBackground(new Color(60, 63, 65));
         task.setSize(1500, 50);
         task.setLocation( 300,815);
-        top.setBackground(new Color(60, 63, 65));
-        task.add(top);
-        top.setLayout(new GridLayout(10, 1, 1, 3));
-        top.removeAll();
-        top.repaint();
-        top.setPreferredSize(this.getSize());
-
-
         this.add(task);
+        refreshtask();
+
+
+
         //Make dragging a little faster but perhaps uglier.
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
     }
+    public void  refreshtask(){
 
+        top.setBackground(new Color(60, 63, 65));
+        top.removeAll();
+        top.setPreferredSize(this.getSize());
+        for (final JInternalFrame frame : taskcurrent){
+            JButton btn1 = new JButton(frame.getTitle());
+            btn1.setBackground(new Color(75, 75, 75));
+            btn1.setPreferredSize(new Dimension(160, 40));
+            btn1.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e) {
+
+                    if (e.getButton() == MouseEvent.BUTTON3) {
+                        removeframe(frame);
+                        try {
+                            frame.dispose();
+                        }catch (Exception ess ){
+
+                        }
+                    } else {
+                        frame.grabFocus();
+                        frame.requestFocus();
+                        try {
+                            frame.setSelected(true);
+                        } catch (PropertyVetoException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+
+                }
+            });
+
+
+            top.add(btn1);
+        }
+        task.getContentPane().add(top);
+        top.updateUI();
+    }
 
     public void log(String log) {
         System.out.println(log);
@@ -146,7 +179,6 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         menuBar.updateUI();
     }
 
-
     //React to menu selections.
     public void actionPerformed(ActionEvent e) {
         MenuAction.actionPerformed(e, this);
@@ -157,6 +189,10 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
+    public void removeframe(JInternalFrame frame){
+        taskcurrent.remove(frame);
+        refreshtask();
+    }
 
     public void creatFrameOPGL(Object userObject) {
         try {
@@ -169,6 +205,8 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
                     (desktopSize.height- jInternalFrameSize.height)/2);
             frame.setVisible(true); //necessary as of 1.3
             desktop.add(frame);
+            taskcurrent.add(frame);
+            refreshtask();
             try {
                 frame.setSelected(true);
             } catch (java.beans.PropertyVetoException e) {
@@ -179,7 +217,10 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
             this.log("Ouverture d'une Scene OpenGL : " + f.getName());
             SCENEOpenGLScreen frame = new SCENEOpenGLScreen(f, this);
             frame.setVisible(true); //necessary as of 1.3
+
+            taskcurrent.add(frame);
             desktop.add(frame);
+            refreshtask();
             try {
                 frame.setSelected(true);
             } catch (java.beans.PropertyVetoException ce) {
@@ -204,7 +245,10 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
             this.log("Ouverture du jeu : " + userObject.getName());
             GAMEOpenGLScreen frame = new GAMEOpenGLScreen(userObject, this, userObject.getSpawnX(), userObject.getSpawnY(), userObject.getSpawnZ());
             frame.setVisible(true); //necessary as of 1.3
+
+            taskcurrent.add(frame);
             desktop.add(frame);
+            refreshtask();
             try {
                 frame.setSelected(true);
             } catch (java.beans.PropertyVetoException ce) {
@@ -262,6 +306,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     public void createPropos() {
         ProposFrame propos = new ProposFrame();
         propos.setVisible(true); //necessary as of 1.3
+
         desktop.add(propos);
         try {
             propos.setSelected(true);

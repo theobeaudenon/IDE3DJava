@@ -143,6 +143,8 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+
+                    parent.removeframe(open);
                     open.dispose();
                     animator.stop();
                     mCanvas.getAnimator().stop();

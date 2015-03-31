@@ -154,6 +154,7 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    parent.removeframe(open);
                     open.dispose();
                     animator.stop();
                     mCanvas.getAnimator().stop();
