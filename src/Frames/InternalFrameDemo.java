@@ -37,7 +37,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     public InternalFrameDemo(Projet finalPro) {
         super("Editeur 3D SUPINFO");
         this.projet = finalPro;
-        this.setResizable(false);
+        //this.setResizable(false);
         //setUndecorated(true);
         //Make the big window be indented 50 pixels from each edge
         //of the screen.
@@ -133,11 +133,12 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         for (final JInternalFrame frame : taskcurrent){
             JButton btn1 = new JButton(frame.getTitle());
             btn1.setBackground(new Color(75, 75, 75));
+            btn1.setForeground(new Color(225, 39, 36));
             btn1.setPreferredSize(new Dimension(160, 40));
             btn1.addMouseListener(new MouseAdapter(){
                 public void mouseClicked(MouseEvent e) {
 
-                    if (e.getButton() == MouseEvent.BUTTON3) {
+                    if (e.getButton() == MouseEvent.BUTTON3 || e.getButton() == MouseEvent.BUTTON2 ) {
                         removeframe(frame);
                         try {
                             frame.dispose();
@@ -197,33 +198,73 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
     public void creatFrameOPGL(Object userObject) {
         try {
             Forme f = (Forme) userObject;
-            this.log("Ouverture d'une Frame OpenGL : " + f.getName());
-            OBJOpenGLScreen frame = new OBJOpenGLScreen(f, this);
-            Dimension desktopSize = this.getSize();
-            Dimension jInternalFrameSize = frame.getSize();
-            frame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
-                    (desktopSize.height- jInternalFrameSize.height)/2);
-            frame.setVisible(true); //necessary as of 1.3
-            desktop.add(frame);
-            taskcurrent.add(frame);
-            refreshtask();
-            try {
-                frame.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {
+            boolean isopen = false;
+            JInternalFrame js = null;
+            for (JInternalFrame j : taskcurrent){
+
+                if(j.getTitle().equals(f.getName())){
+                    isopen = true;
+                    js = j;
+                }
+            }
+            if(!isopen){
+                this.log("Ouverture d'une Frame OpenGL : " + f.getName());
+                OBJOpenGLScreen frame = new OBJOpenGLScreen(f, this);
+                Dimension desktopSize = this.getSize();
+                Dimension jInternalFrameSize = frame.getSize();
+                frame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
+                        (desktopSize.height- jInternalFrameSize.height)/2);
+                frame.setVisible(true); //necessary as of 1.3
+                desktop.add(frame);
+                taskcurrent.add(frame);
+                refreshtask();
+                try {
+                    frame.setSelected(true);
+                } catch (java.beans.PropertyVetoException e) {
+                }
+            }else {
+
+                js.grabFocus();
+                js.requestFocus();
+                try {
+                    js.setSelected(true);
+                } catch (PropertyVetoException e1) {
+                    e1.printStackTrace();
+                }
             }
 
         } catch (ClassCastException e) {
             Scene f = (Scene) userObject;
-            this.log("Ouverture d'une Scene OpenGL : " + f.getName());
-            SCENEOpenGLScreen frame = new SCENEOpenGLScreen(f, this);
-            frame.setVisible(true); //necessary as of 1.3
+            boolean isopen = false;
+            JInternalFrame js = null;
+            for (JInternalFrame j : taskcurrent){
 
-            taskcurrent.add(frame);
-            desktop.add(frame);
-            refreshtask();
-            try {
-                frame.setSelected(true);
-            } catch (java.beans.PropertyVetoException ce) {
+                if(j.getTitle().equals(f.getName())){
+                    isopen = true;
+                    js = j;
+                }
+            }
+            if(!isopen){
+                this.log("Ouverture d'une Scene OpenGL : " + f.getName());
+                SCENEOpenGLScreen frame = new SCENEOpenGLScreen(f, this);
+                frame.setVisible(true); //necessary as of 1.3
+
+                taskcurrent.add(frame);
+                desktop.add(frame);
+                refreshtask();
+                try {
+                    frame.setSelected(true);
+                } catch (java.beans.PropertyVetoException ce) {
+                }
+            }else {
+
+                js.grabFocus();
+                js.requestFocus();
+                try {
+                    js.setSelected(true);
+                } catch (PropertyVetoException e1) {
+                    e1.printStackTrace();
+                }
             }
         }
     }
