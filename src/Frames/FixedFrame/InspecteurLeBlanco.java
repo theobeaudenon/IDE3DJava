@@ -209,7 +209,10 @@ public class InspecteurLeBlanco extends JInternalFrame {
 
                     PopupObjectAdd ef = new PopupObjectAdd(parent, item);
                     if (ef.getBol() != null) {
-                        //d.addForme(ef.getBol());
+                        module.addForme(ef.getBol());
+                        module.getFormes().remove(item);
+                        //model.setElementAt(ef.getBol(),index);
+                        //parent.addForme(ef.getBol());
                         // parent.log("Ajouté : " + comboBox.getSelectedItem());
                         //parent.updateInspecteur(d);
                     }

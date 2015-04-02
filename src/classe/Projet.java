@@ -1,5 +1,6 @@
 package classe;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,6 +15,9 @@ public class Projet implements Serializable {
     private String path;
     private ArrayList<Scene> scene = new ArrayList<Scene>();
     private ArrayList<Forme> obj = new ArrayList<Forme>();
+
+
+
 
 
     public String getPath() {

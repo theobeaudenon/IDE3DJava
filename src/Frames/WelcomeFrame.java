@@ -242,7 +242,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         final Projet finalPro = pro;
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                JFrame.setDefaultLookAndFeelDecorated(true);
+               // JFrame.setDefaultLookAndFeelDecorated(true);
 
                 //Create and set up the window.
                 InternalFrameDemo frame = new InternalFrameDemo(finalPro);
@@ -325,11 +325,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
                     p.setScene(s);
                     p.setPath(null);
                     //Create and set up the window.
-                    InternalFrameDemo frame = new InternalFrameDemo(p);
-                    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-                    //Display the window.
-                    frame.setVisible(true);
+                    startpro(p);
 
 
 
