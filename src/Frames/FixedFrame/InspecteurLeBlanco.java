@@ -204,18 +204,28 @@ public class InspecteurLeBlanco extends JInternalFrame {
                 }
                 if (e.getClickCount() == 2 && !e.isConsumed()) {
                     e.consume();
-                    int index = list.locationToIndex(e.getPoint());
-                    BoLASoupe item = (BoLASoupe) model.getElementAt(index);
 
-                    PopupObjectAdd ef = new PopupObjectAdd(parent, item);
-                    if (ef.getBol() != null) {
-                        module.addForme(ef.getBol());
-                        module.getFormes().remove(item);
-                        //model.setElementAt(ef.getBol(),index);
-                        //parent.addForme(ef.getBol());
-                        // parent.log("Ajouté : " + comboBox.getSelectedItem());
-                        //parent.updateInspecteur(d);
+                    try{
+
+                        int index = list.locationToIndex(e.getPoint());
+
+                        BoLASoupe item = (BoLASoupe) model.getElementAt(index);
+                        PopupObjectAdd ef = new PopupObjectAdd(parent, item);
+                        if (ef.getBol() != null) {
+                            module.addForme(ef.getBol());
+                            module.getFormes().remove(item);
+                            //model.setElementAt(ef.getBol(),index);
+                            //parent.addForme(ef.getBol());
+                            // parent.log("Ajouté : " + comboBox.getSelectedItem());
+                            //parent.updateInspecteur(d);
+
+
+                        }
+                    }catch (ArrayIndexOutOfBoundsException em){
+
                     }
+
+
 //                    parent.log("YOLOO");
                     //handle double click event.
                 }
