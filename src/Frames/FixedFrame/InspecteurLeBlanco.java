@@ -192,10 +192,12 @@ public class InspecteurLeBlanco extends JInternalFrame {
         list.setBackground(new Color(60, 63, 65));
         list.setForeground(new Color(205, 198, 183));
         list.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(MouseEvent e) { try{
                 int index = list.locationToIndex(e.getPoint());
                 BoLASoupe item = (BoLASoupe) model.getElementAt(index);
-                item.setSelected(true);
+                item.setSelected(true);  }catch (ArrayIndexOutOfBoundsException em){
+
+                }
             }
 
             public void mouseReleased(MouseEvent e) {
