@@ -31,7 +31,6 @@ public class WelcomeFrame extends JFrame implements ActionListener {
     private JPanel recentPan2 = new JPanel();
     private JPanel start = new JPanel();
     private JPanel start2 = new JPanel(new GridLayout(4,1));
-
     private JLabel startup = new JLabel("Welcome to IDEA3D");
 
     private ImageIcon icone = new ImageIcon("res\\img\\logo.png");
@@ -166,9 +165,11 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         sizerTest.setPreferredSize(new Dimension(400,100));
         top.add(sizerTest);
         setVisible(true);
+       final DefaultListModel model = new DefaultListModel();
 
-        final DefaultListModel model = new DefaultListModel();
-
+      //  final DefaultListModel model = new DefaultListModel();
+        final JList list = new JList(model);
+        recentPan2.add(list);
         try {
             String content = FileUtils.readFileToString(new File("Config/Recent.txt"));
             for (  String fileEntrystr : content.split(":::")) {
@@ -179,7 +180,8 @@ public class WelcomeFrame extends JFrame implements ActionListener {
                     } else {
                         if (FilenameUtils.getExtension(fileEntry.getName()).equals("eb")) {
                             System.out.println(fileEntry.getName());
-                            model.insertElementAt(fileEntry,0);
+                          //  model.insertElementAt(fileEntry,0);
+                            model.addElement(fileEntry);
                         }
                     }
                 }
@@ -188,7 +190,8 @@ public class WelcomeFrame extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 
-        final JList list = new JList(model);
+
+
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //list.setAutoscrolls(true);
         list.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -197,10 +200,10 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         list.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                JList l = (JList)e.getSource();
+                JList l = (JList) e.getSource();
                 ListModel m = l.getModel();
                 int index = l.locationToIndex(e.getPoint());
-                if( index>-1 ) {
+                if (index > -1) {
                     l.setToolTipText(m.getElementAt(index).toString());
                 }
             }
@@ -218,7 +221,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
                     Projet pro = null;
 
                     pro = ProjectFileReader.read(item.getName(), item.getAbsolutePath());
-                    if(pro != null){
+                    if (pro != null) {
 
                         startpro(pro);
                     }
@@ -230,7 +233,7 @@ public class WelcomeFrame extends JFrame implements ActionListener {
         list.setFont(new Font("Courier", Font.ITALIC, 11));
         list.setFixedCellHeight(30);
         list.setFixedCellWidth(190);
-        recentPan2.add(list);
+
     }
 
 
