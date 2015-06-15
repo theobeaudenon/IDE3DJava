@@ -16,6 +16,7 @@ public class PopupObjectFrame extends JDialog {
     private JPanel top = new JPanel();
     private JPanel body = new JPanel(new GridLayout(2,1));
     private CloseButton closeButton = new CloseButton("");
+    private JLabel spacer = new JLabel();
     private CustomTextField name = new CustomTextField(20);
     private ColorButton ok = new ColorButton("OK");
     int posX ;
@@ -94,6 +95,8 @@ public class PopupObjectFrame extends JDialog {
 
 
         ok.addActionListener(s);
+        spacer.setPreferredSize(new Dimension(250,20));
+        top.add(spacer);
         top.add(closeButton);
         top.addMouseListener(ml);
         top.addMouseMotionListener(m2);

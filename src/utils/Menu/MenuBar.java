@@ -152,7 +152,7 @@ public class MenuBar {
         menuItem.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_1, ActionEvent.CTRL_MASK));
+                KeyEvent.VK_2, ActionEvent.CTRL_MASK));
         menuItem.setActionCommand("sceneg");
         menuItem.addActionListener(internalFrameDemo);
         creer.add(menuItem);
@@ -164,7 +164,7 @@ public class MenuBar {
         menuItem.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+                KeyEvent.VK_1, ActionEvent.ALT_MASK));
         menuItem.setActionCommand("triangle");
         menuItem.addActionListener(internalFrameDemo);
         Objet.add(menuItem);
@@ -176,7 +176,7 @@ public class MenuBar {
         menuItem.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+                KeyEvent.VK_2, ActionEvent.ALT_MASK));
         menuItem.setActionCommand("carre");
         menuItem.addActionListener(internalFrameDemo);
         Objet.add(menuItem);
@@ -187,7 +187,7 @@ public class MenuBar {
         menuItem.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+                KeyEvent.VK_3, ActionEvent.ALT_MASK));
         menuItem.setActionCommand("sphere");
         menuItem.addActionListener(internalFrameDemo);
         Objet.add(menuItem);
@@ -198,7 +198,7 @@ public class MenuBar {
         menuItem.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+                KeyEvent.VK_4, ActionEvent.ALT_MASK));
         menuItem.setActionCommand("cylindre");
         menuItem.addActionListener(internalFrameDemo);
         Objet.add(menuItem);
@@ -209,7 +209,7 @@ public class MenuBar {
         menuItem.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+                KeyEvent.VK_5, ActionEvent.ALT_MASK));
         menuItem.setActionCommand("cone");
         menuItem.addActionListener(internalFrameDemo);
         Objet.add(menuItem);
@@ -222,7 +222,7 @@ public class MenuBar {
         menuItem.setForeground(new Color(178, 178, 178));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_L, ActionEvent.ALT_MASK));
+                KeyEvent.VK_6, ActionEvent.ALT_MASK));
         menuItem.setActionCommand("terrain");
         menuItem.addActionListener(internalFrameDemo);
         Objet.add(menuItem);

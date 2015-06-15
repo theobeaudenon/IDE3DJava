@@ -24,7 +24,7 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
    // Component northPane = ui.getNorthPane();
    // MouseMotionListener[] motionListeners = (MouseMotionListener[]) northPane.getListeners(MouseMotionListener.class);
     private JPanel top = new JPanel();
-    private ToolProjectButton toolProjectButton = new ToolProjectButton("");
+    //private ToolProjectButton toolProjectButton = new ToolProjectButton("");
     private RotateButton refresh = new RotateButton("");
     private JScrollPane jScrollPane = new JScrollPane();
     int posX ;
@@ -79,11 +79,9 @@ public class TreeFrame extends JInternalFrame implements MouseListener {
         setDragable(false);
         startup();
 
-        toolProjectButton.setPreferredSize(new Dimension(14,16));
-        top.add(toolProjectButton);
 
         refresh.setPreferredSize(new Dimension(14,16));
-        top.add(refresh);
+       // top.add(refresh);
         refresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -34,19 +34,19 @@ public class WelcomeFrame extends JFrame implements ActionListener {
 
     private JLabel startup = new JLabel("Welcome to IDEA3D");
 
-    private ImageIcon icone = new ImageIcon("res\\img\\close.gif");
+    private ImageIcon icone = new ImageIcon("res\\img\\logo.png");
     private JLabel icon = new JLabel(icone);
 
-    private ImageIcon projectjButtonIcone = new ImageIcon("res\\img\\close.gif");
+    private ImageIcon projectjButtonIcone = new ImageIcon("res\\img\\create.png");
     private JButton newProjectjButton = new JButton("Create New Project",projectjButtonIcone);
 
-    private ImageIcon projectImportjButtonIcone = new ImageIcon("res\\img\\close.gif");
+    private ImageIcon projectImportjButtonIcone = new ImageIcon("res\\img\\import.png");
     private JButton importProjectjButton = new JButton("Import Project",projectImportjButtonIcone);
 
-    private ImageIcon projectOpenjButtonIcone = new ImageIcon("res\\img\\close.gif");
+    private ImageIcon projectOpenjButtonIcone = new ImageIcon("res\\img\\open.png");
     private JButton openProjectjButton = new JButton("Open Project",projectOpenjButtonIcone);
 
-    private ImageIcon conf = new ImageIcon("res\\img\\close.gif");
+    private ImageIcon conf = new ImageIcon("res\\img\\config.png");
     private JButton confjButton = new JButton("Configure",conf);
 
     public WelcomeFrame(){

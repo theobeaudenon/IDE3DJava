@@ -32,6 +32,7 @@ public class PopupObjectAdd extends JDialog {
     private JLabel x = new JLabel("x");
     private JLabel y = new JLabel("y");
     private JLabel z = new JLabel("z");
+    private JLabel spacer = new JLabel();
     private JLabel derouler = new JLabel(">");
     private JButton avanceJbutton = new JButton(">");
     private JLabel teleporteur = new JLabel("Teleporteur : ");
@@ -155,6 +156,8 @@ public class PopupObjectAdd extends JDialog {
 
 
         ok.addActionListener(s);
+        spacer.setPreferredSize(new Dimension(250,20));
+        top.add(spacer);
         top.add(closeButton);
         top.addMouseListener(ml);
         top.addMouseMotionListener(m2);

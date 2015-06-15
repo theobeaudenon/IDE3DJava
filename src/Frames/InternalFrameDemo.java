@@ -74,6 +74,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
 
         menuBar.add(Box.createGlue());
         setJMenuBar(menuBar);
+        setResizable(false);
         /**
          * DROP LISTNER
          */
@@ -115,8 +116,8 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
         task.setBorder(BorderFactory.createLineBorder(Color.black));
         task.setOpaque(false);
         task.getContentPane().setBackground(new Color(60, 63, 65));
-        task.setSize(1500, 50);
-        task.setLocation( 300,815);
+        task.setSize(1520, 60);
+        task.setLocation(300,805);
         this.add(task);
         refreshtask();
 

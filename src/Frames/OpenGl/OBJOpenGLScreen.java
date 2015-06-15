@@ -52,6 +52,7 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
     private GLCanvas mCanvas = new GLCanvas();
     private long fpsLast = System.currentTimeMillis();
     private FPSAnimator animator;
+    private JLabel spacer = new JLabel();
     private RevertPlaceButton revertPlaceButton = new RevertPlaceButton("");
     private CloseButton closeButton = new CloseButton("");
     private RotateButton rotateButton = new RotateButton("");
@@ -114,8 +115,10 @@ public class OBJOpenGLScreen extends JInternalFrame implements GLEventListener,K
         revertPlaceButton.setPreferredSize(new Dimension(16, 16));
         rotateButton.setPreferredSize(new Dimension(16, 16));
         closeButton.setPreferredSize(new Dimension(16, 16));
-        top.add(revertPlaceButton);
-        top.add(rotateButton);
+      //  top.add(revertPlaceButton);
+       // top.add(rotateButton);
+        spacer.setPreferredSize(new Dimension(550,20));
+        top.add(spacer);
         top.add(closeButton);
         this.add(top, BorderLayout.NORTH);
         this.add(inspector, BorderLayout.SOUTH);

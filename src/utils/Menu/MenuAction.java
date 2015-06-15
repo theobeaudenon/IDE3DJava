@@ -18,6 +18,7 @@ public class MenuAction {
     //React to menu selections.
     public static void actionPerformed(ActionEvent e, InternalFrameDemo thiss) {
         if ("new".equals(e.getActionCommand())) { //new
+
             thiss.welcomescreen();
         } else if ("Project".equals(e.getActionCommand())) { //new
             thiss.createTreeFrame();

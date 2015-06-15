@@ -54,7 +54,7 @@ public class InspecteurLeBlanco extends JInternalFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
-        setSize(300, 385);
+        setSize(300, 400);
         setLocation(0, 465);
         top.setBackground(new Color(60, 63, 65));
         this.add(top);
