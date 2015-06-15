@@ -479,12 +479,12 @@ public class GAMEOpenGLScreen extends JInternalFrame implements GLEventListener,
     public void internalFrameActivated(InternalFrameEvent e) {
         parent.log("Focus sur "+d.getName());
         parent.updateInspecteur(d);
-
+        GAMEOpenGLScreen.this.setBorder(new LineBorder(new Color(69, 111, 175), 1, true));
         fpsMouseController.setCanvas(mCanvas);
     }
 
     @Override
     public void internalFrameDeactivated(InternalFrameEvent e) {
-
+        GAMEOpenGLScreen.this.setBorder(null);
     }
 }

@@ -545,11 +545,12 @@ public class SCENEOpenGLScreen extends JInternalFrame implements GLEventListener
     @Override
     public void internalFrameActivated(InternalFrameEvent e) {
         parent.log("Focus sur " + d.getName());
+        SCENEOpenGLScreen.this.setBorder(new LineBorder(new Color(69, 111, 175), 1, true));
         parent.updateInspecteur(d);
     }
 
     @Override
     public void internalFrameDeactivated(InternalFrameEvent e) {
-
+        SCENEOpenGLScreen.this.setBorder(null);
     }
 }
